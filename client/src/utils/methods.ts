@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 // in-place shuffle(no new array is created)
 export function fisherYatesShuffle(arr: any[]) {
   for (var i = arr.length - 1; i > 0; i--) {
@@ -18,3 +20,7 @@ export function popMultiple(arr: any[], count: number) {
   }
   return retVal;
 }
+
+export const generateId = () => {
+  return uuidv4();
+};

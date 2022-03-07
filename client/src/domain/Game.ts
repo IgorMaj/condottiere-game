@@ -48,9 +48,12 @@ export const Game = {
   },
 
   moves: {
-    playCard: (G: GameState, ctx: GameContext, card: ICardModel) => {
+    playCard: (G: GameState, ctx: GameContext, cardId: string) => {
       const playerState = G.players[ctx.currentPlayer];
       // remove the card from hand
+      const card = playerState.hand.filter(
+        (elem: ICardModel) => elem.id === cardId
+      )[0];
       const cardIndex = playerState.hand.indexOf(card);
       playerState.hand.splice(cardIndex, 1);
 

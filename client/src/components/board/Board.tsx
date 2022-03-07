@@ -1,19 +1,23 @@
-import { Game, GameContext, GameState } from '../../domain/Game';
-import { Card, ICardModel } from '../cards/Card';
+import { Game, GameContext, GameState, PlayerState } from '../../domain/Game';
 import styles from './Board.module.scss';
 import { Client } from 'boardgame.io/react';
+import { Hand } from './hand/Hand';
+import { BattleLine } from './battle-line/BattleLine';
 
 const BoardView = (props: {
   ctx: GameContext;
   G: GameState;
   moves: Record<string, (...args: any[]) => void>;
 }): JSX.Element => {
-  const { G } = props;
+  const { G, moves } = props;
   return (
     <div className={styles.Container}>
-      {G.deck.map((card: ICardModel, index: number) => {
-        return <Card key={index} model={card} />;
-      })}
+      {Object.values(G.players)
+        .reverse()
+        .map((playerState: PlayerState, index: number) => {
+          return <BattleLine key={index} model={playerState.battleLine} />;
+        })}
+      <Hand moves={moves} model={G.players['0'].hand} />
     </div>
   );
 };

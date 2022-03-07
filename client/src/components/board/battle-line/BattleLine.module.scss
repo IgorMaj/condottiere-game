@@ -1,0 +1,11 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  overflow-x: auto;
+  border-style: solid;
+  margin: 0.1em;
+  min-height: 230px;
+  height: fit-content;
+  border-radius: 20px;
+}
