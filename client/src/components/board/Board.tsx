@@ -3,6 +3,8 @@ import styles from './Board.module.scss';
 import { Client } from 'boardgame.io/react';
 import { Hand } from './hand/Hand';
 import { BattleLine } from './battle-line/BattleLine';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -11,14 +13,23 @@ const BoardView = (props: {
 }): JSX.Element => {
   const { G, moves } = props;
   return (
-    <div className={styles.Container}>
-      {Object.values(G.players)
-        .reverse()
-        .map((playerState: PlayerState, index: number) => {
-          return <BattleLine key={index} model={playerState.battleLine} />;
-        })}
-      <Hand moves={moves} model={G.players['0'].hand} />
-    </div>
+    <DndProvider debugMode={true} backend={HTML5Backend}>
+      <div className={styles.Container}>
+        {Object.values(G.players)
+          .reverse()
+          .map((playerState: PlayerState, index: number) => {
+            return (
+              <BattleLine
+                key={index}
+                model={playerState.battleLine}
+                moves={moves}
+                playerId={playerState.id}
+              />
+            );
+          })}
+        <Hand moves={moves} model={G.players['0'].hand} playerId={'0'} />
+      </div>
+    </DndProvider>
   );
 };
 

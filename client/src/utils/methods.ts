@@ -21,6 +21,6 @@ export function popMultiple(arr: any[], count: number) {
   return retVal;
 }
 
-export const generateId = () => {
-  return uuidv4();
+export const generateId = (): string => {
+  return `o_${uuidv4().replaceAll('-', '_')}`;
 };

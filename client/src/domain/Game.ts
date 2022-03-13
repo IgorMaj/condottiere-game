@@ -53,9 +53,13 @@ export const Game = {
       // remove the card from hand
       const card = playerState.hand.filter(
         (elem: ICardModel) => elem.id === cardId
-      )[0];
-      const cardIndex = playerState.hand.indexOf(card);
-      playerState.hand.splice(cardIndex, 1);
+      )?.[0];
+      if (!card) {
+        return;
+      }
+      playerState.hand = playerState.hand.filter(
+        (elem: ICardModel) => elem.id !== card.id
+      );
 
       // add it to battle line
       playerState.battleLine.push(card);
