@@ -9,5 +9,6 @@ export const createWinter = (): ICardModel => {
     class: WINTER_ID,
     type: POWER_TYPE,
     id: generateId(),
+    value: 0,
   };
 };

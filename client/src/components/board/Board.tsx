@@ -5,6 +5,7 @@ import { Hand } from './hand/Hand';
 import { BattleLine } from './battle-line/BattleLine';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { ScoreBoard } from './score-board/ScoreBoard';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -12,21 +13,21 @@ const BoardView = (props: {
   moves: Record<string, (...args: any[]) => void>;
 }): JSX.Element => {
   const { G, moves } = props;
+  const playerStates = Object.values(G.players);
   return (
     <DndProvider debugMode={true} backend={HTML5Backend}>
       <div className={styles.Container}>
-        {Object.values(G.players)
-          .reverse()
-          .map((playerState: PlayerState, index: number) => {
-            return (
-              <BattleLine
-                key={index}
-                model={playerState.battleLine}
-                moves={moves}
-                playerId={playerState.id}
-              />
-            );
-          })}
+        <ScoreBoard model={playerStates} />
+        {[...playerStates].reverse().map((playerState: PlayerState) => {
+          return (
+            <BattleLine
+              key={playerState.id}
+              model={playerState.battleLine}
+              moves={moves}
+              playerId={playerState.id}
+            />
+          );
+        })}
         <Hand moves={moves} model={G.players['0'].hand} playerId={'0'} />
       </div>
     </DndProvider>

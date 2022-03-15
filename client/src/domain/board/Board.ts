@@ -15,6 +15,23 @@ import { createBishop } from '../cards/special/Bishop';
 import { createCourtesan } from '../cards/special/Courtesan';
 import { createDrummer } from '../cards/special/Drummer';
 import { createHeroine } from '../cards/special/Heroine';
+import { PlayerState } from '../Game';
+
+export const calculateScores = (
+  states: PlayerState[]
+): { playerId: string; score: number }[] => {
+  const retVal: { playerId: string; score: number }[] = [];
+  for (let state of states) {
+    retVal.push({
+      playerId: state.id,
+      score: state.battleLine
+        .map((card: ICardModel) => card.value)
+        .reduce((partialSum, a) => partialSum + a, 0),
+    });
+  }
+
+  return retVal;
+};
 
 export const createMultipleCards = (
   createFn: () => ICardModel,

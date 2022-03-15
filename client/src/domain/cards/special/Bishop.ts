@@ -9,5 +9,6 @@ export const createBishop = (): ICardModel => {
     class: BISHOP_ID,
     type: SPECIAL_TYPE,
     id: generateId(),
+    value: 0,
   };
 };

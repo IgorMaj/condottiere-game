@@ -9,5 +9,6 @@ export const createSurrender = (): ICardModel => {
     class: SURRENDER_ID,
     type: POWER_TYPE,
     id: generateId(),
+    value: 0,
   };
 };

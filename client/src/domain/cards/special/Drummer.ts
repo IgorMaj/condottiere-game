@@ -9,5 +9,6 @@ export const createDrummer = (): ICardModel => {
     class: DRUMMER_ID,
     type: SPECIAL_TYPE,
     id: generateId(),
+    value: 0,
   };
 };

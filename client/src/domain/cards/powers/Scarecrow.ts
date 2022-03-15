@@ -9,5 +9,6 @@ export const createScarecrow = (): ICardModel => {
     class: SCARECROW_ID,
     type: POWER_TYPE,
     id: generateId(),
+    value: 0,
   };
 };

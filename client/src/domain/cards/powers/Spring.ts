@@ -9,5 +9,6 @@ export const createSpring = (): ICardModel => {
     class: SPRING_ID,
     type: POWER_TYPE,
     id: generateId(),
+    value: 0,
   };
 };

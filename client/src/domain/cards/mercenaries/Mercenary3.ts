@@ -9,5 +9,6 @@ export const createMercenary3 = (): ICardModel => {
     class: MERCENARY_3_ID,
     type: MERCENARY_TYPE,
     id: generateId(),
+    value: 3,
   };
 };

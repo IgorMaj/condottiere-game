@@ -9,6 +9,7 @@ export interface ICardModel {
   image: string;
   class: string;
   type: string;
+  value: number; // often zero for special cards and powers
 }
 
 export const Card = (props: { model: ICardModel }): JSX.Element => {

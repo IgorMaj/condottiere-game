@@ -9,5 +9,6 @@ export const createCourtesan = (): ICardModel => {
     class: COURTESAN_ID,
     type: SPECIAL_TYPE,
     id: generateId(),
+    value: 1,
   };
 };

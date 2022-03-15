@@ -9,5 +9,6 @@ export const createHeroine = (): ICardModel => {
     class: HEROINE_ID,
     type: SPECIAL_TYPE,
     id: generateId(),
+    value: 10,
   };
 };
