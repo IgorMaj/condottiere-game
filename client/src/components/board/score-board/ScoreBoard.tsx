@@ -11,6 +11,7 @@ export const ScoreBoard = (props: { model: PlayerState[] }): JSX.Element => {
         {scores.map((score) => {
           return (
             <div
+              key={score.playerId}
               className={styles.ScoreElement}
             >{`Player ${score.playerId} score: ${score.score}`}</div>
           );

@@ -37,4 +37,5 @@ const BoardView = (props: {
 export const Board = Client({
   game: Game,
   board: BoardView,
+  debug: false,
 });
