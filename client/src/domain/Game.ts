@@ -1,6 +1,6 @@
 import { ICardModel } from '../components/cards/Card';
 import { popMultiple } from '../utils/methods';
-import { createDeck } from './board/Board';
+import { calculateScores, createDeck } from './board/Board';
 
 export interface GameContext {
   turn: number;
@@ -34,6 +34,15 @@ const initPlayer = (id: string, initialHand: ICardModel[]): PlayerState => {
   };
 };
 
+function isDraw(scores: { playerId: string; score: number }[]) {
+  return new Set(scores.map((score) => score.score)).size === 1;
+}
+
+function handsEmpty(states: PlayerState[]) {
+  console.log(states.map((state) => state.hand).flat());
+  return states.map((state) => state.hand).flat().length === 0;
+}
+
 export const Game = {
   setup: (ctx: GameContext): GameState => {
     const deck = createDeck();
@@ -45,6 +54,41 @@ export const Game = {
       deck: deck,
       players: players,
     };
+  },
+
+  ai: {
+    enumerate: (G: GameState, ctx: GameContext) => {
+      const botHand = G.players[ctx.currentPlayer].hand;
+      const moves = [];
+      for (let i = 0; i < botHand.length; i++) {
+        moves.push({ move: 'playCard', args: [botHand[i].id] });
+      }
+      return moves;
+    },
+  },
+
+  turn: {
+    minMoves: 1,
+    maxMoves: 1,
+  },
+
+  endIf: (G: GameState, ctx: GameContext) => {
+    const playerStates = Object.values(G.players);
+    if (!handsEmpty(playerStates)) {
+      return;
+    }
+    const scoreObjs = calculateScores(playerStates);
+
+    if (isDraw(scoreObjs)) {
+      return { draw: true };
+    }
+
+    const maxScore = scoreObjs
+      .map((score) => score.score)
+      .reduce((a, b) => Math.max(a, b));
+
+    const winnerId = scoreObjs.find((obj) => obj.score === maxScore)?.playerId;
+    return { winner: winnerId };
   },
 
   moves: {

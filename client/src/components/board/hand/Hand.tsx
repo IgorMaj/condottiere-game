@@ -1,3 +1,4 @@
+import { GameContext } from '../../../domain/Game';
 import { ICardModel } from '../../cards/Card';
 import { DragCard } from './DragCard';
 import styles from './Hand.module.scss';
@@ -5,11 +6,15 @@ import styles from './Hand.module.scss';
 export const Hand = (props: {
   model: ICardModel[];
   playerId: string;
+  ctx: GameContext;
   moves: Record<string, (...args: any[]) => void>;
 }) => {
-  const { model, moves, playerId } = props;
+  const { model, moves, playerId, ctx } = props;
   return (
-    <div className={styles.Container}>
+    <div
+      className={styles.Container}
+      style={playerId !== ctx.currentPlayer ? { pointerEvents: 'none' } : {}}
+    >
       {model.map((card: ICardModel) => {
         return (
           <DragCard

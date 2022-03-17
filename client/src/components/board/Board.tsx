@@ -12,8 +12,15 @@ const BoardView = (props: {
   G: GameState;
   moves: Record<string, (...args: any[]) => void>;
 }): JSX.Element => {
-  const { G, moves } = props;
+  const { G, moves, ctx } = props;
   const playerStates = Object.values(G.players);
+
+  if ((ctx as any).gameover) {
+    (ctx as any).gameover.winner !== undefined
+      ? alert(`Winner: ${(ctx as any).gameover.winner}`)
+      : alert('Draw!');
+  }
+
   return (
     <DndProvider debugMode={true} backend={HTML5Backend}>
       <div className={styles.Container}>
@@ -28,7 +35,12 @@ const BoardView = (props: {
             />
           );
         })}
-        <Hand moves={moves} model={G.players['0'].hand} playerId={'0'} />
+        <Hand
+          ctx={ctx}
+          moves={moves}
+          model={G.players['0'].hand}
+          playerId={'0'}
+        />
       </div>
     </DndProvider>
   );
@@ -37,5 +49,5 @@ const BoardView = (props: {
 export const Board = Client({
   game: Game,
   board: BoardView,
-  debug: false,
+  debug: true,
 });
