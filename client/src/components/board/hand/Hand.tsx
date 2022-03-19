@@ -14,6 +14,7 @@ export const Hand = (props: {
       className={styles.Container}
       style={playerId !== ctx.currentPlayer ? { pointerEvents: 'none' } : {}}
     >
+      {!model?.length && <div className={styles.Empty}></div>}
       {model.map((card: ICardModel) => {
         return (
           <DragCard

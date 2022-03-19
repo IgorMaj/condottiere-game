@@ -12,9 +12,14 @@
     flex-direction: row;
     align-self: center;
     justify-self: center;
+    border-style: solid;
+    border-color: black;
+    background-color: #ba8c63;
+    border-width: 2px;
+    border-radius: 20px;
     > .ScoreElement {
-      padding: 1em;
-      font-size: 24px;
+      padding: 0.5em;
+      font-size: 1.5em;
       font-weight: 900;
       color: white;
     }

@@ -13,7 +13,7 @@ export const ScoreBoard = (props: { model: PlayerState[] }): JSX.Element => {
             <div
               key={score.playerId}
               className={styles.ScoreElement}
-            >{`Player ${score.playerId} score: ${score.score}`}</div>
+            >{`P${score.playerId}: ${score.score}`}</div>
           );
         })}
       </div>

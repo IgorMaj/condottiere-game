@@ -9,15 +9,22 @@ export const BattleLine = (props: {
   moves: Record<string, (...args: any[]) => void>;
 }) => {
   const { model, playerId, moves } = props;
-  const [, dropRef] = useDrop({
+  const [{ isDragging }, dropRef] = useDrop({
     accept: `player_${playerId}`,
     drop: (card: { id: string }) => {
       moves?.playCard?.(card.id);
     },
+    collect: (monitor) => ({
+      isDragging: monitor.canDrop(),
+    }),
   });
 
   return (
-    <div className={styles.Container} ref={dropRef}>
+    <div
+      className={styles.Container}
+      ref={dropRef}
+      style={isDragging ? { borderColor: '#DDEAEE' } : {}}
+    >
       {model.map((card: ICardModel) => {
         return <Card key={card.id} model={card} />;
       })}

@@ -1,9 +1,9 @@
 .Container {
   display: flex;
   flex-direction: column;
-  height: 154.4px;
-  min-width: 100px;
-  width: 100px;
+  height: var(--cardHeight);
+  min-width: var(--cardWidth);
+  width: var(--cardWidth);
   background-repeat: no-repeat;
   background-size: cover;
   box-shadow: 0px 4px 8px 0 black;
