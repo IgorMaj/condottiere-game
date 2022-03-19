@@ -1,5 +1,4 @@
-import { GameContext } from '../../../domain/Game';
-import { ICardModel } from '../../cards/Card';
+import { ICardModel, GameContext } from '../../../domain/entity';
 import { DragCard } from './DragCard';
 import styles from './Hand.module.scss';
 

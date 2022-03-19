@@ -1,4 +1,3 @@
-import { ICardModel } from '../../components/cards/Card';
 import { fisherYatesShuffle } from '../../utils/methods';
 import { createMercenary1 } from '../cards/mercenaries/Mercenary1';
 import { createMercenary10 } from '../cards/mercenaries/Mercenary10';
@@ -15,23 +14,7 @@ import { createBishop } from '../cards/special/Bishop';
 import { createCourtesan } from '../cards/special/Courtesan';
 import { createDrummer } from '../cards/special/Drummer';
 import { createHeroine } from '../cards/special/Heroine';
-import { PlayerState } from '../Game';
-
-export const calculateScores = (
-  states: PlayerState[]
-): { playerId: string; score: number }[] => {
-  const retVal: { playerId: string; score: number }[] = [];
-  for (let state of states) {
-    retVal.push({
-      playerId: state.id,
-      score: state.battleLine
-        .map((card: ICardModel) => card.value)
-        .reduce((partialSum, a) => partialSum + a, 0),
-    });
-  }
-
-  return retVal;
-};
+import { ICardModel } from '../entity';
 
 export const createMultipleCards = (
   createFn: () => ICardModel,

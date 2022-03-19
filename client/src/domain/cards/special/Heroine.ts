@@ -1,7 +1,7 @@
 import HEROINE_IMG from '../../../assets/cards/special/heroine.jpg';
-import { ICardModel } from '../../../components/cards/Card';
 import { HEROINE_ID, SPECIAL_TYPE } from '../../../utils/constants';
 import { generateId } from '../../../utils/methods';
+import { ICardModel } from '../../entity';
 
 export const createHeroine = (): ICardModel => {
   return {

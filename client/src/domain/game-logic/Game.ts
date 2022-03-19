@@ -1,30 +1,13 @@
-import { ICardModel } from '../components/cards/Card';
-import { popMultiple } from '../utils/methods';
-import { calculateScores, createDeck } from './board/Board';
-
-export interface GameContext {
-  turn: number;
-  currentPlayer: string;
-  numPlayers: number;
-}
-
-export interface PlayerState {
-  // cards which are in player's "hand"
-  hand: ICardModel[];
-  // cards which are in the player's battle line i.e on the field
-  // already played
-  battleLine: ICardModel[];
-  id: string;
-}
-
-interface Players {
-  [key: string]: PlayerState;
-}
-
-export interface GameState {
-  players: Players;
-  deck: ICardModel[];
-}
+import { popMultiple } from '../../utils/methods';
+import { createDeck } from '../board/Board';
+import {
+  ICardModel,
+  PlayerState,
+  GameContext,
+  GameState,
+  Players,
+} from '../entity';
+import { calculateScores } from './score';
 
 const initPlayer = (id: string, initialHand: ICardModel[]): PlayerState => {
   return {
@@ -39,7 +22,6 @@ function isDraw(scores: { playerId: string; score: number }[]) {
 }
 
 function handsEmpty(states: PlayerState[]) {
-  console.log(states.map((state) => state.hand).flat());
   return states.map((state) => state.hand).flat().length === 0;
 }
 

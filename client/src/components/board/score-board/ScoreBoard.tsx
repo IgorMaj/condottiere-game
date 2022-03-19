@@ -1,6 +1,6 @@
-import { PlayerState } from '../../../domain/Game';
+import { PlayerState } from '../../../domain/entity';
+import { calculateScores } from '../../../domain/game-logic/score';
 import styles from './ScoreBoard.module.scss';
-import { calculateScores } from '../../../domain/board/Board';
 
 export const ScoreBoard = (props: { model: PlayerState[] }): JSX.Element => {
   const { model } = props;

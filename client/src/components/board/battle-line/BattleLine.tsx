@@ -1,5 +1,6 @@
 import { useDrop } from 'react-dnd';
-import { ICardModel, Card } from '../../cards/Card';
+import { ICardModel } from '../../../domain/entity';
+import { Card } from '../../cards/Card';
 import styles from './BattleLine.module.scss';
 
 export const BattleLine = (props: {

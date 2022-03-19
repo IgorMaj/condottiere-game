@@ -1,4 +1,4 @@
-import { Game, GameContext, GameState, PlayerState } from '../../domain/Game';
+import { Game } from '../../domain/game-logic/Game';
 import styles from './Board.module.scss';
 import { Client } from 'boardgame.io/react';
 import { Hand } from './hand/Hand';
@@ -6,6 +6,7 @@ import { BattleLine } from './battle-line/BattleLine';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ScoreBoard } from './score-board/ScoreBoard';
+import { GameContext, GameState, PlayerState } from '../../domain/entity';
 
 const BoardView = (props: {
   ctx: GameContext;

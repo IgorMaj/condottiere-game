@@ -1,7 +1,7 @@
 import DRUMMER_IMG from '../../../assets/cards/special/drummer.jpg';
-import { ICardModel } from '../../../components/cards/Card';
 import { DRUMMER_ID, SPECIAL_TYPE } from '../../../utils/constants';
 import { generateId } from '../../../utils/methods';
+import { ICardModel } from '../../entity';
 
 export const createDrummer = (): ICardModel => {
   return {

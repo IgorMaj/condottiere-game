@@ -1,7 +1,7 @@
 import IMG from '../../../assets/cards/powers/scarecrow.jpg';
-import { ICardModel } from '../../../components/cards/Card';
 import { POWER_TYPE, SCARECROW_ID } from '../../../utils/constants';
 import { generateId } from '../../../utils/methods';
+import { ICardModel } from '../../entity';
 
 export const createScarecrow = (): ICardModel => {
   return {

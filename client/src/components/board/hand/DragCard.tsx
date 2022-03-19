@@ -1,5 +1,6 @@
 import { useDrag } from 'react-dnd';
-import { Card, ICardModel } from '../../cards/Card';
+import { ICardModel } from '../../../domain/entity';
+import { Card } from '../../cards/Card';
 import styles from './Hand.module.scss';
 
 export const DragCard = (props: {

@@ -1,7 +1,7 @@
 import IMG from '../../../assets/cards/powers/spring.jpg';
-import { ICardModel } from '../../../components/cards/Card';
 import { POWER_TYPE, SPRING_ID } from '../../../utils/constants';
 import { generateId } from '../../../utils/methods';
+import { ICardModel } from '../../entity';
 
 export const createSpring = (): ICardModel => {
   return {
