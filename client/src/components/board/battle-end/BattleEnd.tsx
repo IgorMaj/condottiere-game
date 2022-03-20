@@ -2,7 +2,7 @@ import React from 'react';
 import { useAlert } from 'react-alert';
 import { GameContext } from '../../../domain/entity';
 
-// shows that battle has concluded
+// shows that the battle has concluded
 export const BattleEnd = (props: { ctx: GameContext }): JSX.Element => {
   const { ctx } = props;
   const alert = useAlert();
