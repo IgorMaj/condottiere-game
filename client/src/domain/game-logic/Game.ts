@@ -1,3 +1,4 @@
+import { SURRENDER_CLASS } from '../../utils/constants';
 import { popMultiple } from '../../utils/methods';
 import { createDeck } from '../board/Board';
 import {
@@ -23,6 +24,18 @@ function isDraw(scores: { playerId: string; score: number }[]) {
 
 function handsEmpty(states: PlayerState[]) {
   return states.map((state) => state.hand).flat().length === 0;
+}
+
+function surrenderPlayed(states: PlayerState[]) {
+  return states
+    .map((state) => state.battleLine)
+    .flat()
+    .map((card) => card.class)
+    .includes(SURRENDER_CLASS);
+}
+
+function battleEnded(states: PlayerState[]) {
+  return handsEmpty(states) || surrenderPlayed(states);
 }
 
 export const Game = {
@@ -56,7 +69,7 @@ export const Game = {
 
   endIf: (G: GameState, ctx: GameContext) => {
     const playerStates = Object.values(G.players);
-    if (!handsEmpty(playerStates)) {
+    if (!battleEnded(playerStates)) {
       return;
     }
     const scoreObjs = calculateScores(playerStates);
