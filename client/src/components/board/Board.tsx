@@ -7,7 +7,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ScoreBoard } from './score-board/ScoreBoard';
 import { GameContext, GameState, PlayerState } from '../../domain/entity';
-import { useAlert } from 'react-alert';
+import { BattleEnd } from './battle-end/BattleEnd';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -16,17 +16,9 @@ const BoardView = (props: {
 }): JSX.Element => {
   const { G, moves, ctx } = props;
   const playerStates = Object.values(G.players);
-
-  const alert = useAlert();
-  const gameover = (ctx as any).gameover;
-  if (gameover) {
-    gameover.winner !== undefined
-      ? alert.show(`Winner: ${(ctx as any).gameover.winner}`)
-      : alert.show('Draw!');
-  }
-
   return (
     <DndProvider backend={HTML5Backend}>
+      <BattleEnd ctx={ctx} />
       <div className={styles.Container}>
         <ScoreBoard model={playerStates} />
         {[...playerStates].reverse().map((playerState: PlayerState) => {
