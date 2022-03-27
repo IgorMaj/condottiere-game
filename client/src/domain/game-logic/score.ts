@@ -8,10 +8,17 @@ export const calculateScores = (
     retVal.push({
       playerId: state.id,
       score: state.battleLine
-        .map((card: ICardModel) => card.value)
+        .map((card: ICardModel) => calculateCardValue(states, card))
         .reduce((partialSum, a) => partialSum + a, 0),
     });
   }
 
   return retVal;
 };
+
+export function calculateCardValue(
+  states: PlayerState[],
+  card: ICardModel
+): number {
+  return card.value;
+}
