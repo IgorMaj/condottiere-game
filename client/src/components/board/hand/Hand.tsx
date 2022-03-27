@@ -1,4 +1,4 @@
-import { ICardModel, GameContext } from '../../../domain/entity';
+import { ICardModel, GameContext, Moves } from '../../../domain/entity';
 import { DragCard } from './DragCard';
 import styles from './Hand.module.scss';
 
@@ -6,7 +6,7 @@ export const Hand = (props: {
   model: ICardModel[];
   playerId: string;
   ctx: GameContext;
-  moves: Record<string, (...args: any[]) => void>;
+  moves: Moves;
 }) => {
   const { model, moves, playerId, ctx } = props;
   return (

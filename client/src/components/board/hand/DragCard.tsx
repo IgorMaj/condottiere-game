@@ -1,12 +1,12 @@
 import { useDrag } from 'react-dnd';
-import { ICardModel } from '../../../domain/entity';
+import { ICardModel, Moves } from '../../../domain/entity';
 import { Card } from '../../cards/Card';
 import styles from './Hand.module.scss';
 
 export const DragCard = (props: {
   card: ICardModel;
   playerId: string;
-  moves: Record<string, (...args: any[]) => void>;
+  moves: Moves;
 }) => {
   const { card, playerId, moves } = props;
   const [{ opacity }, dragRef] = useDrag(() => ({

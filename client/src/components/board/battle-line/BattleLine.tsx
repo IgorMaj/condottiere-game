@@ -1,12 +1,12 @@
 import { useDrop } from 'react-dnd';
-import { ICardModel } from '../../../domain/entity';
+import { ICardModel, Moves } from '../../../domain/entity';
 import { Card } from '../../cards/Card';
 import styles from './BattleLine.module.scss';
 
 export const BattleLine = (props: {
   model: ICardModel[];
   playerId: string;
-  moves: Record<string, (...args: any[]) => void>;
+  moves: Moves;
 }) => {
   const { model, playerId, moves } = props;
   const [{ isDragging }, dropRef] = useDrop({

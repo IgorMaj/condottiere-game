@@ -6,13 +6,18 @@ import { BattleLine } from './battle-line/BattleLine';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ScoreBoard } from './score-board/ScoreBoard';
-import { GameContext, GameState, PlayerState } from '../../domain/entity';
+import {
+  GameContext,
+  GameState,
+  Moves,
+  PlayerState,
+} from '../../domain/entity';
 import { BattleEnd } from './battle-end/BattleEnd';
 
 const BoardView = (props: {
   ctx: GameContext;
   G: GameState;
-  moves: Record<string, (...args: any[]) => void>;
+  moves: Moves;
 }): JSX.Element => {
   const { G, moves, ctx } = props;
   const playerStates = Object.values(G.players);

@@ -1,3 +1,5 @@
+import { type } from 'os';
+
 /**
  * class denotes the exact kind of the card i.e mercenary10 (Knight), or courtesan
  * type denotes broader type, i.e mercenaries
@@ -34,3 +36,5 @@ export interface GameState {
   players: Players;
   deck: ICardModel[];
 }
+
+export type Moves = Record<string, (...args: any[]) => void>;

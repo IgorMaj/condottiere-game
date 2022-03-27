@@ -1,4 +1,3 @@
-import { SURRENDER_CLASS } from '../../utils/constants';
 import { popMultiple } from '../../utils/methods';
 import { createDeck } from '../board/Board';
 import {
@@ -8,7 +7,11 @@ import {
   GameState,
   Players,
 } from '../entity';
+import { AI } from './ai/battle';
+import { playCard } from './moves/battle';
+import { drawCard } from './moves/draw';
 import { calculateScores } from './score';
+import { battleEnded, isDraw } from './utils';
 
 const initPlayer = (id: string, initialHand: ICardModel[]): PlayerState => {
   return {
@@ -17,26 +20,6 @@ const initPlayer = (id: string, initialHand: ICardModel[]): PlayerState => {
     id: id,
   };
 };
-
-function isDraw(scores: { playerId: string; score: number }[]) {
-  return new Set(scores.map((score) => score.score)).size === 1;
-}
-
-function handsEmpty(states: PlayerState[]) {
-  return states.map((state) => state.hand).flat().length === 0;
-}
-
-function surrenderPlayed(states: PlayerState[]) {
-  return states
-    .map((state) => state.battleLine)
-    .flat()
-    .map((card) => card.class)
-    .includes(SURRENDER_CLASS);
-}
-
-function battleEnded(states: PlayerState[]) {
-  return handsEmpty(states) || surrenderPlayed(states);
-}
 
 export const Game = {
   setup: (ctx: GameContext): GameState => {
@@ -51,16 +34,7 @@ export const Game = {
     };
   },
 
-  ai: {
-    enumerate: (G: GameState, ctx: GameContext) => {
-      const botHand = G.players[ctx.currentPlayer].hand;
-      const moves = [];
-      for (let i = 0; i < botHand.length; i++) {
-        moves.push({ move: 'playCard', args: [botHand[i].id] });
-      }
-      return moves;
-    },
-  },
+  ai: AI,
 
   turn: {
     minMoves: 1,
@@ -87,28 +61,7 @@ export const Game = {
   },
 
   moves: {
-    playCard: (G: GameState, ctx: GameContext, cardId: string) => {
-      const playerState = G.players[ctx.currentPlayer];
-      // remove the card from hand
-      const card = playerState.hand.filter(
-        (elem: ICardModel) => elem.id === cardId
-      )?.[0];
-      if (!card) {
-        return;
-      }
-      playerState.hand = playerState.hand.filter(
-        (elem: ICardModel) => elem.id !== card.id
-      );
-
-      // add it to battle line
-      playerState.battleLine.push(card);
-    },
-    drawCard: (G: GameState, ctx: GameContext) => {
-      const playerState = G.players[ctx.currentPlayer];
-      const newCard = G.deck.pop();
-      if (newCard) {
-        playerState.hand.push(newCard);
-      }
-    },
+    playCard: playCard,
+    drawCard: drawCard,
   },
 };
