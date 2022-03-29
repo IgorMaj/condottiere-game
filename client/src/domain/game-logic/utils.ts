@@ -17,8 +17,14 @@ export function surrenderPlayed(states: PlayerState[]): boolean {
     .includes(SURRENDER_CLASS);
 }
 
+export function allPlayersPassed(states: PlayerState[]): boolean {
+  return states.filter((state) => !state.passed).length === 0;
+}
+
 export function battleEnded(states: PlayerState[]): boolean {
-  return handsEmpty(states) || surrenderPlayed(states);
+  return (
+    handsEmpty(states) || surrenderPlayed(states) || allPlayersPassed(states)
+  );
 }
 
 // Note: This method finds the strongest card by type and base value, to avoid

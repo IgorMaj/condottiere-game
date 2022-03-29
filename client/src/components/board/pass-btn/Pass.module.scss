@@ -1,0 +1,24 @@
+.Container {
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  background-color: #ba8c63;
+  > * {
+    color: black;
+    font-weight: bold;
+    font-size: 48px;
+    margin-left: 1em;
+    margin-right: 1em;
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+.ContainerDisabled {
+  @extend .Container;
+  cursor: not-allowed;
+  > * {
+    color: gray;
+  }
+}

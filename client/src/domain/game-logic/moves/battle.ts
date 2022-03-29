@@ -7,6 +7,11 @@ import {
 import { GameContext, GameState, ICardModel } from '../../entity';
 import { findStrongestMercenaryCard } from '../utils';
 
+export const pass = (G: GameState, ctx: GameContext) => {
+  const playerState = G.players[ctx.currentPlayer];
+  playerState.passed = true;
+};
+
 export const playCard = (G: GameState, ctx: GameContext, cardId: string) => {
   const playerState = G.players[ctx.currentPlayer];
   // remove the card from hand

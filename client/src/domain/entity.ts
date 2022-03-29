@@ -17,6 +17,8 @@ export interface GameContext {
   turn: number;
   currentPlayer: string;
   numPlayers: number;
+  playOrderPos: number;
+  playOrder: string[];
 }
 
 export interface PlayerState {
@@ -26,6 +28,7 @@ export interface PlayerState {
   // already played
   battleLine: ICardModel[];
   id: string;
+  passed: boolean;
 }
 
 export interface Players {

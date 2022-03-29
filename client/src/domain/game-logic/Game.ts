@@ -8,16 +8,17 @@ import {
   Players,
 } from '../entity';
 import { AI } from './ai/battle';
-import { playCard } from './moves/battle';
+import { pass, playCard } from './moves/battle';
 import { drawCard } from './moves/draw';
 import { calculateScores } from './score';
-import { battleEnded, isDraw } from './utils';
+import { allPlayersPassed, battleEnded, isDraw } from './utils';
 
 const initPlayer = (id: string, initialHand: ICardModel[]): PlayerState => {
   return {
     hand: initialHand,
     battleLine: [],
     id: id,
+    passed: false,
   };
 };
 
@@ -39,6 +40,21 @@ export const Game = {
   turn: {
     minMoves: 1,
     maxMoves: 1,
+    order: {
+      first: (G: GameState, ctx: GameContext) => 0,
+      next: (G: GameState, ctx: GameContext) => {
+        if (allPlayersPassed(Object.values(G))) {
+          return;
+        }
+        // we seek to find a player who hasn't passed
+        // Loop through next position until we do
+        let nextPos = (ctx.playOrderPos + 1) % ctx.numPlayers;
+        while (G.players[ctx.playOrder[nextPos]].passed) {
+          nextPos = (nextPos + 1) % ctx.numPlayers;
+        }
+        return nextPos;
+      },
+    },
   },
 
   endIf: (G: GameState, ctx: GameContext) => {
@@ -62,6 +78,7 @@ export const Game = {
 
   moves: {
     playCard: playCard,
+    pass: pass,
     drawCard: drawCard,
   },
 };

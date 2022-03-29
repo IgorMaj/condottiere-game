@@ -8,3 +8,14 @@
   height: 100vh;
   position: relative;
 }
+
+.PassContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  margin-top: 0.2em;
+}

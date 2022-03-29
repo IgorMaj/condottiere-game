@@ -13,6 +13,7 @@ import {
   PlayerState,
 } from '../../domain/entity';
 import { BattleEnd } from './battle-end/BattleEnd';
+import { Pass } from './pass-btn/Pass';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -42,6 +43,9 @@ const BoardView = (props: {
           model={G.players['0'].hand}
           playerId={'0'}
         />
+        <div className={styles.PassContainer}>
+          <Pass ctx={ctx} moves={moves} playerId={'0'} />
+        </div>
       </div>
     </DndProvider>
   );
