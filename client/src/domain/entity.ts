@@ -1,4 +1,4 @@
-import { type } from 'os';
+import { Ctx } from 'boardgame.io';
 
 /**
  * class denotes the exact kind of the card i.e mercenary10 (Knight), or courtesan
@@ -13,13 +13,7 @@ export interface ICardModel {
   value: number; // often zero for special cards and powers
 }
 
-export interface GameContext {
-  turn: number;
-  currentPlayer: string;
-  numPlayers: number;
-  playOrderPos: number;
-  playOrder: string[];
-}
+export type GameContext = Ctx;
 
 export interface PlayerState {
   // cards which are in player's "hand"
