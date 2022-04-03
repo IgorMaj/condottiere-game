@@ -1,6 +1,7 @@
 import {
   BISHOP_CLASS,
   MERCENARY_TYPE,
+  SCARECROW_CLASS,
   SPRING_CLASS,
   WINTER_CLASS,
 } from '../../../utils/constants';
@@ -10,6 +11,7 @@ import { findStrongestMercenaryCard } from '../utils';
 export const pass = (G: GameState, ctx: GameContext) => {
   const playerState = G.players[ctx.currentPlayer];
   playerState.passed = true;
+  ctx?.events?.endTurn();
 };
 
 export const playCard = (G: GameState, ctx: GameContext, cardId: string) => {
@@ -49,6 +51,47 @@ export const playCard = (G: GameState, ctx: GameContext, cardId: string) => {
   if (card.class === SPRING_CLASS) {
     springEffect(G);
   }
+
+  if (!cardHasAdditionalEffects(card)) {
+    ctx?.events?.endTurn();
+  }
+};
+
+// scarecrow has additional effect of taking a mercenary card back to player's hand
+function cardHasAdditionalEffects(card: ICardModel): boolean {
+  return card.class === SCARECROW_CLASS;
+}
+
+// if the player chose to utilize scarecrow
+// a mercenary card will end up back in their hand
+// It is also possible to just play scarecrow without picking a mercenary card
+// which has the effect of discarding the scarecrow card
+export const scarecrow = (
+  G: GameState,
+  ctx: GameContext,
+  scarecrowId: string,
+  mercenaryId?: string
+) => {
+  const playerState = G.players[ctx.currentPlayer];
+
+  // if mercenary is chosen, it will go back into hand
+  if (mercenaryId) {
+    const mercenaryCard = playerState.battleLine.filter(
+      (card) => card.id === mercenaryId
+    )[0];
+    if (mercenaryCard) {
+      playerState.battleLine = playerState.battleLine.filter(
+        (card) => card.id !== mercenaryId
+      );
+      playerState.hand.push(mercenaryCard); //mercenary goes back into hand
+    }
+  }
+
+  // discard the scarecrow from the battleline
+  playerState.battleLine = playerState.battleLine.filter(
+    (card) => card.id !== scarecrowId
+  );
+  ctx?.events?.endTurn();
 };
 
 // Discard all winter cards

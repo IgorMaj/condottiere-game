@@ -8,7 +8,7 @@ import {
   Players,
 } from '../entity';
 import { AI } from './ai/battle';
-import { pass, playCard } from './moves/battle';
+import { pass, playCard, scarecrow } from './moves/battle';
 import { drawCard } from './moves/draw';
 import { calculateScores } from './score';
 import { allPlayersPassed, battleEnded, isDraw } from './utils';
@@ -39,7 +39,7 @@ export const Game = {
 
   turn: {
     minMoves: 1,
-    maxMoves: 1,
+    maxMoves: 2,
     order: {
       first: (G: GameState, ctx: GameContext) => 0,
       next: (G: GameState, ctx: GameContext) => {
@@ -80,5 +80,6 @@ export const Game = {
     playCard: playCard,
     pass: pass,
     drawCard: drawCard,
+    scarecrow: scarecrow,
   },
 };

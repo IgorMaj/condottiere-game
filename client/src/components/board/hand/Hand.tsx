@@ -1,18 +1,26 @@
-import { ICardModel, GameContext, Moves } from '../../../domain/entity';
+import {
+  ICardModel,
+  GameContext,
+  Moves,
+  PlayerState,
+} from '../../../domain/entity';
+import { scarecrowPlayed } from '../../../domain/game-logic/utils';
 import { DragCard } from './DragCard';
 import styles from './Hand.module.scss';
 
 export const Hand = (props: {
-  model: ICardModel[];
-  playerId: string;
+  state: PlayerState;
   ctx: GameContext;
   moves: Moves;
 }) => {
-  const { model, moves, playerId, ctx } = props;
+  const { state, moves, ctx } = props;
+  const playerId = state.id;
+  const model = state.hand;
+  const handDisabled = playerId !== ctx.currentPlayer || scarecrowPlayed(state);
   return (
     <div
       className={styles.Container}
-      style={playerId !== ctx.currentPlayer ? { pointerEvents: 'none' } : {}}
+      style={handDisabled ? { pointerEvents: 'none' } : {}}
     >
       {!model?.length && <div className={styles.Empty}></div>}
       {model.map((card: ICardModel) => {

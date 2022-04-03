@@ -31,20 +31,14 @@ const BoardView = (props: {
           return (
             <BattleLine
               key={playerState.id}
-              model={playerState.battleLine}
+              state={playerState}
               moves={moves}
-              playerId={playerState.id}
             />
           );
         })}
-        <Hand
-          ctx={ctx}
-          moves={moves}
-          model={G.players['0'].hand}
-          playerId={'0'}
-        />
+        <Hand ctx={ctx} moves={moves} state={playerStates[0]} />
         <div className={styles.PassContainer}>
-          <Pass ctx={ctx} moves={moves} playerId={'0'} />
+          <Pass ctx={ctx} moves={moves} state={playerStates[0]} />
         </div>
       </div>
     </DndProvider>

@@ -1,4 +1,8 @@
-import { MERCENARY_TYPE, SURRENDER_CLASS } from '../../utils/constants';
+import {
+  MERCENARY_TYPE,
+  SCARECROW_CLASS,
+  SURRENDER_CLASS,
+} from '../../utils/constants';
 import { ICardModel, PlayerState } from '../entity';
 
 export function isDraw(scores: { playerId: string; score: number }[]): boolean {
@@ -50,4 +54,15 @@ export function findStrongestMercenaryCard(
     }
   }
   return maxCard;
+}
+
+// if there is scarecrow in the battleline, it has just been played
+export function scarecrowPlayed(state: PlayerState): boolean {
+  return (
+    state.battleLine.filter((card) => card.class === SCARECROW_CLASS).length > 0
+  );
+}
+
+export function getScarecrow(state: PlayerState): ICardModel {
+  return state.battleLine.filter((card) => card.class === SCARECROW_CLASS)[0];
 }
