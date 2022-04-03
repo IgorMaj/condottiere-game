@@ -1,19 +1,19 @@
-import { GameContext, Moves } from '../../../domain/entity';
+import { GameContext, Moves, PlayerState } from '../../../domain/entity';
+import { scarecrowPlayed } from '../../../domain/game-logic/utils';
 import styles from './Pass.module.scss';
 
-// shows that the battle has concluded
 export const Pass = (props: {
   moves: Moves;
   ctx: GameContext;
-  playerId: string;
+  state: PlayerState;
 }): JSX.Element => {
-  const { moves, ctx, playerId } = props;
-  const isPlaying = playerId === ctx.currentPlayer;
+  const { moves, ctx, state } = props;
+  const isEnabled = state.id === ctx.currentPlayer && !scarecrowPlayed(state);
   return (
     <div
       onDoubleClick={() => moves?.pass()}
-      className={isPlaying ? styles.Container : styles.ContainerDisabled}
-      style={!isPlaying ? { pointerEvents: 'none' } : {}}
+      className={isEnabled ? styles.Container : styles.ContainerDisabled}
+      style={!isEnabled ? { pointerEvents: 'none' } : {}}
     >
       <span>PASS</span>
     </div>
