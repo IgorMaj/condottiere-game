@@ -4,13 +4,12 @@ import {
   getScarecrow,
   scarecrowPlayed,
 } from '../../../domain/game-logic/utils';
-import { MERCENARY_TYPE } from '../../../utils/constants';
+import { MERCENARY_TYPE, SCARECROW_CLASS } from '../../../utils/constants';
 import { Card } from '../../cards/Card';
 import styles from './BattleLine.module.scss';
 
-function getBorderColor(isDragging: boolean, isSelectable: boolean) {
+function getBorderColor(isDragging: boolean) {
   if (isDragging) return { borderColor: 'var(--selectColor)' };
-  if (isSelectable) return { borderColor: 'var(--scarecrowColor)' };
   return {};
 }
 
@@ -36,26 +35,23 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
     <div
       className={styles.Container}
       ref={dropRef}
-      onClick={(event) => {
-        if (isSelectable) {
-          event.stopPropagation();
-          moves.scarecrow(scarecrow.id);
-        }
-      }}
-      style={getBorderColor(isDragging, isSelectable)}
+      style={getBorderColor(isDragging)}
     >
       {model.map((card: ICardModel) => {
         return (
           <div
             key={card.id}
-            onClick={(event) => {
+            onClick={() => {
               if (isSelectable && card.type === MERCENARY_TYPE) {
-                event.stopPropagation();
                 moves.scarecrow(scarecrow.id, card.id);
+              }
+              if (isSelectable && card.class === SCARECROW_CLASS) {
+                moves.scarecrow(scarecrow.id);
               }
             }}
             className={
-              isSelectable && card.type === MERCENARY_TYPE
+              (isSelectable && card.type === MERCENARY_TYPE) ||
+              (isSelectable && card.class === SCARECROW_CLASS)
                 ? styles.BattleLineCardSelectable
                 : styles.BattleLineCard
             }
