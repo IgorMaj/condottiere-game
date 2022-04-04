@@ -44,8 +44,7 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
             onClick={() => {
               if (isSelectable && card.type === MERCENARY_TYPE) {
                 moves.scarecrow(scarecrow.id, card.id);
-              }
-              if (isSelectable && card.class === SCARECROW_CLASS) {
+              } else if (isSelectable && card.class === SCARECROW_CLASS) {
                 moves.scarecrow(scarecrow.id);
               }
             }}
