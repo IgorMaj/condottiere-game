@@ -5,7 +5,7 @@ export const GameMap = (): JSX.Element => {
   return (
     <div className={styles.Container}>
       <div className={styles.MapContainer}>
-        <img src={MAP_IMG} />
+        <img src={MAP_IMG} alt={''} />
       </div>
     </div>
   );
