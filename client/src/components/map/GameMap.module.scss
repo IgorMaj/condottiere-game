@@ -1,0 +1,19 @@
+.Container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  flex-direction: column;
+  > .MapContainer {
+    margin-top: 1em;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+    > img {
+      height: 75vh;
+    }
+  }
+}
