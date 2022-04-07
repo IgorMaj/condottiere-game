@@ -21,3 +21,5 @@ export const COURTESAN_CLASS = 'courtesan';
 export const DRUMMER_CLASS = 'drummer';
 export const HEROINE_CLASS = 'heroine';
 export const SPECIAL_TYPE = 'special';
+
+export const BACK_ICON_DIM = '35px';

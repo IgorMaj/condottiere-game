@@ -4,9 +4,14 @@ import {
   getScarecrow,
   scarecrowPlayed,
 } from '../../../domain/game-logic/utils';
-import { MERCENARY_TYPE, SCARECROW_CLASS } from '../../../utils/constants';
+import {
+  BACK_ICON_DIM,
+  MERCENARY_TYPE,
+  SCARECROW_CLASS,
+} from '../../../utils/constants';
 import { Card } from '../../cards/Card';
 import styles from './BattleLine.module.scss';
+import BACK_ICON from '../../../assets/icons/back.png';
 
 function getBorderColor(isDragging: boolean) {
   if (isDragging) return { borderColor: 'var(--selectColor)' };
@@ -31,6 +36,13 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
     }),
   });
 
+  const susceptibleToScarecrow = (card: ICardModel) => {
+    return (
+      (isSelectable && card.type === MERCENARY_TYPE) ||
+      (isSelectable && card.class === SCARECROW_CLASS)
+    );
+  };
+
   return (
     <div
       className={styles.Container}
@@ -49,13 +61,26 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
               }
             }}
             className={
-              (isSelectable && card.type === MERCENARY_TYPE) ||
-              (isSelectable && card.class === SCARECROW_CLASS)
+              susceptibleToScarecrow(card)
                 ? styles.BattleLineCardSelectable
                 : styles.BattleLineCard
             }
           >
             <Card model={card} />
+            <div
+              className={
+                susceptibleToScarecrow(card)
+                  ? styles.BackContainer
+                  : styles.None
+              }
+            >
+              <img
+                src={BACK_ICON}
+                alt={''}
+                width={BACK_ICON_DIM}
+                height={BACK_ICON_DIM}
+              />
+            </div>
           </div>
         );
       })}
