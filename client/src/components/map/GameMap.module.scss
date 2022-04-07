@@ -2,18 +2,28 @@
   display: flex;
   width: 100%;
   height: fit-content;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
   flex-direction: column;
   > .MapContainer {
     margin-top: 1em;
     display: flex;
-    width: 100%;
-    height: fit-content;
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-    align-content: center;
-    > img {
-      height: 75vh;
+    background-image: url('../../assets/map.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(var(--mapHeight) / 4);
+    width: calc(var(--mapWidth) / 4);
+
+    .Point {
+      position: relative;
+      border: 2px solid white;
+      background-color: transparent;
+      border-radius: 50%;
+      height: 20px;
+      width: 20px;
+      cursor: pointer;
     }
   }
 }
