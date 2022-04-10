@@ -15,15 +15,21 @@
     background-size: cover;
     height: calc(var(--mapHeight) / 4);
     width: calc(var(--mapWidth) / 4);
-
-    .Point {
-      position: relative;
-      border: 2px solid white;
-      background-color: transparent;
-      border-radius: 50%;
-      height: 20px;
-      width: 20px;
-      cursor: pointer;
+    > .PointContainer {
+      height: inherit;
+      width: inherit;
+      position: absolute;
+      pointer-events: none;
+      > .Point {
+        position: relative;
+        border: 2px solid var(--scarecrowColor);
+        background-color: transparent;
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        pointer-events: all;
+      }
     }
   }
 }
