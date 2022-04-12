@@ -1,10 +1,11 @@
+import ReactTooltip from 'react-tooltip';
 import styles from './GameMap.module.scss';
 
 const territories = [
   {
     name: 'Torino',
     top: '9%',
-    left: '8%',
+    left: '7.8%',
   },
   {
     name: 'Genova',
@@ -18,13 +19,13 @@ const territories = [
   },
   {
     name: 'Venezia',
-    top: '15%',
+    top: '15.2%',
     left: '64.6%',
   },
   {
     name: 'Mantova',
     top: '18.5%',
-    left: '43%',
+    left: '42.8%',
   },
   {
     name: 'Modena',
@@ -33,13 +34,13 @@ const territories = [
   },
   {
     name: 'Parma',
-    top: '33.25%',
+    top: '33.5%',
     left: '26.5%',
   },
   {
     name: 'Curra',
     top: '40%',
-    left: '25.5%',
+    left: '25.65%',
   },
   {
     name: 'Urbino',
@@ -48,8 +49,8 @@ const territories = [
   },
   {
     name: 'Aurona',
-    top: '53.5%',
-    left: '78.5%',
+    top: '53.2%',
+    left: '78.3%',
   },
   {
     name: 'Siena',
@@ -58,8 +59,8 @@ const territories = [
   },
   {
     name: 'Firenze',
-    top: '41.25%',
-    left: '45%',
+    top: '41.35%',
+    left: '45.3%',
   },
   {
     name: 'Bologna',
@@ -84,7 +85,7 @@ const territories = [
   {
     name: 'Napoli',
     top: '88.5%',
-    left: '78.75%',
+    left: '79%',
   },
 ];
 
@@ -94,18 +95,19 @@ export const GameMap = (): JSX.Element => {
       <div className={styles.MapContainer}>
         {territories.map((point, index: number) => {
           return (
-            <div
-              key={index}
-              className={styles.PointContainer}
-              style={{ zIndex: index + 1 }}
-            >
+            <div key={index} className={styles.PointContainer}>
               <div
+                data-tip
+                data-for={`${point.name}Tip`}
                 className={styles.Point}
                 style={{
                   top: point.top,
                   left: point.left,
                 }}
               ></div>
+              <ReactTooltip id={`${point.name}Tip`} place="top" effect="solid">
+                {point.name}
+              </ReactTooltip>
             </div>
           );
         })}
