@@ -8,6 +8,7 @@ import {
   Players,
 } from '../entity';
 import { AI } from './ai/battle';
+import { initTerritories } from './map/game-map';
 import { pass, playCard, scarecrow } from './moves/battle';
 import { drawCard } from './moves/draw';
 import { calculateScores } from './score';
@@ -32,6 +33,7 @@ export const Game = {
     return {
       deck: deck,
       players: players,
+      territories: initTerritories(),
     };
   },
 

@@ -32,6 +32,13 @@ export interface Players {
 export interface GameState {
   players: Players;
   deck: ICardModel[];
+  territories: Territory[];
+}
+
+export interface Territory {
+  name: string;
+  top: string;
+  left: string;
 }
 
 export type Moves = Record<string, (...args: any[]) => void>;
