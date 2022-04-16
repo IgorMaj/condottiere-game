@@ -2,8 +2,9 @@ import {
   MERCENARY_TYPE,
   SCARECROW_CLASS,
   SURRENDER_CLASS,
+  TerritoryStatus,
 } from '../../utils/constants';
-import { ICardModel, PlayerState } from '../entity';
+import { ICardModel, PlayerState, Territory } from '../entity';
 
 export function isDraw(scores: { playerId: string; score: number }[]): boolean {
   return new Set(scores.map((score) => score.score)).size === 1;
@@ -65,4 +66,17 @@ export function scarecrowPlayed(state: PlayerState): boolean {
 
 export function getScarecrow(state: PlayerState): ICardModel {
   return state.battleLine.filter((card) => card.class === SCARECROW_CLASS)[0];
+}
+
+export function getCurrentBattleTerritory(territories: Territory[]): Territory {
+  return territories.filter(
+    (territory: Territory) => territory.status === TerritoryStatus.BATTLE
+  )[0];
+}
+
+export function getPlayerTerritoryCount(
+  territories: Territory[],
+  playedId: string
+): number {
+  return territories.filter((t) => t.owner === playedId).length;
 }

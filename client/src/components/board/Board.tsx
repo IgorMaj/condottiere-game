@@ -12,7 +12,6 @@ import {
   Moves,
   PlayerState,
 } from '../../domain/entity';
-import { BattleEnd } from './battle-end/BattleEnd';
 import { Pass } from './pass-btn/Pass';
 
 const BoardView = (props: {
@@ -24,7 +23,6 @@ const BoardView = (props: {
   const playerStates = Object.values(G.players);
   return (
     <DndProvider backend={HTML5Backend}>
-      <BattleEnd ctx={ctx} />
       <div className={styles.Container}>
         <ScoreBoard model={playerStates} />
         {[...playerStates].reverse().map((playerState: PlayerState) => {

@@ -3,6 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
 import { Game } from '../../domain/game-logic/Game';
 import styles from './GameMap.module.scss';
+import { TokenContainer } from './token-container/TokenContainer';
 
 const GameMapView = (props: {
   ctx: GameContext;
@@ -10,7 +11,10 @@ const GameMapView = (props: {
   moves: Moves;
 }): JSX.Element => {
   const {
+    G,
     G: { territories },
+    moves,
+    ctx,
   } = props;
   return (
     <div className={styles.Container}>
@@ -33,6 +37,9 @@ const GameMapView = (props: {
             </div>
           );
         })}
+      </div>
+      <div className={styles.OuterTokenContainer}>
+        <TokenContainer ctx={ctx} G={G} moves={moves} playerId={'0'} />
       </div>
     </div>
   );

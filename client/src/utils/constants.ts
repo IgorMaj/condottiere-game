@@ -23,3 +23,9 @@ export const HEROINE_CLASS = 'heroine';
 export const SPECIAL_TYPE = 'special';
 
 export const BACK_ICON_DIM = '35px';
+
+export const TerritoryStatus = {
+  FREE: 'free',
+  BATTLE: 'battle',
+  POPE: 'pope',
+};
