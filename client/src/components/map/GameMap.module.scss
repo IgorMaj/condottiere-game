@@ -40,6 +40,12 @@
         cursor: pointer;
         pointer-events: all;
       }
+      > .CondottierePoint {
+        border: 2px solid black;
+      }
+      > .PopePoint {
+        border: 2px solid white;
+      }
     }
   }
 }

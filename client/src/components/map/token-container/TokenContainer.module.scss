@@ -14,4 +14,15 @@
     border-radius: 10px;
     background: var(--emptyColor);
   }
+  > .CondottiereToken {
+    background-color: black;
+  }
+
+  > .PopeToken {
+    background-color: white;
+  }
+
+  > .Selected {
+    border: 2px solid var(--scarecrowColor);
+  }
 }

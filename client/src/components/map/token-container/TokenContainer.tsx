@@ -1,5 +1,6 @@
 import ReactTooltip from 'react-tooltip';
 import { GameContext, GameState, Moves } from '../../../domain/entity';
+import { CONDOTTIERE_TOKEN_ID, POPE_TOKEN_ID } from '../../../utils/constants';
 import styles from './TokenContainer.module.scss';
 
 export const TokenContainer = (props: {
@@ -7,29 +8,48 @@ export const TokenContainer = (props: {
   G: GameState;
   moves: Moves;
   playerId: string;
+  selectedTokenId: string;
+  selectToken: (tokenId: string) => void;
 }): JSX.Element => {
-  const { G, playerId } = props;
+  const { G, playerId, selectedTokenId, selectToken } = props;
   const hasCondottiereToken = G.condottiereTokenOwnerId === playerId;
   const hasPopeToken = G.popeTokenOwnerId === playerId;
+  const condottiereTokenSelected = CONDOTTIERE_TOKEN_ID === selectedTokenId;
+  const popeTokenSelected = POPE_TOKEN_ID === selectedTokenId;
+
   return (
-    <div className={styles.Container}>
+    <div className={styles.Container} onClick={() => selectToken('')}>
       <div
-        style={hasCondottiereToken ? { backgroundColor: 'black' } : {}}
-        className={styles.Token}
+        className={`${styles.Token} ${
+          hasCondottiereToken ? styles.CondottiereToken : ''
+        } ${condottiereTokenSelected ? styles.Selected : ''}`}
         data-tip
-        data-for={'condottiere-token'}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (hasCondottiereToken) {
+            selectToken(CONDOTTIERE_TOKEN_ID);
+          }
+        }}
+        data-for={CONDOTTIERE_TOKEN_ID}
       >
-        <ReactTooltip id={'condottiere-token'} place="top" effect="solid">
+        <ReactTooltip id={CONDOTTIERE_TOKEN_ID} place="top" effect="solid">
           Condottiere Token Slot
         </ReactTooltip>
       </div>
       <div
-        style={hasPopeToken ? { backgroundColor: 'white' } : {}}
-        className={styles.Token}
+        className={`${styles.Token} ${hasPopeToken ? styles.PopeToken : ''} ${
+          popeTokenSelected ? styles.Selected : ''
+        }`}
         data-tip
-        data-for={'pope-token'}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (hasPopeToken) {
+            selectToken(POPE_TOKEN_ID);
+          }
+        }}
+        data-for={POPE_TOKEN_ID}
       >
-        <ReactTooltip id={'pope-token'} place="top" effect="solid">
+        <ReactTooltip id={POPE_TOKEN_ID} place="top" effect="solid">
           Pope Token Slot
         </ReactTooltip>
       </div>

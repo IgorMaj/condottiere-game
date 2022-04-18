@@ -1,9 +1,33 @@
 import { Client } from 'boardgame.io/react';
+import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
 import { Game } from '../../domain/game-logic/Game';
+import {
+  CONDOTTIERE_TOKEN_ID,
+  POPE_TOKEN_ID,
+  TerritoryStatus,
+} from '../../utils/constants';
 import styles from './GameMap.module.scss';
 import { TokenContainer } from './token-container/TokenContainer';
+
+const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
+  if (
+    point.status === TerritoryStatus.FREE &&
+    selectedTokenId === CONDOTTIERE_TOKEN_ID
+  ) {
+    return styles.CondottierePoint;
+  }
+
+  if (
+    point.status === TerritoryStatus.FREE &&
+    selectedTokenId === POPE_TOKEN_ID
+  ) {
+    return styles.PopePoint;
+  }
+
+  return '';
+};
 
 const GameMapView = (props: {
   ctx: GameContext;
@@ -16,6 +40,7 @@ const GameMapView = (props: {
     moves,
     ctx,
   } = props;
+  const [selectedTokenId, setToken] = React.useState('');
   return (
     <div className={styles.Container}>
       <div className={styles.MapContainer}>
@@ -25,7 +50,10 @@ const GameMapView = (props: {
               <div
                 data-tip
                 data-for={`${point.name}Tip`}
-                className={styles.Point}
+                className={`${styles.Point} ${calculatePointStatus(
+                  point,
+                  selectedTokenId
+                )}`}
                 style={{
                   top: point.top,
                   left: point.left,
@@ -39,7 +67,14 @@ const GameMapView = (props: {
         })}
       </div>
       <div className={styles.OuterTokenContainer}>
-        <TokenContainer ctx={ctx} G={G} moves={moves} playerId={'0'} />
+        <TokenContainer
+          selectedTokenId={selectedTokenId}
+          selectToken={setToken}
+          ctx={ctx}
+          G={G}
+          moves={moves}
+          playerId={'0'}
+        />
       </div>
     </div>
   );
