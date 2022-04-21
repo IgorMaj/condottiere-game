@@ -33,7 +33,7 @@ export interface GameState {
   players: Players;
   deck: ICardModel[];
   territories: Territory[];
-  condottiereTokenOwnerId: string;
+  condottiereTokenOwnerId: string | null;
   popeTokenOwnerId: string | null;
 }
 

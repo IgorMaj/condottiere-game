@@ -74,6 +74,12 @@ export function getCurrentBattleTerritory(territories: Territory[]): Territory {
   )[0];
 }
 
+export function getCurrentPopeTerritory(territories: Territory[]): Territory {
+  return territories.filter(
+    (territory: Territory) => territory.status === TerritoryStatus.POPE
+  )[0];
+}
+
 export function getPlayerTerritoryCount(
   territories: Territory[],
   playedId: string

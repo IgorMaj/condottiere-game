@@ -12,6 +12,7 @@ import { AI } from './ai/battle';
 import { initTerritories } from './map/game-map';
 import { pass, playCard, scarecrow } from './moves/battle';
 import { drawCard } from './moves/draw';
+import { setTokenOnTerritory } from './moves/map';
 import { calculateScores } from './score';
 import {
   allPlayersPassed,
@@ -53,7 +54,9 @@ export const Game = {
         first: (G: GameState, ctx: GameContext) =>
           Number(G.condottiereTokenOwnerId),
       },
-      moves: {},
+      moves: {
+        setTokenOnTerritory: setTokenOnTerritory,
+      },
     },
     battle: {
       next: 'map',

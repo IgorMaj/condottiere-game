@@ -19,11 +19,19 @@ const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
     return styles.CondottierePoint;
   }
 
+  if (point.status === TerritoryStatus.BATTLE) {
+    return styles.BattlePoint;
+  }
+
   if (
     point.status === TerritoryStatus.FREE &&
     selectedTokenId === POPE_TOKEN_ID
   ) {
     return styles.PopePoint;
+  }
+
+  if (point.status === TerritoryStatus.POPE) {
+    return styles.PopeProtectionPoint;
   }
 
   return '';
@@ -48,6 +56,15 @@ const GameMapView = (props: {
           return (
             <div key={index} className={styles.PointContainer}>
               <div
+                onClick={() => {
+                  if (
+                    point.status === TerritoryStatus.FREE &&
+                    selectedTokenId
+                  ) {
+                    moves.setTokenOnTerritory(point.name, selectedTokenId);
+                    setToken('');
+                  }
+                }}
                 data-tip
                 data-for={`${point.name}Tip`}
                 className={`${styles.Point} ${calculatePointStatus(

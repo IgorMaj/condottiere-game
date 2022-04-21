@@ -43,6 +43,14 @@
       > .CondottierePoint {
         border: 2px solid black;
       }
+      > .BattlePoint {
+        @extend .CondottierePoint;
+        background-color: black;
+      }
+      > .PopeProtectionPoint {
+        @extend .PopePoint;
+        background-color: white;
+      }
       > .PopePoint {
         border: 2px solid white;
       }
