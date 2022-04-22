@@ -23,7 +23,7 @@ export function surrenderPlayed(states: PlayerState[]): boolean {
 }
 
 export function allPlayersPassed(states: PlayerState[]): boolean {
-  return states.filter((state) => !state.passed).length === 0;
+  return states.filter((state) => !state?.passed).length === 0;
 }
 
 export function battleEnded(states: PlayerState[]): boolean {

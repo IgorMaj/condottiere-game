@@ -1,8 +1,7 @@
-import { Client } from 'boardgame.io/react';
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
-import { Game } from '../../domain/game-logic/Game';
+import { initMapGame } from '../../domain/game-logic/map-game';
 import {
   CONDOTTIERE_TOKEN_ID,
   POPE_TOKEN_ID,
@@ -10,6 +9,8 @@ import {
 } from '../../utils/constants';
 import styles from './GameMap.module.scss';
 import { TokenContainer } from './token-container/TokenContainer';
+import { Client } from 'boardgame.io/react';
+import { validGameState } from '../../utils/methods';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -78,6 +79,7 @@ const GameMapView = (props: {
               ></div>
               <ReactTooltip id={`${point.name}Tip`} place="top" effect="solid">
                 {point.name}
+                {point.owner ? `(Player ${point.owner})` : ''}
               </ReactTooltip>
             </div>
           );
@@ -97,8 +99,13 @@ const GameMapView = (props: {
   );
 };
 
-export const GameMap = Client({
-  game: Game,
-  board: GameMapView,
-  debug: true,
-});
+export const GameMap = () => {
+  // we extract the user state from here
+  // (we use the history object to send the state to different games)
+  const state = window?.history?.state?.usr;
+  return Client({
+    game: initMapGame(validGameState(state) ? state : undefined),
+    board: GameMapView,
+    debug: true,
+  });
+};

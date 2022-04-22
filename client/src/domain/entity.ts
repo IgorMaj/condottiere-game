@@ -41,7 +41,7 @@ export interface Territory {
   name: string;
   top: string;
   left: string;
-  owner?: string; // playerId who owns the territory
+  owner: string | null; // playerId who owns the territory
   status: string; // free, battle, or pope
 }
 

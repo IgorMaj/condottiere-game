@@ -1,6 +1,4 @@
-import { Game } from '../../domain/game-logic/Game';
 import styles from './Board.module.scss';
-import { Client } from 'boardgame.io/react';
 import { Hand } from './hand/Hand';
 import { BattleLine } from './battle-line/BattleLine';
 import { DndProvider } from 'react-dnd';
@@ -13,6 +11,9 @@ import {
   PlayerState,
 } from '../../domain/entity';
 import { Pass } from './pass-btn/Pass';
+import { initBattleGame } from '../../domain/game-logic/battle-game';
+import { Client } from 'boardgame.io/react';
+import { validGameState } from '../../utils/methods';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -43,8 +44,11 @@ const BoardView = (props: {
   );
 };
 
-export const Board = Client({
-  game: Game,
-  board: BoardView,
-  debug: true,
-});
+export const Board = () => {
+  const state = window?.history?.state?.usr;
+  return Client({
+    game: initBattleGame(validGameState(state) ? state : undefined),
+    board: BoardView,
+    debug: true,
+  });
+};

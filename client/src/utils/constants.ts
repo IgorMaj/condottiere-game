@@ -28,7 +28,10 @@ export const TerritoryStatus = {
   FREE: 'free',
   BATTLE: 'battle',
   POPE: 'pope',
+  TAKEN: 'taken',
 };
 
 export const CONDOTTIERE_TOKEN_ID = 'condottiere_token_id';
 export const POPE_TOKEN_ID = 'pope_token_id';
+
+export const DELAYED_ACTION_TIMEOUT = 3000;

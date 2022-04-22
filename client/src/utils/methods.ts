@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { GameState } from '../domain/entity';
 
 // in-place shuffle(no new array is created)
 export function fisherYatesShuffle(arr: any[]) {
@@ -24,3 +25,11 @@ export function popMultiple(arr: any[], count: number) {
 export const generateId = (): string => {
   return `o_${uuidv4().replaceAll('-', '_')}`;
 };
+
+export function validGameState(g: any) {
+  return !!g?.deck;
+}
+
+export function resolveG(G: GameState): GameState {
+  return JSON.parse(JSON.stringify(G));
+}
