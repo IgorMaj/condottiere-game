@@ -35,3 +35,17 @@ export const CONDOTTIERE_TOKEN_ID = 'condottiere_token_id';
 export const POPE_TOKEN_ID = 'pope_token_id';
 
 export const DELAYED_ACTION_TIMEOUT = 3000;
+export const NUM_PLAYERS = 2;
+
+export const PLAYER_COLORS: any = {
+  '0': 'blue',
+  '1': 'green',
+  '2': 'orange',
+  '3': 'yellow',
+  '4': 'brown',
+  '5': 'gray',
+  '6': 'purple',
+  '7': '#ff106247',
+  '8': '#cffbfff81',
+  '9': '#cffdbb8eb',
+};

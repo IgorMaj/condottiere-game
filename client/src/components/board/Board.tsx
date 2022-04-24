@@ -11,9 +11,14 @@ import {
   PlayerState,
 } from '../../domain/entity';
 import { Pass } from './pass-btn/Pass';
-import { initBattleGame } from '../../domain/game-logic/battle-game';
+import { initBattleGame } from '../../domain/game-logic/battle/battle-game';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
+import { historyState } from '../../domain/game-logic/utils';
+import { toMap } from '../../utils/navigation';
+import { showAlert } from '../alert/alert.service';
+import React from 'react';
+import { afterBattle } from '../../domain/game-logic/events/battle';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -22,6 +27,13 @@ const BoardView = (props: {
 }): JSX.Element => {
   const { G, moves, ctx } = props;
   const playerStates = Object.values(G.players);
+  React.useEffect(() => {
+    if (ctx.gameover) {
+      // TODO update map according to the battle result
+      showAlert('Battle ended.');
+      toMap(afterBattle(G, ctx));
+    }
+  }, [ctx.gameover, G, ctx]);
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.Container}>
@@ -45,7 +57,7 @@ const BoardView = (props: {
 };
 
 export const Board = () => {
-  const state = window?.history?.state?.usr;
+  const state = historyState();
   return Client({
     game: initBattleGame(validGameState(state) ? state : undefined),
     board: BoardView,

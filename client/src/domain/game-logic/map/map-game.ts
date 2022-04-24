@@ -1,6 +1,7 @@
-import { GameContext, GameState } from '../entity';
-import { GameData } from './game';
-import { setTokenOnTerritory } from './moves/map';
+import { GameContext, GameState } from '../../entity';
+import { endIf } from '../events/map';
+import { GameData } from '../game';
+import { setTokenOnTerritory } from '../moves/map';
 
 export const initMapGame = (state?: GameState) => {
   const MapGame = {
@@ -8,7 +9,7 @@ export const initMapGame = (state?: GameState) => {
       return state ?? GameData;
     },
 
-    endIf: (G: GameState, ctx: GameContext) => !G.condottiereTokenOwnerId,
+    endIf: endIf,
     order: {
       first: (G: GameState, ctx: GameContext) =>
         Number(G.condottiereTokenOwnerId),

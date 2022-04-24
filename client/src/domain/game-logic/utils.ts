@@ -4,7 +4,7 @@ import {
   SURRENDER_CLASS,
   TerritoryStatus,
 } from '../../utils/constants';
-import { ICardModel, PlayerState, Territory } from '../entity';
+import { GameState, ICardModel, PlayerState, Territory } from '../entity';
 
 export function isDraw(scores: { playerId: string; score: number }[]): boolean {
   return new Set(scores.map((score) => score.score)).size === 1;
@@ -85,4 +85,8 @@ export function getPlayerTerritoryCount(
   playedId: string
 ): number {
   return territories.filter((t) => t.owner === playedId).length;
+}
+
+export function historyState(): GameState {
+  return window?.history?.state?.usr;
 }

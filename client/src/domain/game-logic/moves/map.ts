@@ -1,10 +1,8 @@
-import { showAlert } from '../../../components/alert/alert.service';
 import {
   CONDOTTIERE_TOKEN_ID,
   POPE_TOKEN_ID,
   TerritoryStatus,
 } from '../../../utils/constants';
-import { toBattle } from '../../../utils/navigation';
 import { GameContext, GameState, Territory } from '../../entity';
 
 export const setTokenOnTerritory = (
@@ -22,8 +20,6 @@ export const setTokenOnTerritory = (
   }
   if (tokenId === CONDOTTIERE_TOKEN_ID) {
     G.condottiereTokenOwnerId = null;
-    showAlert('Territory marked. The battle will start soon.');
-    toBattle(G);
   }
 };
 

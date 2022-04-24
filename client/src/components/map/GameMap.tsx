@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
-import { initMapGame } from '../../domain/game-logic/map-game';
+import { initMapGame } from '../../domain/game-logic/map/map-game';
 import {
   CONDOTTIERE_TOKEN_ID,
+  PLAYER_COLORS,
   POPE_TOKEN_ID,
   TerritoryStatus,
 } from '../../utils/constants';
@@ -11,6 +12,9 @@ import styles from './GameMap.module.scss';
 import { TokenContainer } from './token-container/TokenContainer';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
+import { historyState } from '../../domain/game-logic/utils';
+import { showAlert } from '../alert/alert.service';
+import { toBattle } from '../../utils/navigation';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -38,6 +42,16 @@ const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   return '';
 };
 
+const takenPointStyle = (point: Territory) => {
+  console.log(point.status);
+  return point.owner
+    ? {
+        border: `2px solid ${PLAYER_COLORS[`${point.owner}`]}`,
+        backgroundColor: `${PLAYER_COLORS[`${point.owner}`]}`,
+      }
+    : {};
+};
+
 const GameMapView = (props: {
   ctx: GameContext;
   G: GameState;
@@ -50,6 +64,12 @@ const GameMapView = (props: {
     ctx,
   } = props;
   const [selectedTokenId, setToken] = React.useState('');
+  React.useEffect(() => {
+    if (!G.condottiereTokenOwnerId) {
+      showAlert('Territory marked. The battle will start soon.');
+      toBattle(G);
+    }
+  }, [G.condottiereTokenOwnerId, G]);
   return (
     <div className={styles.Container}>
       <div className={styles.MapContainer}>
@@ -75,6 +95,7 @@ const GameMapView = (props: {
                 style={{
                   top: point.top,
                   left: point.left,
+                  ...takenPointStyle(point),
                 }}
               ></div>
               <ReactTooltip id={`${point.name}Tip`} place="top" effect="solid">
@@ -102,7 +123,7 @@ const GameMapView = (props: {
 export const GameMap = () => {
   // we extract the user state from here
   // (we use the history object to send the state to different games)
-  const state = window?.history?.state?.usr;
+  const state = historyState();
   return Client({
     game: initMapGame(validGameState(state) ? state : undefined),
     board: GameMapView,
