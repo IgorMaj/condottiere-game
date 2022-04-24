@@ -43,7 +43,6 @@ const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
 };
 
 const takenPointStyle = (point: Territory) => {
-  console.log(point.status);
   return point.owner
     ? {
         border: `2px solid ${PLAYER_COLORS[`${point.owner}`]}`,
