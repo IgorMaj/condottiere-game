@@ -4,8 +4,8 @@ import {
   SPRING_CLASS,
   WINTER_CLASS,
 } from '../../utils/constants';
-import { ICardModel, PlayerState } from '../entity';
-import { findStrongestMercenaryCard } from './utils';
+import { GameState, ICardModel, PlayerState } from '../entity';
+import { findStrongestMercenaryCard, getPlayerTerritoryCount } from './utils';
 
 export const calculateScores = (
   states: PlayerState[]
@@ -68,3 +68,18 @@ function calculateDrummerEffect(
   // no drummer effect
   return 1;
 }
+
+export const calculateTotalTerritoryCounts = (
+  G: GameState
+): { playerId: string; score: number }[] => {
+  const states = Object.values(G.players);
+  const retVal: { playerId: string; score: number }[] = [];
+  for (let state of states) {
+    retVal.push({
+      playerId: state.id,
+      score: getPlayerTerritoryCount(G.territories, state.id),
+    });
+  }
+
+  return retVal;
+};

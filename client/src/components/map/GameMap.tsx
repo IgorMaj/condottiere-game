@@ -4,6 +4,7 @@ import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
 import { initMapGame } from '../../domain/game-logic/map/map-game';
 import {
   CONDOTTIERE_TOKEN_ID,
+  NUM_PLAYERS,
   PLAYER_COLORS,
   POPE_TOKEN_ID,
   TerritoryStatus,
@@ -12,7 +13,7 @@ import styles from './GameMap.module.scss';
 import { TokenContainer } from './token-container/TokenContainer';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
-import { historyState } from '../../domain/game-logic/utils';
+import { gameEndMessage, historyState } from '../../domain/game-logic/utils';
 import { showAlert } from '../alert/alert.service';
 import { toBattle } from '../../utils/navigation';
 
@@ -69,6 +70,13 @@ const GameMapView = (props: {
       toBattle(G);
     }
   }, [G.condottiereTokenOwnerId, G]);
+
+  React.useEffect(() => {
+    if (ctx.gameover) {
+      return showAlert(gameEndMessage(ctx));
+    }
+  }, [ctx.gameover, ctx]);
+
   return (
     <div className={styles.Container}>
       <div className={styles.MapContainer}>
@@ -127,5 +135,6 @@ export const GameMap = () => {
     game: initMapGame(validGameState(state) ? state : undefined),
     board: GameMapView,
     debug: true,
+    numPlayers: NUM_PLAYERS,
   });
 };

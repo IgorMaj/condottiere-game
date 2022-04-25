@@ -14,11 +14,12 @@ import { Pass } from './pass-btn/Pass';
 import { initBattleGame } from '../../domain/game-logic/battle/battle-game';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
-import { historyState } from '../../domain/game-logic/utils';
+import { battleEndMessage, historyState } from '../../domain/game-logic/utils';
 import { toMap } from '../../utils/navigation';
 import { showAlert } from '../alert/alert.service';
 import React from 'react';
 import { afterBattle } from '../../domain/game-logic/events/battle';
+import { NUM_PLAYERS } from '../../utils/constants';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -29,8 +30,7 @@ const BoardView = (props: {
   const playerStates = Object.values(G.players);
   React.useEffect(() => {
     if (ctx.gameover) {
-      // TODO update map according to the battle result
-      showAlert('Battle ended.');
+      showAlert(battleEndMessage(ctx));
       toMap(afterBattle(G, ctx));
     }
   }, [ctx.gameover, G, ctx]);
@@ -62,5 +62,6 @@ export const Board = () => {
     game: initBattleGame(validGameState(state) ? state : undefined),
     board: BoardView,
     debug: true,
+    numPlayers: NUM_PLAYERS,
   });
 };

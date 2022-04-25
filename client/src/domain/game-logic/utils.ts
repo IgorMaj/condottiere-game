@@ -4,7 +4,13 @@ import {
   SURRENDER_CLASS,
   TerritoryStatus,
 } from '../../utils/constants';
-import { GameState, ICardModel, PlayerState, Territory } from '../entity';
+import {
+  GameContext,
+  GameState,
+  ICardModel,
+  PlayerState,
+  Territory,
+} from '../entity';
 
 export function isDraw(scores: { playerId: string; score: number }[]): boolean {
   return new Set(scores.map((score) => score.score)).size === 1;
@@ -89,4 +95,22 @@ export function getPlayerTerritoryCount(
 
 export function historyState(): GameState {
   return window?.history?.state?.usr;
+}
+
+export function battleEndMessage(ctx: GameContext) {
+  if (ctx?.gameover?.draw) {
+    return 'The battle is a draw.';
+  } else if (ctx?.gameover?.winner) {
+    return `Battle won by P${ctx?.gameover?.winner}`;
+  }
+  return '';
+}
+
+export function gameEndMessage(ctx: GameContext) {
+  if (ctx?.gameover?.draw) {
+    return 'The game is a draw.';
+  } else if (ctx?.gameover?.winner) {
+    return `Game won by P${ctx?.gameover?.winner}`;
+  }
+  return '';
 }

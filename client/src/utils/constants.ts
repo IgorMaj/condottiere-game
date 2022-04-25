@@ -49,3 +49,7 @@ export const PLAYER_COLORS: any = {
   '8': '#cffbfff81',
   '9': '#cffdbb8eb',
 };
+
+// non-adjacent
+export const PLAYER_WIN_TERRITORY_COUNT = 6;
+export const PLAYER_ADJACEN_WIN_TERRITORY_COUNT = 4;
