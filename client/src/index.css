@@ -16,6 +16,8 @@ code {
   --cardWidth: 100px;
   --selectColor: #ddeaee;
   --scarecrowColor: #f9301e;
+  --orangebrown: #ba8c63;
+  --emptyColor: rgba(0, 0, 0, 0.39);
   --mapHeight: 2126px;
   --mapWidth: 1473px;
 }

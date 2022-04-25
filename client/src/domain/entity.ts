@@ -33,12 +33,16 @@ export interface GameState {
   players: Players;
   deck: ICardModel[];
   territories: Territory[];
+  condottiereTokenOwnerId: string | null;
+  popeTokenOwnerId: string | null;
 }
 
 export interface Territory {
   name: string;
   top: string;
   left: string;
+  owner: string | null; // playerId who owns the territory
+  status: string; // free, battle, or pope
 }
 
 export type Moves = Record<string, (...args: any[]) => void>;

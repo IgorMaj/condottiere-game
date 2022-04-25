@@ -2,8 +2,15 @@ import {
   MERCENARY_TYPE,
   SCARECROW_CLASS,
   SURRENDER_CLASS,
+  TerritoryStatus,
 } from '../../utils/constants';
-import { ICardModel, PlayerState } from '../entity';
+import {
+  GameContext,
+  GameState,
+  ICardModel,
+  PlayerState,
+  Territory,
+} from '../entity';
 
 export function isDraw(scores: { playerId: string; score: number }[]): boolean {
   return new Set(scores.map((score) => score.score)).size === 1;
@@ -22,7 +29,7 @@ export function surrenderPlayed(states: PlayerState[]): boolean {
 }
 
 export function allPlayersPassed(states: PlayerState[]): boolean {
-  return states.filter((state) => !state.passed).length === 0;
+  return states.filter((state) => !state?.passed).length === 0;
 }
 
 export function battleEnded(states: PlayerState[]): boolean {
@@ -65,4 +72,45 @@ export function scarecrowPlayed(state: PlayerState): boolean {
 
 export function getScarecrow(state: PlayerState): ICardModel {
   return state.battleLine.filter((card) => card.class === SCARECROW_CLASS)[0];
+}
+
+export function getCurrentBattleTerritory(territories: Territory[]): Territory {
+  return territories.filter(
+    (territory: Territory) => territory.status === TerritoryStatus.BATTLE
+  )[0];
+}
+
+export function getCurrentPopeTerritory(territories: Territory[]): Territory {
+  return territories.filter(
+    (territory: Territory) => territory.status === TerritoryStatus.POPE
+  )[0];
+}
+
+export function getPlayerTerritoryCount(
+  territories: Territory[],
+  playedId: string
+): number {
+  return territories.filter((t) => t.owner === playedId).length;
+}
+
+export function historyState(): GameState {
+  return window?.history?.state?.usr;
+}
+
+export function battleEndMessage(ctx: GameContext) {
+  if (ctx?.gameover?.draw) {
+    return 'The battle is a draw.';
+  } else if (ctx?.gameover?.winner) {
+    return `Battle won by P${ctx?.gameover?.winner}`;
+  }
+  return '';
+}
+
+export function gameEndMessage(ctx: GameContext) {
+  if (ctx?.gameover?.draw) {
+    return 'The game is a draw.';
+  } else if (ctx?.gameover?.winner) {
+    return `Game won by P${ctx?.gameover?.winner}`;
+  }
+  return '';
 }

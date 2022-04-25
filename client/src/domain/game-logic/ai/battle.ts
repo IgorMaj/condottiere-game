@@ -2,7 +2,7 @@ import { MERCENARY_TYPE } from '../../../utils/constants';
 import { GameContext, GameState, PlayerState } from '../../entity';
 import { getScarecrow, scarecrowPlayed } from '../utils';
 
-export const AI = {
+export const BATTLE_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
     const botHand = G.players[ctx.currentPlayer].hand;
     const moves: any = [];

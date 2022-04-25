@@ -1,16 +1,16 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import { Board } from './components/board/Board';
-import { GameMap } from './components/map/GameMap';
+import { AlertView } from './components/alert/AlertView';
+import { AppClient } from './components/client/AppClient';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<GameMap />} />
-        <Route path="battle" element={<Board />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <AppClient />
+      </BrowserRouter>
+      <AlertView />
+    </>
   );
 }
 

@@ -1,6 +1,4 @@
-import { Game } from '../../domain/game-logic/Game';
 import styles from './Board.module.scss';
-import { Client } from 'boardgame.io/react';
 import { Hand } from './hand/Hand';
 import { BattleLine } from './battle-line/BattleLine';
 import { DndProvider } from 'react-dnd';
@@ -12,8 +10,16 @@ import {
   Moves,
   PlayerState,
 } from '../../domain/entity';
-import { BattleEnd } from './battle-end/BattleEnd';
 import { Pass } from './pass-btn/Pass';
+import { initBattleGame } from '../../domain/game-logic/battle/battle-game';
+import { Client } from 'boardgame.io/react';
+import { validGameState } from '../../utils/methods';
+import { battleEndMessage, historyState } from '../../domain/game-logic/utils';
+import { toMap } from '../../utils/navigation';
+import { showAlert } from '../alert/alert.service';
+import React from 'react';
+import { afterBattle } from '../../domain/game-logic/events/battle';
+import { NUM_PLAYERS } from '../../utils/constants';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -22,9 +28,14 @@ const BoardView = (props: {
 }): JSX.Element => {
   const { G, moves, ctx } = props;
   const playerStates = Object.values(G.players);
+  React.useEffect(() => {
+    if (ctx.gameover) {
+      showAlert(battleEndMessage(ctx));
+      toMap(afterBattle(G, ctx));
+    }
+  }, [ctx.gameover, G, ctx]);
   return (
     <DndProvider backend={HTML5Backend}>
-      <BattleEnd ctx={ctx} />
       <div className={styles.Container}>
         <ScoreBoard model={playerStates} />
         {[...playerStates].reverse().map((playerState: PlayerState) => {
@@ -45,8 +56,12 @@ const BoardView = (props: {
   );
 };
 
-export const Board = Client({
-  game: Game,
-  board: BoardView,
-  debug: true,
-});
+export const Board = () => {
+  const state = historyState();
+  return Client({
+    game: initBattleGame(validGameState(state) ? state : undefined),
+    board: BoardView,
+    debug: true,
+    numPlayers: NUM_PLAYERS,
+  });
+};
