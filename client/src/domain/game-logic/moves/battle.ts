@@ -3,10 +3,11 @@ import {
   MERCENARY_TYPE,
   SCARECROW_CLASS,
   SPRING_CLASS,
+  TerritoryStatus,
   WINTER_CLASS,
 } from '../../../utils/constants';
 import { GameContext, GameState, ICardModel } from '../../entity';
-import { findStrongestMercenaryCard } from '../utils';
+import { findStrongestMercenaryCard, getCurrentPopeTerritory } from '../utils';
 
 export const pass = (G: GameState, ctx: GameContext) => {
   const playerState = G.players[ctx.currentPlayer];
@@ -34,7 +35,7 @@ export const playCard = (G: GameState, ctx: GameContext, cardId: string) => {
   // find the strongest mercenary card in battle
   // then discard all mercenary cards of that power
   if (card.class === BISHOP_CLASS) {
-    bishopEffect(G);
+    bishopEffect(G, ctx);
   }
 
   // Winter effect:
@@ -116,7 +117,7 @@ function winterEffect(G: GameState) {
 
 // No score calculation here(just base card strength) because all the other score altering effects
 // take effect at the end of the battle
-function bishopEffect(G: GameState) {
+function bishopEffect(G: GameState, ctx: GameContext) {
   const states = Object.values(G.players);
   const strongestMercenary = findStrongestMercenaryCard(states);
   if (!strongestMercenary) {
@@ -131,4 +132,13 @@ function bishopEffect(G: GameState) {
         )
     );
   }
+
+  // Award the pope token to the player who played the bishop
+  const currentPlayerId = G.players[ctx.currentPlayer].id;
+  // remove the pope's protection from the territory if there is one
+  const popeTerritory = getCurrentPopeTerritory(G.territories);
+  if (popeTerritory) {
+    popeTerritory.status = TerritoryStatus.FREE;
+  }
+  G.popeTokenOwnerId = currentPlayerId;
 }

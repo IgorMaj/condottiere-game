@@ -12,8 +12,10 @@ import {
   Territory,
 } from '../entity';
 
+// if the number of unique scores is less than the number of
+// player scores then it means that two or more players are tied for the same score
 export function isDraw(scores: { playerId: string; score: number }[]): boolean {
-  return new Set(scores.map((score) => score.score)).size === 1;
+  return new Set(scores.map((score) => score.score)).size < scores.length;
 }
 
 export function handsEmpty(states: PlayerState[]): boolean {

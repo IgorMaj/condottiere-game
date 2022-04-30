@@ -16,7 +16,11 @@ export const setTokenOnTerritory = (
   );
   if (tokenId === POPE_TOKEN_ID) {
     G.popeTokenOwnerId = null;
-    ctx?.events?.endTurn();
+    // if the current owner doesn't own a condottiere token as well
+    // as the pope one, end his turn
+    if (G.condottiereTokenOwnerId !== G.players[ctx.currentPlayer].id) {
+      ctx?.events?.endTurn();
+    }
   }
   if (tokenId === CONDOTTIERE_TOKEN_ID) {
     G.condottiereTokenOwnerId = null;

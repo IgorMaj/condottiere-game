@@ -1,4 +1,5 @@
 import {
+  COURTESAN_CLASS,
   DRUMMER_CLASS,
   MERCENARY_TYPE,
   SPRING_CLASS,
@@ -78,6 +79,20 @@ export const calculateTotalTerritoryCounts = (
     retVal.push({
       playerId: state.id,
       score: getPlayerTerritoryCount(G.territories, state.id),
+    });
+  }
+
+  return retVal;
+};
+
+export const calculateCourtesanCounts = (
+  states: PlayerState[]
+): { playerId: string; score: number }[] => {
+  const retVal: { playerId: string; score: number }[] = [];
+  for (let state of states) {
+    retVal.push({
+      playerId: state.id,
+      score: state.battleLine.filter((c) => c.class === COURTESAN_CLASS).length,
     });
   }
 

@@ -1,7 +1,7 @@
 import { TerritoryStatus } from '../../../utils/constants';
 import { popMultiple } from '../../../utils/methods';
 import { GameState, GameContext } from '../../entity';
-import { calculateScores } from '../score';
+import { calculateCourtesanCounts, calculateScores } from '../score';
 import { battleEnded, getCurrentBattleTerritory, isDraw } from '../utils';
 import _ from 'lodash';
 
@@ -30,7 +30,7 @@ export const endIf = (G: GameState, ctx: GameContext) => {
 export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
   // update logic (redraw and token)
   G = _.cloneDeep(G);
-  G.condottiereTokenOwnerId = '0';
+  G.condottiereTokenOwnerId = getNextCondottiereTokenOwner(G, ctx);
   const players = Object.values(G.players);
   players.forEach((player) => {
     player.battleLine = [];
@@ -52,3 +52,32 @@ export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
 
   return G;
 };
+
+function getOwnerOfMostCourtesans(G: GameState): string | undefined {
+  const playerStates = Object.values(G.players);
+  const scoreObjs = calculateCourtesanCounts(playerStates);
+  if (isDraw(scoreObjs)) {
+    return undefined;
+  }
+
+  const maxScore = scoreObjs
+    .map((score) => score.score)
+    .reduce((a, b) => Math.max(a, b));
+  const playerId = scoreObjs.find((obj) => obj.score === maxScore)?.playerId;
+  return playerId;
+}
+
+function getNextCondottiereTokenOwner(G: GameState, ctx: GameContext): string {
+  // if this owner exists, he gets the token no matter what
+  const ownerOfMostCourtesans = getOwnerOfMostCourtesans(G);
+  if (ctx?.gameover?.draw) {
+    // if it is a draw the owner of most courtesans gets the token,
+    // else random player gets it
+    return ownerOfMostCourtesans
+      ? ownerOfMostCourtesans
+      : (_.sample(Object.keys(G.players)) as string);
+  }
+  // else goes to the winner(if the owner of most courtesans doesn't exist)
+  // courtesans FTW
+  return ownerOfMostCourtesans ? ownerOfMostCourtesans : ctx?.gameover?.winner;
+}
