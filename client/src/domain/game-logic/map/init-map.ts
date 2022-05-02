@@ -25,7 +25,7 @@ export function initTerritories(): Territory[] {
       left: '27%',
       status: TerritoryStatus.FREE,
       owner: null,
-      adjacentTo: ['Genova', 'Parma', 'Modena', 'Mantova', 'Venezia'],
+      adjacentTo: ['Torino', 'Genova', 'Parma', 'Modena', 'Mantova', 'Venezia'],
     },
     {
       name: 'Venezia',
@@ -41,7 +41,7 @@ export function initTerritories(): Territory[] {
       left: '42.8%',
       status: TerritoryStatus.FREE,
       owner: null,
-      adjacentTo: ['Milano', 'Modena', 'Ferrara'],
+      adjacentTo: ['Milano', 'Modena', 'Ferrara', 'Venezia'],
     },
     {
       name: 'Modena',
