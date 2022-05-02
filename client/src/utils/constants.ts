@@ -52,4 +52,4 @@ export const PLAYER_COLORS: any = {
 
 // non-adjacent
 export const PLAYER_WIN_TERRITORY_COUNT = 6;
-export const PLAYER_ADJACEN_WIN_TERRITORY_COUNT = 4;
+export const PLAYER_ADJACENT_WIN_TERRITORY_COUNT = 4;

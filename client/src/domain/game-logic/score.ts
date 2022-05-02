@@ -5,7 +5,7 @@ import {
   SPRING_CLASS,
   WINTER_CLASS,
 } from '../../utils/constants';
-import { GameState, ICardModel, PlayerState } from '../entity';
+import { GameState, ICardModel, PlayerState, Territory } from '../entity';
 import { findStrongestMercenaryCard, getPlayerTerritoryCount } from './utils';
 
 export const calculateScores = (
@@ -70,6 +70,21 @@ function calculateDrummerEffect(
   return 1;
 }
 
+export const calculateAdjacentTerritoryCounts = (
+  G: GameState
+): { playerId: string; score: number }[] => {
+  const states = Object.values(G.players);
+  const retVal: { playerId: string; score: number }[] = [];
+  for (let state of states) {
+    retVal.push({
+      playerId: state.id,
+      score: getMaxAdjacentTerritoryCount(G, state.id),
+    });
+  }
+
+  return retVal;
+};
+
 export const calculateTotalTerritoryCounts = (
   G: GameState
 ): { playerId: string; score: number }[] => {
@@ -98,3 +113,41 @@ export const calculateCourtesanCounts = (
 
   return retVal;
 };
+
+function getMaxAdjacentTerritoryCount(G: GameState, id: string): number {
+  const playerTerritories = G.territories.filter((t) => t.owner === id);
+  // we form groups of adjacent territories
+  let adjacentGroups: Territory[][] = [];
+  for (let territory of playerTerritories) {
+    // a territory is a part of the group if any of the territories
+    // in the group borders it
+    const groups = adjacentGroups.filter((group) =>
+      group
+        .map((t) => t.adjacentTo)
+        .flat()
+        .includes(territory.name)
+    );
+    if (groups.length === 1) {
+      groups[0].push(territory);
+    } else if (groups.length > 1) {
+      // if the territory is a part of two or more groups
+      // remove the old groups from the array and
+      // add the merged group instead
+      const unionGroup = groups.flat();
+      unionGroup.push(territory);
+
+      // removal via reference and filter
+      adjacentGroups = adjacentGroups.filter(
+        (group) => !groups.includes(group)
+      );
+
+      adjacentGroups.push(unionGroup);
+    } else {
+      // otherwise it is a part of its own group
+      // which can nonetheless be expanded later
+      adjacentGroups.push([territory]);
+    }
+  }
+  // we return the territory count of largest territory group
+  return Math.max(...adjacentGroups.map((group) => group.length));
+}

@@ -1,10 +1,30 @@
-import { PLAYER_WIN_TERRITORY_COUNT } from '../../../utils/constants';
+import {
+  PLAYER_ADJACENT_WIN_TERRITORY_COUNT,
+  PLAYER_WIN_TERRITORY_COUNT,
+} from '../../../utils/constants';
 import { GameContext, GameState } from '../../entity';
-import { calculateTotalTerritoryCounts } from '../score';
+import {
+  calculateAdjacentTerritoryCounts,
+  calculateTotalTerritoryCounts,
+} from '../score';
 
 export const endIf = (G: GameState, ctx: GameContext) => {
-  // TODO adjacent territory logic logic
-  return totalTerritoryCondition(G);
+  const adjacentWinner = adjacentTerritoryCondition(G);
+  return adjacentWinner ? adjacentWinner : totalTerritoryCondition(G);
+};
+
+const adjacentTerritoryCondition = (G: GameState) => {
+  const adjacentTerritoryCounts = calculateAdjacentTerritoryCounts(G);
+  const maxScore = adjacentTerritoryCounts
+    .map((score) => score.score)
+    .reduce((a, b) => Math.max(a, b));
+
+  if (maxScore >= PLAYER_ADJACENT_WIN_TERRITORY_COUNT) {
+    const winnerId = adjacentTerritoryCounts.find(
+      (obj) => obj.score === maxScore
+    )?.playerId;
+    return { winner: winnerId };
+  }
 };
 
 const totalTerritoryCondition = (G: GameState) => {

@@ -43,6 +43,7 @@ export interface Territory {
   left: string;
   owner: string | null; // playerId who owns the territory
   status: string; // free, battle, or pope
+  adjacentTo: string[]; // territory names(ids) which this one borders
 }
 
 export type Moves = Record<string, (...args: any[]) => void>;
