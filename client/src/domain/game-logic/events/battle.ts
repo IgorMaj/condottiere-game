@@ -33,7 +33,10 @@ export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
   G.condottiereTokenOwnerId = getNextCondottiereTokenOwner(G, ctx);
   const players = Object.values(G.players);
   players.forEach((player) => {
+    // all battlelines are discarded
+    G.discardPile.push(...player.battleLine);
     player.battleLine = [];
+
     player.passed = false;
     if (player.hand.length < 10) {
       const toPop = 10 - player.hand.length;

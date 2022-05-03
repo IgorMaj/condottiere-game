@@ -25,5 +25,6 @@ export const GameData = ((numPlayers: number): GameState => {
     territories: initTerritories(),
     popeTokenOwnerId: null,
     condottiereTokenOwnerId: '0',
+    discardPile: [],
   };
 })(NUM_PLAYERS);

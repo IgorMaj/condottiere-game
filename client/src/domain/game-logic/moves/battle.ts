@@ -84,11 +84,18 @@ export const scarecrow = (
       playerState.battleLine = playerState.battleLine.filter(
         (card) => card.id !== mercenaryId
       );
-      playerState.hand.push(mercenaryCard); //mercenary goes back into hand
+      playerState.hand.push(mercenaryCard); // mercenary goes back into hand
     }
   }
 
   // discard the scarecrow from the battleline
+  const scarecrowCard = playerState.battleLine.find(
+    (c) => c.id === scarecrowId
+  );
+  if (scarecrowCard) {
+    // Update the discard pile
+    G.discardPile.push(scarecrowCard);
+  }
   playerState.battleLine = playerState.battleLine.filter(
     (card) => card.id !== scarecrowId
   );
@@ -99,6 +106,10 @@ export const scarecrow = (
 function springEffect(G: GameState) {
   const states = Object.values(G.players);
   states.forEach((state) => {
+    // Update the discard pile
+    G.discardPile.push(
+      ...state.battleLine.filter((card) => card.class === WINTER_CLASS)
+    );
     state.battleLine = state.battleLine.filter(
       (card) => !(card.class === WINTER_CLASS)
     );
@@ -109,13 +120,18 @@ function springEffect(G: GameState) {
 function winterEffect(G: GameState) {
   const states = Object.values(G.players);
   states.forEach((state) => {
+    // Update the discard pile
+    G.discardPile.push(
+      ...state.battleLine.filter((card) => card.class === SPRING_CLASS)
+    );
     state.battleLine = state.battleLine.filter(
       (card) => !(card.class === SPRING_CLASS)
     );
   });
 }
 
-// No score calculation here(just base card strength) because all the other score altering effects
+// No score calculation here(just base card strength)
+// because all the other score altering effects
 // take effect at the end of the battle
 function bishopEffect(G: GameState, ctx: GameContext) {
   const states = Object.values(G.players);
@@ -124,6 +140,14 @@ function bishopEffect(G: GameState, ctx: GameContext) {
     return;
   }
   for (let state of states) {
+    // Update the discard pile
+    G.discardPile.push(
+      ...state.battleLine.filter(
+        (card) =>
+          card.type === MERCENARY_TYPE &&
+          card.value === strongestMercenary.value
+      )
+    );
     state.battleLine = state.battleLine.filter(
       (card) =>
         !(

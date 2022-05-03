@@ -35,6 +35,7 @@ export interface GameState {
   territories: Territory[];
   condottiereTokenOwnerId: string | null;
   popeTokenOwnerId: string | null;
+  discardPile: ICardModel[];
 }
 
 export interface Territory {
@@ -42,7 +43,7 @@ export interface Territory {
   top: string;
   left: string;
   owner: string | null; // playerId who owns the territory
-  status: string; // free, battle, or pope
+  status: string; // free, battle, taken, or pope
   adjacentTo: string[]; // territory names(ids) which this one borders
 }
 
