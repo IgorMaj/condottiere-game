@@ -1,6 +1,6 @@
 import { MERCENARY_TYPE } from '../../../utils/constants';
 import { GameContext, GameState, PlayerState } from '../../entity';
-import { getScarecrow, scarecrowPlayed } from '../utils';
+import { getScarecrow, hasNoMercenaryCards, scarecrowPlayed } from '../utils';
 
 export const BATTLE_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
@@ -19,6 +19,9 @@ export const BATTLE_AI = {
         moves.push({ move: 'playCard', args: [botHand[i].id] });
       }
       moves.push({ move: 'pass' });
+      if (hasNoMercenaryCards(G.players[ctx.currentPlayer])) {
+        moves.push({ move: 'discardHand' });
+      }
     }
     return moves;
   },

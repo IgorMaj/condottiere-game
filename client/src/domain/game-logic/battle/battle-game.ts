@@ -2,7 +2,7 @@ import { GameContext, GameState } from '../../entity';
 import { BATTLE_AI } from '../ai/battle';
 import { endIf } from '../events/battle';
 import { GameData } from '../game';
-import { playCard, pass, scarecrow } from '../moves/battle';
+import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
 import { drawCard } from '../moves/draw';
 import { allPlayersPassed } from '../utils';
 
@@ -40,6 +40,7 @@ export const initBattleGame = (state?: GameState) => {
       pass: pass,
       drawCard: drawCard,
       scarecrow: scarecrow,
+      discardHand: discardHand,
     },
   };
   return BattleGame;

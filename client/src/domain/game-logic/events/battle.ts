@@ -1,8 +1,14 @@
 import { TerritoryStatus } from '../../../utils/constants';
-import { popMultiple } from '../../../utils/methods';
-import { GameState, GameContext } from '../../entity';
+import { fisherYatesShuffle, popMultiple } from '../../../utils/methods';
+import { GameState, GameContext, PlayerState } from '../../entity';
 import { calculateCourtesanCounts, calculateScores } from '../score';
-import { battleEnded, getCurrentBattleTerritory, isDraw } from '../utils';
+import {
+  battleEnded,
+  getCurrentBattleTerritory,
+  getPlayerTerritoryCount,
+  isDraw,
+  playerWhoStillHaveCardsCount,
+} from '../utils';
 import _ from 'lodash';
 
 export const endIf = (G: GameState, ctx: GameContext) => {
@@ -28,20 +34,15 @@ export const endIf = (G: GameState, ctx: GameContext) => {
 // this method modifies the state after the battle has concluded
 // so more battles and rounds can be played
 export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
-  // update logic (redraw and token)
   G = _.cloneDeep(G);
   G.condottiereTokenOwnerId = getNextCondottiereTokenOwner(G, ctx);
   const players = Object.values(G.players);
+  const remainingCount = playerWhoStillHaveCardsCount(players);
   players.forEach((player) => {
     // all battlelines are discarded
     G.discardPile.push(...player.battleLine);
     player.battleLine = [];
-
     player.passed = false;
-    if (player.hand.length < 10) {
-      const toPop = 10 - player.hand.length;
-      player.hand.push(...popMultiple(G.deck, toPop));
-    }
   });
 
   // transfer territory into the right hands
@@ -53,8 +54,34 @@ export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
     battleTerritory.owner = ctx?.gameover?.winner;
   }
 
+  if (remainingCount <= 1) {
+    // when only one (or fewer) player still has cards left
+    // we end the round by allowing the players to draw more cards
+    redrawLogic(G, players);
+  }
+
   return G;
 };
+
+function redrawLogic(G: GameState, players: PlayerState[]) {
+  players.forEach((player) => {
+    // discard all the hands
+    G.discardPile.push(...player.hand);
+    player.hand = [];
+  });
+  // we add the discard pile back to the deck
+  G.deck.push(...G.discardPile);
+  G.discardPile = [];
+
+  // reshuffle the deck (in-place)
+  fisherYatesShuffle(G.deck);
+
+  players.forEach((player) => {
+    // pop 10 cards + number of territories the player controls
+    const toPop = 10 + getPlayerTerritoryCount(G.territories, player.id);
+    player.hand.push(...popMultiple(G.deck, toPop));
+  });
+}
 
 function getOwnerOfMostCourtesans(G: GameState): string | undefined {
   const playerStates = Object.values(G.players);

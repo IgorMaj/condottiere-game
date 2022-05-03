@@ -7,12 +7,29 @@ import {
   WINTER_CLASS,
 } from '../../../utils/constants';
 import { GameContext, GameState, ICardModel } from '../../entity';
-import { findStrongestMercenaryCard, getCurrentPopeTerritory } from '../utils';
+import {
+  findStrongestMercenaryCard,
+  getCurrentPopeTerritory,
+  hasNoMercenaryCards,
+} from '../utils';
 
 export const pass = (G: GameState, ctx: GameContext) => {
   const playerState = G.players[ctx.currentPlayer];
   playerState.passed = true;
   ctx?.events?.endTurn();
+};
+
+// if the player doesn't have any mercenary cards
+// he has the option to discard his hand
+export const discardHand = (G: GameState, ctx: GameContext) => {
+  const playerState = G.players[ctx.currentPlayer];
+  if (hasNoMercenaryCards(playerState)) {
+    // discard hand
+    G.discardPile.push(...playerState.hand);
+    playerState.hand = [];
+    playerState.passed = true;
+    ctx?.events?.endTurn();
+  }
 };
 
 export const playCard = (G: GameState, ctx: GameContext, cardId: string) => {

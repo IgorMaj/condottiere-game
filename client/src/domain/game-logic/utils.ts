@@ -22,6 +22,10 @@ export function handsEmpty(states: PlayerState[]): boolean {
   return states.map((state) => state.hand).flat().length === 0;
 }
 
+export function hasNoMercenaryCards(state: PlayerState) {
+  return state.hand.filter((c) => c.type === MERCENARY_TYPE).length === 0;
+}
+
 export function surrenderPlayed(states: PlayerState[]): boolean {
   return states
     .map((state) => state.battleLine)
@@ -115,4 +119,9 @@ export function gameEndMessage(ctx: GameContext) {
     return `Game won by P${ctx?.gameover?.winner}`;
   }
   return '';
+}
+
+export function playerWhoStillHaveCardsCount(states: PlayerState[]): number {
+  return states.map((state) => state.hand.length).filter((num) => num > 0)
+    .length;
 }
