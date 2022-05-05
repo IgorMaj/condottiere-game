@@ -12,14 +12,14 @@ export const AppClient = (): JSX.Element => {
         path="/"
         element={(() => {
           const GameMapComponent = GameMap();
-          return <GameMapComponent />;
+          return <GameMapComponent playerID="0" />;
         })()}
       />
       <Route
         path="battle"
         element={(() => {
           const BoardComponent = Board();
-          return <BoardComponent />;
+          return <BoardComponent playerID="0" />;
         })()}
       />
     </Routes>

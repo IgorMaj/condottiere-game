@@ -14,12 +14,18 @@ import { Pass } from './pass-btn/Pass';
 import { initBattleGame } from '../../domain/game-logic/battle/battle-game';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
-import { battleEndMessage, historyState } from '../../domain/game-logic/utils';
+import {
+  battleEndMessage,
+  generateBots,
+  historyState,
+} from '../../domain/game-logic/utils';
 import { toMap } from '../../utils/navigation';
 import { showAlert } from '../alert/alert.service';
 import React from 'react';
 import { afterBattle } from '../../domain/game-logic/events/battle';
 import { NUM_PLAYERS } from '../../utils/constants';
+import { Local } from 'boardgame.io/multiplayer';
+import { MCTSBot } from 'boardgame.io/ai';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -61,7 +67,11 @@ export const Board = () => {
   return Client({
     game: initBattleGame(validGameState(state) ? state : undefined),
     board: BoardView,
-    debug: true,
+    debug: false,
+    multiplayer: Local({
+      bots: generateBots(MCTSBot, NUM_PLAYERS - 1),
+    }),
+    playerID: '0',
     numPlayers: NUM_PLAYERS,
-  });
+  } as any);
 };

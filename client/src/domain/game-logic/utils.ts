@@ -125,3 +125,15 @@ export function playerWhoStillHaveCardsCount(states: PlayerState[]): number {
   return states.map((state) => state.hand.length).filter((num) => num > 0)
     .length;
 }
+
+export function generateBots(
+  bot: any,
+  numPlayers: number
+): Record<string, any> {
+  const retVal: Record<string, any> = {};
+  Array.from(Array(numPlayers).keys()).forEach((elem) => {
+    const indexStr = `${elem + 1}`;
+    retVal[indexStr] = bot;
+  });
+  return retVal;
+}

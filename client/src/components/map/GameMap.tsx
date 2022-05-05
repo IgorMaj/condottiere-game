@@ -13,9 +13,15 @@ import styles from './GameMap.module.scss';
 import { TokenContainer } from './token-container/TokenContainer';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
-import { gameEndMessage, historyState } from '../../domain/game-logic/utils';
+import {
+  gameEndMessage,
+  generateBots,
+  historyState,
+} from '../../domain/game-logic/utils';
 import { showAlert } from '../alert/alert.service';
 import { toBattle } from '../../utils/navigation';
+import { Local } from 'boardgame.io/multiplayer';
+import { MCTSBot } from 'boardgame.io/ai';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -134,7 +140,10 @@ export const GameMap = () => {
   return Client({
     game: initMapGame(validGameState(state) ? state : undefined),
     board: GameMapView,
-    debug: true,
+    debug: false,
+    multiplayer: Local({
+      bots: generateBots(MCTSBot, NUM_PLAYERS - 1),
+    }),
     numPlayers: NUM_PLAYERS,
   });
 };
