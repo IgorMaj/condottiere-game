@@ -9,13 +9,21 @@
   position: relative;
 }
 
-.PassContainer {
+.BtnsContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
-  align-items: center;
-  justify-items: center;
-  align-content: center;
-  justify-content: center;
-  margin-top: 0.2em;
+  > .LeftBtnContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    justify-items: flex-start;
+    align-content: flex-start;
+    margin-left: 0.2em;
+  }
+  > .RightButtonContainer {
+    margin-right: 0.2em;
+  }
 }

@@ -26,6 +26,7 @@ import { afterBattle } from '../../domain/game-logic/events/battle';
 import { NUM_PLAYERS } from '../../utils/constants';
 import { Local } from 'boardgame.io/multiplayer';
 import { MCTSBot } from 'boardgame.io/ai';
+import { DiscardHand } from './discard-hand-btn/DiscardHand';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -54,8 +55,13 @@ const BoardView = (props: {
           );
         })}
         <Hand ctx={ctx} moves={moves} state={playerStates[0]} />
-        <div className={styles.PassContainer}>
-          <Pass ctx={ctx} moves={moves} state={playerStates[0]} />
+        <div className={styles.BtnsContainer}>
+          <div className={styles.LeftBtnContainer}>
+            <DiscardHand ctx={ctx} moves={moves} state={playerStates[0]} />
+          </div>
+          <div className={styles.RightButtonContainer}>
+            <Pass ctx={ctx} moves={moves} state={playerStates[0]} />
+          </div>
         </div>
       </div>
     </DndProvider>

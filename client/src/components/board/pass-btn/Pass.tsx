@@ -15,7 +15,7 @@ export const Pass = (props: {
       className={isEnabled ? styles.Container : styles.ContainerDisabled}
       style={!isEnabled ? { pointerEvents: 'none' } : {}}
     >
-      <span>PASS</span>
+      <span>Pass</span>
     </div>
   );
 };
