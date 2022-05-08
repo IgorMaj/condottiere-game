@@ -7,15 +7,16 @@ import {
 import {
   BACK_ICON_DIM,
   MERCENARY_TYPE,
+  PLAYER_COLORS,
   SCARECROW_CLASS,
 } from '../../../utils/constants';
 import { Card } from '../../cards/Card';
 import styles from './BattleLine.module.scss';
 import BACK_ICON from '../../../assets/icons/back.png';
 
-function getBorderColor(isDragging: boolean) {
+function getBorderColor(isDragging: boolean, playerId: string) {
   if (isDragging) return { borderColor: 'var(--selectColor)' };
-  return {};
+  return { borderColor: PLAYER_COLORS[playerId] };
 }
 
 export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
@@ -47,7 +48,7 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
     <div
       className={styles.Container}
       ref={dropRef}
-      style={getBorderColor(isDragging)}
+      style={getBorderColor(isDragging, state.id)}
     >
       {model.map((card: ICardModel) => {
         return (

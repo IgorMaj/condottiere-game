@@ -1,5 +1,6 @@
 import { PlayerState } from '../../../domain/entity';
 import { calculateScores } from '../../../domain/game-logic/score';
+import { PLAYER_COLORS } from '../../../utils/constants';
 import styles from './ScoreBoard.module.scss';
 
 export const ScoreBoard = (props: { model: PlayerState[] }): JSX.Element => {
@@ -12,6 +13,7 @@ export const ScoreBoard = (props: { model: PlayerState[] }): JSX.Element => {
           return (
             <div
               key={score.playerId}
+              style={{ color: PLAYER_COLORS[score.playerId] }}
               className={styles.ScoreElement}
             >{`P${score.playerId}: ${score.score}`}</div>
           );

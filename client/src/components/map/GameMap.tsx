@@ -22,6 +22,7 @@ import { showAlert } from '../alert/alert.service';
 import { toBattle } from '../../utils/navigation';
 import { Local } from 'boardgame.io/multiplayer';
 import { MCTSBot } from 'boardgame.io/ai';
+import { MapLegend } from './map-legend/MapLegend';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -118,6 +119,7 @@ const GameMapView = (props: {
             </div>
           );
         })}
+        <MapLegend G={G} />
       </div>
       <div className={styles.OuterTokenContainer}>
         <TokenContainer
