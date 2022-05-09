@@ -20,4 +20,5 @@ code {
   --emptyColor: rgba(0, 0, 0, 0.39);
   --mapHeight: 2126px;
   --mapWidth: 1473px;
+  --lightGray: #d3d3d3;
 }

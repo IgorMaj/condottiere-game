@@ -13,10 +13,16 @@ import {
 import { Card } from '../../cards/Card';
 import styles from './BattleLine.module.scss';
 import BACK_ICON from '../../../assets/icons/back.png';
+import { showAlert } from '../../alert/alert.service';
+import React from 'react';
 
 function getBorderColor(isDragging: boolean, playerId: string) {
   if (isDragging) return { borderColor: 'var(--selectColor)' };
   return { borderColor: PLAYER_COLORS[playerId] };
+}
+
+function getBackground(passed: boolean) {
+  return passed ? { background: 'var(--lightgray)', opacity: 0.75 } : {};
 }
 
 export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
@@ -44,11 +50,20 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
     );
   };
 
+  React.useEffect(() => {
+    if (state.passed) {
+      showAlert(`P${state.id} passed!`);
+    }
+  }, [state.passed, state.id]);
+
   return (
     <div
       className={styles.Container}
       ref={dropRef}
-      style={getBorderColor(isDragging, state.id)}
+      style={{
+        ...getBorderColor(isDragging, state.id),
+        ...getBackground(state.passed),
+      }}
     >
       {model.map((card: ICardModel) => {
         return (
