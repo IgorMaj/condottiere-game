@@ -15,6 +15,7 @@ import styles from './BattleLine.module.scss';
 import BACK_ICON from '../../../assets/icons/back.png';
 import { showAlert } from '../../alert/alert.service';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 function getBorderColor(isDragging: boolean, playerId: string) {
   if (isDragging) return { borderColor: 'var(--selectColor)' };
@@ -29,6 +30,8 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
   const { state, moves } = props;
   const playerId = state.id;
   const model = state.battleLine;
+
+  const { t } = useTranslation();
 
   const isSelectable = scarecrowPlayed(state);
   const scarecrow = getScarecrow(state);
@@ -52,9 +55,9 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
 
   React.useEffect(() => {
     if (state.passed) {
-      showAlert(`P${state.id} passed!`);
+      showAlert(`P${state.id} ${t('Battle.passed')}`);
     }
-  }, [state.passed, state.id]);
+  }, [state.passed, state.id, t]);
 
   return (
     <div

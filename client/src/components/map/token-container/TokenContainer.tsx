@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ReactTooltip from 'react-tooltip';
 import { GameContext, GameState, Moves } from '../../../domain/entity';
 import { CONDOTTIERE_TOKEN_ID, POPE_TOKEN_ID } from '../../../utils/constants';
@@ -11,6 +12,7 @@ export const TokenContainer = (props: {
   selectedTokenId: string;
   selectToken: (tokenId: string) => void;
 }): JSX.Element => {
+  const { t } = useTranslation();
   const { G, playerId, selectedTokenId, selectToken } = props;
   const hasCondottiereToken = G.condottiereTokenOwnerId === playerId;
   const hasPopeToken = G.popeTokenOwnerId === playerId;
@@ -33,7 +35,7 @@ export const TokenContainer = (props: {
         data-for={CONDOTTIERE_TOKEN_ID}
       >
         <ReactTooltip id={CONDOTTIERE_TOKEN_ID} place="top" effect="solid">
-          Condottiere Token Slot
+          {t('Map.condottiereTokenSlot')}
         </ReactTooltip>
       </div>
       <div
@@ -50,7 +52,7 @@ export const TokenContainer = (props: {
         data-for={POPE_TOKEN_ID}
       >
         <ReactTooltip id={POPE_TOKEN_ID} place="top" effect="solid">
-          Pope Token Slot
+          {t('Map.popeTokenSlot')}
         </ReactTooltip>
       </div>
     </div>

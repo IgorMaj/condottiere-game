@@ -1,0 +1,16 @@
+{
+  "Battle": {
+    "draw": "The battle is a draw.",
+    "wonBy": "Battle ended. The victor is",
+    "passed": "passed!"
+  },
+  "Game": {
+    "draw": "The game is a draw",
+    "wonBy": "Game ended. The victor is"
+  },
+  "Map": {
+    "territoryMarked": "Territory marked. The battle will start soon.",
+    "condottiereTokenSlot": "Condottiere Token Slot",
+    "popeTokenSlot": "Pope Token Slot"
+  }
+}

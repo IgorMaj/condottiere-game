@@ -23,6 +23,7 @@ import { toBattle } from '../../utils/navigation';
 import { Local } from 'boardgame.io/multiplayer';
 import { MCTSBot } from 'boardgame.io/ai';
 import { MapLegend } from './map-legend/MapLegend';
+import { useTranslation } from 'react-i18next';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -70,13 +71,14 @@ const GameMapView = (props: {
     moves,
     ctx,
   } = props;
+  const { t } = useTranslation();
   const [selectedTokenId, setToken] = React.useState('');
   React.useEffect(() => {
     if (!G.condottiereTokenOwnerId) {
-      showAlert('Territory marked. The battle will start soon.');
+      showAlert(t('Map.territoryMarked'));
       toBattle(G);
     }
-  }, [G.condottiereTokenOwnerId, G]);
+  }, [G.condottiereTokenOwnerId, G, t]);
 
   React.useEffect(() => {
     if (ctx.gameover) {

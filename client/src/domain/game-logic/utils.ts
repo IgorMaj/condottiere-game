@@ -11,6 +11,7 @@ import {
   PlayerState,
   Territory,
 } from '../entity';
+import i18n from '../../i18n';
 
 // if the number of unique scores is less than the number of
 // player scores then it means that two or more players are tied for the same score
@@ -105,18 +106,18 @@ export function historyState(): GameState {
 
 export function battleEndMessage(ctx: GameContext) {
   if (ctx?.gameover?.draw) {
-    return 'The battle is a draw.';
+    return i18n.t('Battle.draw');
   } else if (ctx?.gameover?.winner) {
-    return `Battle won by P${ctx?.gameover?.winner}`;
+    return `${i18n.t('Battle.wonBy')} P${ctx?.gameover?.winner}`;
   }
   return '';
 }
 
 export function gameEndMessage(ctx: GameContext) {
   if (ctx?.gameover?.draw) {
-    return 'The game is a draw.';
+    return i18n.t('Game.draw');
   } else if (ctx?.gameover?.winner) {
-    return `Game won by P${ctx?.gameover?.winner}`;
+    return `${i18n.t('Game.wonBy')} P${ctx?.gameover?.winner}`;
   }
   return '';
 }
