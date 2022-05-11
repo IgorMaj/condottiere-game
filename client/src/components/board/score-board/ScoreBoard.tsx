@@ -1,10 +1,21 @@
-import { PlayerState } from '../../../domain/entity';
+import { GameContext, PlayerState } from '../../../domain/entity';
 import { calculateScores } from '../../../domain/game-logic/score';
 import { PLAYER_COLORS } from '../../../utils/constants';
 import styles from './ScoreBoard.module.scss';
 
-export const ScoreBoard = (props: { model: PlayerState[] }): JSX.Element => {
-  const { model } = props;
+function currentTurn(playerId: string, currentPlayerId: string) {
+  return playerId === currentPlayerId
+    ? {
+        textDecoration: 'underline',
+      }
+    : {};
+}
+
+export const ScoreBoard = (props: {
+  model: PlayerState[];
+  ctx: GameContext;
+}): JSX.Element => {
+  const { model, ctx } = props;
   const scores: { playerId: string; score: number }[] = calculateScores(model);
   return (
     <div className={styles.Container}>
@@ -13,7 +24,10 @@ export const ScoreBoard = (props: { model: PlayerState[] }): JSX.Element => {
           return (
             <div
               key={score.playerId}
-              style={{ color: PLAYER_COLORS[score.playerId] }}
+              style={{
+                color: PLAYER_COLORS[score.playerId],
+                ...currentTurn(score.playerId, ctx.currentPlayer),
+              }}
               className={styles.ScoreElement}
             >{`P${score.playerId}: ${score.score}`}</div>
           );

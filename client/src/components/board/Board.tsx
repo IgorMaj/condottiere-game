@@ -44,7 +44,7 @@ const BoardView = (props: {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.Container}>
-        <ScoreBoard model={playerStates} />
+        <ScoreBoard model={playerStates} ctx={ctx} />
         {[...playerStates].reverse().map((playerState: PlayerState) => {
           return (
             <BattleLine
