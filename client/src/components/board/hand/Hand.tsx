@@ -5,6 +5,7 @@ import {
   PlayerState,
 } from '../../../domain/entity';
 import { scarecrowPlayed } from '../../../domain/game-logic/utils';
+import { OPACITY } from '../../../utils/constants';
 import { DragCard } from './DragCard';
 import styles from './Hand.module.scss';
 
@@ -20,7 +21,7 @@ export const Hand = (props: {
   return (
     <div
       className={styles.Container}
-      style={handDisabled ? { pointerEvents: 'none' } : {}}
+      style={handDisabled ? { pointerEvents: 'none', opacity: OPACITY } : {}}
     >
       {!model?.length && <div className={styles.Empty}></div>}
       {model.map((card: ICardModel) => {

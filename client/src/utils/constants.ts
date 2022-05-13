@@ -35,7 +35,7 @@ export const CONDOTTIERE_TOKEN_ID = 'condottiere_token_id';
 export const POPE_TOKEN_ID = 'pope_token_id';
 
 export const DELAYED_ACTION_TIMEOUT = 3000;
-export const NUM_PLAYERS = 2;
+export const NUM_PLAYERS = 4;
 
 export const PLAYER_COLORS: any = {
   '0': 'blue',
@@ -51,5 +51,7 @@ export const PLAYER_COLORS: any = {
 };
 
 // non-adjacent
-export const PLAYER_WIN_TERRITORY_COUNT = 6;
-export const PLAYER_ADJACENT_WIN_TERRITORY_COUNT = 4;
+export const PLAYER_WIN_TERRITORY_COUNT = 5; // 6 for two players
+export const PLAYER_ADJACENT_WIN_TERRITORY_COUNT = 3; // 4 for two players
+
+export const OPACITY = 0.75;

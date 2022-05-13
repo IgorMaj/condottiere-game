@@ -3,12 +3,22 @@ import { calculateScores } from '../../../domain/game-logic/score';
 import { PLAYER_COLORS } from '../../../utils/constants';
 import styles from './ScoreBoard.module.scss';
 
-function currentTurn(playerId: string, currentPlayerId: string) {
+function currentTurn(
+  playerId: string,
+  currentPlayerId: string,
+  passed: boolean
+) {
   return playerId === currentPlayerId
     ? {
-        textDecoration: 'underline',
+        textDecoration: `underline ${passed ? 'line-through' : ''}`,
       }
-    : {};
+    : {
+        ...(passed
+          ? {
+              textDecoration: 'line-through',
+            }
+          : {}),
+      };
 }
 
 export const ScoreBoard = (props: {
@@ -20,13 +30,17 @@ export const ScoreBoard = (props: {
   return (
     <div className={styles.Container}>
       <div className={styles.ScoreElements}>
-        {scores.map((score) => {
+        {scores.map((score, index: number) => {
           return (
             <div
               key={score.playerId}
               style={{
                 color: PLAYER_COLORS[score.playerId],
-                ...currentTurn(score.playerId, ctx.currentPlayer),
+                ...currentTurn(
+                  score.playerId,
+                  ctx.currentPlayer,
+                  model[index].passed
+                ),
               }}
               className={styles.ScoreElement}
             >{`P${score.playerId}: ${score.score}`}</div>

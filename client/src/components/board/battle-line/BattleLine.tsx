@@ -7,6 +7,7 @@ import {
 import {
   BACK_ICON_DIM,
   MERCENARY_TYPE,
+  OPACITY,
   PLAYER_COLORS,
   SCARECROW_CLASS,
 } from '../../../utils/constants';
@@ -23,7 +24,7 @@ function getBorderColor(isDragging: boolean, playerId: string) {
 }
 
 function getBackground(passed: boolean) {
-  return passed ? { background: 'var(--lightgray)', opacity: 0.75 } : {};
+  return passed ? { background: 'var(--lightgray)', opacity: OPACITY } : {};
 }
 
 export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {

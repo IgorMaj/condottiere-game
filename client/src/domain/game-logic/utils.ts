@@ -13,10 +13,11 @@ import {
 } from '../entity';
 import i18n from '../../i18n';
 
-// if the number of unique scores is less than the number of
-// player scores then it means that two or more players are tied for the same score
+// if the count of max scores is higher
+// than 1 then it means that two or more players are tied for the same score
 export function isDraw(scores: { playerId: string; score: number }[]): boolean {
-  return new Set(scores.map((score) => score.score)).size < scores.length;
+  const maxScore = Math.max(...scores.map((s) => s.score));
+  return scores.filter((score) => score.score === maxScore).length > 1;
 }
 
 export function handsEmpty(states: PlayerState[]): boolean {
