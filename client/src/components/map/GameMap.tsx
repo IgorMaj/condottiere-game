@@ -4,7 +4,6 @@ import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
 import { initMapGame } from '../../domain/game-logic/map/map-game';
 import {
   CONDOTTIERE_TOKEN_ID,
-  NUM_PLAYERS,
   PLAYER_COLORS,
   POPE_TOKEN_ID,
   TerritoryStatus,
@@ -24,6 +23,7 @@ import { Local } from 'boardgame.io/multiplayer';
 import { MCTSBot } from 'boardgame.io/ai';
 import { MapLegend } from './map-legend/MapLegend';
 import { useTranslation } from 'react-i18next';
+import { GameConfig } from '../../utils/game-config';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -146,8 +146,8 @@ export const GameMap = () => {
     board: GameMapView,
     debug: false,
     multiplayer: Local({
-      bots: generateBots(MCTSBot, NUM_PLAYERS - 1),
+      bots: generateBots(MCTSBot, GameConfig.NUM_PLAYERS - 1),
     }),
-    numPlayers: NUM_PLAYERS,
+    numPlayers: GameConfig.NUM_PLAYERS,
   });
 };

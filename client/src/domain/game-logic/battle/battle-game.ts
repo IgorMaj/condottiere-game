@@ -1,7 +1,8 @@
+import { GameConfig } from '../../../utils/game-config';
 import { GameContext, GameState } from '../../entity';
 import { BATTLE_AI } from '../ai/battle';
 import { endIf } from '../events/battle';
-import { GameData } from '../game';
+import { initGameData } from '../game';
 import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
 import { drawCard } from '../moves/draw';
 import { allPlayersPassed } from '../utils';
@@ -9,7 +10,7 @@ import { allPlayersPassed } from '../utils';
 export const initBattleGame = (state?: GameState) => {
   const BattleGame = {
     setup: (ctx: GameContext): GameState => {
-      return state ?? GameData;
+      return state ?? initGameData(GameConfig.NUM_PLAYERS);
     },
 
     ai: BATTLE_AI,

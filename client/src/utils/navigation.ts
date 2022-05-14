@@ -25,7 +25,7 @@ export function toBattle(state: GameState) {
 export function toMap(state: GameState) {
   state = resolveG(state);
   setTimeout(() => {
-    navigate('/', {
+    navigate('/map', {
       replace: true,
       state: state,
     });

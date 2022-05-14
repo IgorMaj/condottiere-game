@@ -1,4 +1,3 @@
-import { NUM_PLAYERS } from '../../utils/constants';
 import { popMultiple } from '../../utils/methods';
 import { createDeck } from '../board/Board';
 import { ICardModel, PlayerState, GameState, Players } from '../entity';
@@ -13,7 +12,7 @@ const initPlayer = (id: string, initialHand: ICardModel[]): PlayerState => {
   };
 };
 
-export const GameData = ((numPlayers: number): GameState => {
+export const initGameData = (numPlayers: number): GameState => {
   const deck = createDeck();
   const players: Players = {};
   for (let i = 0; i < numPlayers; i++) {
@@ -27,4 +26,4 @@ export const GameData = ((numPlayers: number): GameState => {
     condottiereTokenOwnerId: '0',
     discardPile: [],
   };
-})(NUM_PLAYERS);
+};
