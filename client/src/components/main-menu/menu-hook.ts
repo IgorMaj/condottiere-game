@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { GameConfig } from '../../utils/game-config';
 
@@ -13,10 +14,11 @@ const PLAYER_ENTRIES = [2, 3, 4, 5, 6];
 
 export function useMainMenu(props?: any) {
   const navigation = useNavigate();
+  const { t } = useTranslation();
   const [rootMenuEntry] = React.useState<MenuEntry>({
     entries: [
       {
-        name: 'Singleplayer (bots)',
+        name: t('Menu.singleplayer'),
         onClick: () => {
           const entry = rootMenuEntry?.entries?.[0];
           if (entry) {
@@ -26,7 +28,7 @@ export function useMainMenu(props?: any) {
         entries: [
           ...PLAYER_ENTRIES.map((num) => {
             return {
-              name: `${num} players`,
+              name: `${num} ${t('Menu.players')}`,
               onClick: () => {
                 GameConfig.setConfig({
                   numPlayers: num,
@@ -37,7 +39,7 @@ export function useMainMenu(props?: any) {
             };
           }),
           {
-            name: 'Back',
+            name: t('Menu.back'),
             onClick: () => {
               setMenu(rootMenuEntry);
             },
@@ -45,7 +47,7 @@ export function useMainMenu(props?: any) {
         ],
       },
       {
-        name: 'Multiplayer',
+        name: t('Menu.multiplayer'),
         disabled: true,
       },
     ],

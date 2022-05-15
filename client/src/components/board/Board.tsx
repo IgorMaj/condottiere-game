@@ -77,7 +77,6 @@ export const Board = () => {
     multiplayer: Local({
       bots: generateBots(MCTSBot, GameConfig.NUM_PLAYERS - 1),
     }),
-    playerID: '0',
     numPlayers: GameConfig.NUM_PLAYERS,
-  } as any);
+  });
 };
