@@ -19,4 +19,7 @@ export const GameConfig = {
   setConfig(conf: { numPlayers: number }) {
     localStorage.setItem(P_KEY, `${conf.numPlayers}`);
   },
+  reset() {
+    localStorage.removeItem(P_KEY);
+  },
 };
