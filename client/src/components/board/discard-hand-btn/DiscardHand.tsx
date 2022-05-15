@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { GameContext, Moves, PlayerState } from '../../../domain/entity';
 import {
   hasNoMercenaryCards,
@@ -10,6 +11,7 @@ export const DiscardHand = (props: {
   ctx: GameContext;
   state: PlayerState;
 }): JSX.Element => {
+  const { t } = useTranslation();
   const { moves, ctx, state } = props;
   const isEnabled =
     state.id === ctx.currentPlayer &&
@@ -21,7 +23,7 @@ export const DiscardHand = (props: {
       className={isEnabled ? styles.Container : styles.ContainerDisabled}
       style={!isEnabled ? { pointerEvents: 'none' } : {}}
     >
-      <span>Discard</span>
+      <span>{t('Battle.discard')}</span>
     </div>
   );
 };

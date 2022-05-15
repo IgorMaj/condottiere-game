@@ -1,7 +1,8 @@
+import { GameConfig } from '../../../utils/game-config';
 import { GameContext, GameState } from '../../entity';
 import { MAP_AI } from '../ai/map';
 import { endIf } from '../events/map';
-import { GameData } from '../game';
+import { initGameData } from '../game';
 import { setTokenOnTerritory } from '../moves/map';
 
 const nextTurn = (G: GameState, ctx: GameContext) => {
@@ -17,7 +18,7 @@ const nextTurn = (G: GameState, ctx: GameContext) => {
 export const initMapGame = (state?: GameState) => {
   const MapGame = {
     setup: (ctx: GameContext): GameState => {
-      return state ?? GameData;
+      return state ?? initGameData(GameConfig.NUM_PLAYERS);
     },
 
     ai: MAP_AI,

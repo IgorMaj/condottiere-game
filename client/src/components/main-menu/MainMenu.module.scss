@@ -1,0 +1,39 @@
+.Container {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  > .Entry {
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    padding: 1em;
+    margin-bottom: 1em;
+    width: 80%;
+    background-color: var(--orangebrown);
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    > .Text {
+      color: black;
+      font-weight: bold;
+      font-size: xx-large;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  > .EntryDisabled {
+    @extend .Entry;
+    pointer-events: none;
+    > .Text {
+      @extend .Text;
+      color: gray;
+    }
+  }
+}

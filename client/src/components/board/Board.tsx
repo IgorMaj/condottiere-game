@@ -23,10 +23,10 @@ import { toMap } from '../../utils/navigation';
 import { showAlert } from '../alert/alert.service';
 import React from 'react';
 import { afterBattle } from '../../domain/game-logic/events/battle';
-import { NUM_PLAYERS } from '../../utils/constants';
 import { Local } from 'boardgame.io/multiplayer';
 import { MCTSBot } from 'boardgame.io/ai';
 import { DiscardHand } from './discard-hand-btn/DiscardHand';
+import { GameConfig } from '../../utils/game-config';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -75,9 +75,8 @@ export const Board = () => {
     board: BoardView,
     debug: false,
     multiplayer: Local({
-      bots: generateBots(MCTSBot, NUM_PLAYERS - 1),
+      bots: generateBots(MCTSBot, GameConfig.NUM_PLAYERS - 1),
     }),
-    playerID: '0',
-    numPlayers: NUM_PLAYERS,
-  } as any);
+    numPlayers: GameConfig.NUM_PLAYERS,
+  });
 };

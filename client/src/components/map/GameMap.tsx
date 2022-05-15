@@ -4,7 +4,6 @@ import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
 import { initMapGame } from '../../domain/game-logic/map/map-game';
 import {
   CONDOTTIERE_TOKEN_ID,
-  NUM_PLAYERS,
   PLAYER_COLORS,
   POPE_TOKEN_ID,
   TerritoryStatus,
@@ -24,6 +23,8 @@ import { Local } from 'boardgame.io/multiplayer';
 import { MCTSBot } from 'boardgame.io/ai';
 import { MapLegend } from './map-legend/MapLegend';
 import { useTranslation } from 'react-i18next';
+import { GameConfig } from '../../utils/game-config';
+import { useNavigate } from 'react-router-dom';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -72,6 +73,7 @@ const GameMapView = (props: {
     ctx,
   } = props;
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [selectedTokenId, setToken] = React.useState('');
   React.useEffect(() => {
     if (!G.condottiereTokenOwnerId) {
@@ -85,7 +87,10 @@ const GameMapView = (props: {
       return showAlert(gameEndMessage(ctx));
     }
   }, [ctx.gameover, ctx]);
-
+  const backToMenu = () => {
+    GameConfig.reset();
+    navigate('/', { replace: true, state: null });
+  };
   return (
     <div className={styles.Container}>
       <div className={styles.MapContainer}>
@@ -133,6 +138,11 @@ const GameMapView = (props: {
           playerId={'0'}
         />
       </div>
+      <div className={styles.BackToMenuContainer}>
+        <div onClick={backToMenu} className={styles.BackToMenu}>
+          <span>{t('Map.backToMenu')}</span>
+        </div>
+      </div>
     </div>
   );
 };
@@ -146,8 +156,8 @@ export const GameMap = () => {
     board: GameMapView,
     debug: false,
     multiplayer: Local({
-      bots: generateBots(MCTSBot, NUM_PLAYERS - 1),
+      bots: generateBots(MCTSBot, GameConfig.NUM_PLAYERS - 1),
     }),
-    numPlayers: NUM_PLAYERS,
+    numPlayers: GameConfig.NUM_PLAYERS,
   });
 };
