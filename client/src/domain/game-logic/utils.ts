@@ -40,9 +40,22 @@ export function allPlayersPassed(states: PlayerState[]): boolean {
   return states.filter((state) => !state?.passed).length === 0;
 }
 
+// no scarecrows in any battle line (all scarecrow effects resolved)
+export function noScarecrows(states: PlayerState[]): boolean {
+  return (
+    states
+      .map((state) => state.battleLine)
+      .flat()
+      .filter((card) => card.class === SCARECROW_CLASS).length === 0
+  );
+}
+
 export function battleEnded(states: PlayerState[]): boolean {
   return (
-    handsEmpty(states) || surrenderPlayed(states) || allPlayersPassed(states)
+    (handsEmpty(states) ||
+      surrenderPlayed(states) ||
+      allPlayersPassed(states)) &&
+    noScarecrows(states)
   );
 }
 
