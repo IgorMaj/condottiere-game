@@ -1,3 +1,4 @@
+import { TransitionGroup } from 'react-transition-group';
 import {
   ICardModel,
   GameContext,
@@ -6,6 +7,7 @@ import {
 } from '../../../domain/entity';
 import { scarecrowPlayed } from '../../../domain/game-logic/utils';
 import { OPACITY } from '../../../utils/constants';
+import { CardTransition } from '../../card-transition/CardTransition';
 import { DragCard } from './DragCard';
 import styles from './Hand.module.scss';
 
@@ -24,16 +26,22 @@ export const Hand = (props: {
       style={handDisabled ? { pointerEvents: 'none', opacity: OPACITY } : {}}
     >
       {!model?.length && <div className={styles.Empty}></div>}
-      {model.map((card: ICardModel) => {
-        return (
-          <DragCard
-            card={card}
-            key={card.id}
-            playerId={playerId}
-            moves={moves}
-          ></DragCard>
-        );
-      })}
+      <TransitionGroup component={null}>
+        {model.map((card: ICardModel) => {
+          return (
+            <CardTransition key={card.id}>
+              <div>
+                <DragCard
+                  card={card}
+                  key={card.id}
+                  playerId={playerId}
+                  moves={moves}
+                ></DragCard>
+              </div>
+            </CardTransition>
+          );
+        })}
+      </TransitionGroup>
     </div>
   );
 };
