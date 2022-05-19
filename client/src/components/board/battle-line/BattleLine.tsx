@@ -17,6 +17,8 @@ import BACK_ICON from '../../../assets/icons/back.png';
 import { showAlert } from '../../alert/alert.service';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { TransitionGroup } from 'react-transition-group';
+import { CardTransition } from '../../card-transition/CardTransition';
 
 function getBorderColor(isDragging: boolean, playerId: string) {
   if (isDragging) return { borderColor: 'var(--selectColor)' };
@@ -69,41 +71,45 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
         ...getBackground(state.passed),
       }}
     >
-      {model.map((card: ICardModel) => {
-        return (
-          <div
-            key={card.id}
-            onClick={() => {
-              if (isSelectable && card.type === MERCENARY_TYPE) {
-                moves.scarecrow(scarecrow.id, card.id);
-              } else if (isSelectable && card.class === SCARECROW_CLASS) {
-                moves.scarecrow(scarecrow.id);
-              }
-            }}
-            className={
-              susceptibleToScarecrow(card)
-                ? styles.BattleLineCardSelectable
-                : styles.BattleLineCard
-            }
-          >
-            <Card model={card} />
-            <div
-              className={
-                susceptibleToScarecrow(card)
-                  ? styles.BackContainer
-                  : styles.None
-              }
-            >
-              <img
-                src={BACK_ICON}
-                alt={''}
-                width={BACK_ICON_DIM}
-                height={BACK_ICON_DIM}
-              />
-            </div>
-          </div>
-        );
-      })}
+      <TransitionGroup component={null}>
+        {model.map((card: ICardModel) => {
+          return (
+            <CardTransition key={card.id}>
+              <div
+                key={card.id}
+                onClick={() => {
+                  if (isSelectable && card.type === MERCENARY_TYPE) {
+                    moves.scarecrow(scarecrow.id, card.id);
+                  } else if (isSelectable && card.class === SCARECROW_CLASS) {
+                    moves.scarecrow(scarecrow.id);
+                  }
+                }}
+                className={
+                  susceptibleToScarecrow(card)
+                    ? styles.BattleLineCardSelectable
+                    : styles.BattleLineCard
+                }
+              >
+                <Card model={card} />
+                <div
+                  className={
+                    susceptibleToScarecrow(card)
+                      ? styles.BackContainer
+                      : styles.None
+                  }
+                >
+                  <img
+                    src={BACK_ICON}
+                    alt={''}
+                    width={BACK_ICON_DIM}
+                    height={BACK_ICON_DIM}
+                  />
+                </div>
+              </div>
+            </CardTransition>
+          );
+        })}
+      </TransitionGroup>
     </div>
   );
 };

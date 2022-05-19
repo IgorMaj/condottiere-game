@@ -50,3 +50,5 @@ export const PLAYER_COLORS: any = {
 };
 
 export const OPACITY = 0.75;
+
+export const ANIMATION_TIMEOUT = 700;
