@@ -149,8 +149,8 @@ export function initTerritories(): Territory[] {
     },
     {
       name: 'Napoli',
-      top: '88.5%',
-      left: '78.75%',
+      top: '88.6%',
+      left: '78.95%',
       status: TerritoryStatus.FREE,
       owner: null,
       adjacentTo: ['Roma', 'Speleto', 'Aurona'],
