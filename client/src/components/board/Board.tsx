@@ -24,9 +24,9 @@ import { showAlert } from '../alert/alert.service';
 import React from 'react';
 import { afterBattle } from '../../domain/game-logic/events/battle';
 import { Local } from 'boardgame.io/multiplayer';
-import { MCTSBot } from 'boardgame.io/ai';
 import { DiscardHand } from './discard-hand-btn/DiscardHand';
 import { GameConfig } from '../../utils/game-config';
+import { AsyncBot } from '../../domain/game-logic/ai/async';
 
 const BoardView = (props: {
   ctx: GameContext;
@@ -75,7 +75,7 @@ export const Board = () => {
     board: BoardView,
     debug: false,
     multiplayer: Local({
-      bots: generateBots(MCTSBot, GameConfig.NUM_PLAYERS - 1),
+      bots: generateBots(AsyncBot, GameConfig.NUM_PLAYERS - 1),
     }),
     numPlayers: GameConfig.NUM_PLAYERS,
   });
