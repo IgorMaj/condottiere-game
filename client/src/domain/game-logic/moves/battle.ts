@@ -10,7 +10,7 @@ import { GameContext, GameState, ICardModel } from '../../entity';
 import {
   findStrongestMercenaryCard,
   getCurrentPopeTerritory,
-  hasNoMercenaryCards,
+  hasOnlyNonMercenaryCards,
 } from '../utils';
 
 export const pass = (G: GameState, ctx: GameContext) => {
@@ -23,7 +23,7 @@ export const pass = (G: GameState, ctx: GameContext) => {
 // he has the option to discard his hand
 export const discardHand = (G: GameState, ctx: GameContext) => {
   const playerState = G.players[ctx.currentPlayer];
-  if (hasNoMercenaryCards(playerState)) {
+  if (hasOnlyNonMercenaryCards(playerState)) {
     // discard hand
     G.discardPile.push(...playerState.hand);
     playerState.hand = [];

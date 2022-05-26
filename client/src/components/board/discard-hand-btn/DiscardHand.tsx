@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { GameContext, Moves, PlayerState } from '../../../domain/entity';
 import {
-  hasNoMercenaryCards,
+  hasOnlyNonMercenaryCards,
   scarecrowPlayed,
 } from '../../../domain/game-logic/utils';
 import styles from './DiscardHand.module.scss';
@@ -16,7 +16,7 @@ export const DiscardHand = (props: {
   const isEnabled =
     state.id === ctx.currentPlayer &&
     !scarecrowPlayed(state) &&
-    hasNoMercenaryCards(state);
+    hasOnlyNonMercenaryCards(state);
   return (
     <div
       onDoubleClick={() => moves?.discardHand()}

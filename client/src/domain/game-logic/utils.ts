@@ -24,8 +24,12 @@ export function handsEmpty(states: PlayerState[]): boolean {
   return states.map((state) => state.hand).flat().length === 0;
 }
 
-export function hasNoMercenaryCards(state: PlayerState) {
-  return state.hand.filter((c) => c.type === MERCENARY_TYPE).length === 0;
+// discard hand condition
+export function hasOnlyNonMercenaryCards(state: PlayerState) {
+  return (
+    state?.hand?.length > 0 &&
+    state.hand.filter((c) => c.type === MERCENARY_TYPE).length === 0
+  );
 }
 
 export function surrenderPlayed(states: PlayerState[]): boolean {
