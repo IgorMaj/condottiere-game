@@ -1,4 +1,3 @@
-import React from 'react';
 import { TransitionGroup } from 'react-transition-group';
 import {
   ICardModel,
@@ -21,13 +20,6 @@ export const Hand = (props: {
   const playerId = state.id;
   const model = state.hand;
   const handDisabled = playerId !== ctx.currentPlayer || scarecrowPlayed(state);
-
-  React.useEffect(() => {
-    // Auto pass if it's player turn and there are no cards
-    if (!handDisabled && !model?.length) {
-      moves?.pass();
-    }
-  }, [model, handDisabled, moves]);
 
   return (
     <div

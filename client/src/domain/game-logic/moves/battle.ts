@@ -71,6 +71,7 @@ export const playCard = (G: GameState, ctx: GameContext, cardId: string) => {
   }
 
   if (!cardHasAdditionalEffects(card)) {
+    playerState.passed = !playerState?.hand?.length ? true : false;
     ctx?.events?.endTurn();
   }
 };
@@ -116,6 +117,7 @@ export const scarecrow = (
   playerState.battleLine = playerState.battleLine.filter(
     (card) => card.id !== scarecrowId
   );
+  playerState.passed = !playerState?.hand?.length ? true : false;
   ctx?.events?.endTurn();
 };
 
