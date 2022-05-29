@@ -42,7 +42,7 @@ export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
     // all battlelines are discarded
     G.discardPile.push(...player.battleLine);
     player.battleLine = [];
-    player.passed = false;
+    player.passed = !player?.hand?.length ? true : false;
   });
 
   // transfer territory into the right hands
@@ -80,6 +80,7 @@ function redrawLogic(G: GameState, players: PlayerState[]) {
     // pop 10 cards + number of territories the player controls
     const toPop = 10 + getPlayerTerritoryCount(G.territories, player.id);
     player.hand.push(...popMultiple(G.deck, toPop));
+    player.passed = false;
   });
 }
 
