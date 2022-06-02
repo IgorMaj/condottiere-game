@@ -33,6 +33,8 @@ The app is built using <a href="https://reactjs.org/">React</a> and <a href="htt
 npm install
 npm start
 </code>
+<h1>Demo</h1>
+<p>The live demo can be found here <a href="https://condottiere-game.github.io/">here</a></p>
 <h1>License</h1>
 <p>The image game assets can be downloaded <a href="https://ozsite.wordpress.com/2017/10/14/condottiere-version-print-play/">here</a>. I would like to take the opportunity to acknowledge the author and their contribution.</p>
 <p>The code is licensed under GPLV3 license.</p>
