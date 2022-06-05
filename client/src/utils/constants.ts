@@ -35,6 +35,7 @@ export const CONDOTTIERE_TOKEN_ID = 'condottiere_token_id';
 export const POPE_TOKEN_ID = 'pope_token_id';
 
 export const DELAYED_ACTION_TIMEOUT = 3000;
+export const TOAST_TIMEOUT = 2000;
 
 export const PLAYER_COLORS: any = {
   '0': 'blue',

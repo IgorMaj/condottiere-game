@@ -14,7 +14,7 @@ import {
 import { Card } from '../../cards/Card';
 import styles from './BattleLine.module.scss';
 import BACK_ICON from '../../../assets/icons/back.png';
-import { showAlert } from '../../alert/alert.service';
+import { showAlert } from '../../../utils/alert/alert.service';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TransitionGroup } from 'react-transition-group';
