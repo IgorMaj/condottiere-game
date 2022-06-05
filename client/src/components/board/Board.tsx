@@ -20,7 +20,7 @@ import {
   historyState,
 } from '../../domain/game-logic/utils';
 import { toMap } from '../../utils/navigation';
-import { showAlert } from '../alert/alert.service';
+import { showAlert } from '../../utils/alert/alert.service';
 import React from 'react';
 import { afterBattle } from '../../domain/game-logic/events/battle';
 import { Local } from 'boardgame.io/multiplayer';

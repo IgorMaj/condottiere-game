@@ -13,7 +13,6 @@
     "boardgame.io": "^0.49.11",
     "i18next": "^21.8.1",
     "react": "^17.0.2",
-    "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
     "react-dnd": "^15.1.1",
     "react-dnd-html5-backend": "^15.1.2",
@@ -21,6 +20,7 @@
     "react-i18next": "^11.16.9",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "react-toastify": "^9.0.3",
     "react-tooltip": "^4.2.21",
     "react-transition-group": "^4.4.2",
     "sass": "^1.49.9",
@@ -54,7 +54,6 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
-    "@types/react-alert": "^7.0.2",
     "@types/react-transition-group": "^4.4.4",
     "@types/uuid": "^8.3.4"
   }

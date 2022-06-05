@@ -5,16 +5,20 @@
   overflow-x: auto;
   background-color: var(--orangebrown);
   border-style: solid;
-  justify-content: center;
-  align-items: center;
-  justify-items: center;
-  justify-items: center;
+  //justify-content: safe center; // switch when implemented
   height: fit-content;
   border-radius: 20px;
   min-height: fit-content;
   margin-left: 1em;
   margin-right: 1em;
   margin-top: 1em;
+  // instead of safe center
+  > .FirstChild {
+    margin-left: auto;
+  }
+  > .LastChild {
+    margin-right: auto;
+  }
 }
 
 .Drag {

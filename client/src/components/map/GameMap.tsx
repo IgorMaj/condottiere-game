@@ -17,7 +17,7 @@ import {
   generateBots,
   historyState,
 } from '../../domain/game-logic/utils';
-import { showAlert } from '../alert/alert.service';
+import { showAlert } from '../../utils/alert/alert.service';
 import { toBattle } from '../../utils/navigation';
 import { Local } from 'boardgame.io/multiplayer';
 import { MCTSBot } from 'boardgame.io/ai';

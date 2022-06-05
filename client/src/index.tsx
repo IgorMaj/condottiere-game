@@ -3,24 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { transitions, positions, Provider as AlertProvider } from 'react-alert';
-//@ts-ignore
-import AlertTemplate from 'react-alert-template-basic';
-// optional configuration
-const options = {
-  // you can also just use 'bottom center'
-  position: positions.TOP_CENTER,
-  timeout: 3000,
-  offset: '30px',
-  // you can also just use 'scale'
-  transition: transitions.SCALE,
-};
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AlertProvider template={AlertTemplate} {...options}>
-      <App />
-    </AlertProvider>
+    <App />
+    <ToastContainer />
   </React.StrictMode>,
   document.getElementById('root')
 );
