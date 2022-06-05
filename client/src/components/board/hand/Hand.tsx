@@ -11,6 +11,14 @@ import { CardTransition } from '../../card-transition/CardTransition';
 import { DragCard } from './DragCard';
 import styles from './Hand.module.scss';
 
+// Needed for centering, see module.scss
+// (pseudo selectors do not work with module.scss syntax)
+function getAdditionalItemClass(length: number, index: number) {
+  return `${index === 0 ? styles.FirstChild : ''} ${
+    index === length - 1 ? styles.LastChild : ''
+  }`.trim();
+}
+
 export const Hand = (props: {
   state: PlayerState;
   ctx: GameContext;
@@ -28,10 +36,10 @@ export const Hand = (props: {
     >
       {!model?.length && <div className={styles.Empty}></div>}
       <TransitionGroup component={null}>
-        {model.map((card: ICardModel) => {
+        {model.map((card: ICardModel, index: number) => {
           return (
             <CardTransition key={card.id}>
-              <div>
+              <div className={getAdditionalItemClass(model.length, index)}>
                 <DragCard
                   card={card}
                   key={card.id}
