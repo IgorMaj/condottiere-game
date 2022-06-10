@@ -120,8 +120,7 @@ const GameMapView = (props: {
                 }}
               ></div>
               <ReactTooltip id={`${point.name}Tip`} place="top" effect="solid">
-                {point.name}
-                {point.owner ? `(Player ${point.owner})` : ''}
+                {point.name} {point.owner ? `(Player ${point.owner})` : ''}
               </ReactTooltip>
             </div>
           );
