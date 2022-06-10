@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactTooltip from 'react-tooltip';
 import { GameContext, GameState, Moves } from '../../../domain/entity';
@@ -19,8 +20,18 @@ export const TokenContainer = (props: {
   const condottiereTokenSelected = CONDOTTIERE_TOKEN_ID === selectedTokenId;
   const popeTokenSelected = POPE_TOKEN_ID === selectedTokenId;
 
+  useEffect(() => {
+    const outsideClick = () => {
+      selectToken('');
+    };
+    window.addEventListener('click', outsideClick);
+    return () => {
+      window.removeEventListener('click', outsideClick);
+    };
+  }, [selectToken]);
+
   return (
-    <div className={styles.Container} onClick={() => selectToken('')}>
+    <div className={styles.Container}>
       <div
         className={`${styles.Token} ${
           hasCondottiereToken ? styles.CondottiereToken : ''
