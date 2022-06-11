@@ -29,10 +29,11 @@ The app is built using <a href="https://reactjs.org/">React</a> and <a href="htt
 </p>
 <p>To run the client (make sure to have <code>npm</code> installed and configured):
 </p>
-<code>cd "client-dir"
+<pre>
+cd "client"
 npm install
 npm start
-</code>
+</pre>
 <h1>Demo</h1>
 <p>The live demo can be found <a href="https://condottiere-game.github.io/">here</a>.</p>
 <h1>License</h1>
