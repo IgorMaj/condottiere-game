@@ -12,12 +12,11 @@
   margin-left: 1em;
   margin-right: 1em;
   margin-top: 1em;
-  // instead of safe center
-  > .FirstChild {
-    margin-left: auto;
-  }
-  > .LastChild {
-    margin-right: auto;
+  // safe center workaround
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
   }
 }
 

@@ -155,27 +155,27 @@ function winterEffect(G: GameState) {
 function bishopEffect(G: GameState, ctx: GameContext) {
   const states = Object.values(G.players);
   const strongestMercenary = findStrongestMercenaryCard(states);
-  if (!strongestMercenary) {
-    return;
-  }
-  for (let state of states) {
-    // Update the discard pile
-    G.discardPile.push(
-      ...state.battleLine.filter(
-        (card) =>
-          card.type === MERCENARY_TYPE &&
-          card.value === strongestMercenary.value
-      )
-    );
-    state.battleLine = state.battleLine.filter(
-      (card) =>
-        !(
-          card.type === MERCENARY_TYPE &&
-          card.value === strongestMercenary.value
+  if (strongestMercenary) {
+    for (let state of states) {
+      // Update the discard pile
+      G.discardPile.push(
+        ...state.battleLine.filter(
+          (card) =>
+            card.type === MERCENARY_TYPE &&
+            card.value === strongestMercenary.value
         )
-    );
+      );
+      state.battleLine = state.battleLine.filter(
+        (card) =>
+          !(
+            card.type === MERCENARY_TYPE &&
+            card.value === strongestMercenary.value
+          )
+      );
+    }
   }
 
+  // This happens regardless(even if there are no mercenaries to remove)
   // Award the pope token to the player who played the bishop
   const currentPlayerId = G.players[ctx.currentPlayer].id;
   // remove the pope's protection from the territory if there is one
