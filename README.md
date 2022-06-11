@@ -20,7 +20,7 @@ Left to do
 <ul>
 <li>Multiplayer (Server)</li>
 <li>Better Map AI</li>
-<li>A feature, allowing the last player to still have cards to keep them</li>
+<li>A feature, allowing the last player who still has cards to keep them</li>
 </ul>
 </p>
 <h1>Instructions</h1>
@@ -38,5 +38,5 @@ npm start
 <p>The live demo can be found <a href="https://condottiere-game.github.io/">here</a>.</p>
 <h1>License</h1>
 <p>The image game assets can be downloaded <a href="https://ozsite.wordpress.com/2017/10/14/condottiere-version-print-play/">here</a>. I would like to take the opportunity to acknowledge the author and their contribution.</p>
-<p>The code is licensed under GPLV3 license.</p>
+<p>The code is licensed under the GPLV3 license.</p>
 
