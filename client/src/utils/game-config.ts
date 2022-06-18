@@ -6,11 +6,11 @@ export const GameConfig = {
   },
   get PLAYER_WIN_TERRITORY_COUNT(): number {
     const playerCount = Number(localStorage.getItem(P_KEY));
-    return playerCount === 2 ? 6 : 5;
+    return playerCount === 2 || playerCount === 3 ? 6 : 5;
   },
   get PLAYER_ADJACENT_WIN_TERRITORY_COUNT(): number {
     const playerCount = Number(localStorage.getItem(P_KEY));
-    return playerCount === 2 ? 4 : 3;
+    return playerCount === 2 || playerCount === 3 ? 4 : 3;
   },
   get NUM_PLAYERS(): number {
     const init = !!localStorage.getItem(P_KEY);
