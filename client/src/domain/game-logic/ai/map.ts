@@ -1,6 +1,7 @@
 import { Game, PlayerID, Reducer, State } from 'boardgame.io';
 import { Bot } from 'boardgame.io/ai';
 import { CreateGameReducer } from 'boardgame.io/internal';
+import { sum } from 'lodash';
 
 import {
   BISHOP_CLASS,
@@ -170,7 +171,9 @@ function estimateHandStrength(hand: ICardModel[]): number {
       strength += 6;
     } else if (card.class === DRUMMER_CLASS) {
       if (!alreadyHasDrummer) {
-        strength += hand.filter((c) => c.type === MERCENARY_TYPE).length * 2;
+        strength += sum(
+          hand.filter((c) => c.type === MERCENARY_TYPE).map((c) => c.value * 2)
+        );
         alreadyHasDrummer = true;
       }
     } else if (card.class === BISHOP_CLASS) {
