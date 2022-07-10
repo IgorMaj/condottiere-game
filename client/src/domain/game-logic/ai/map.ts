@@ -111,12 +111,14 @@ function isPopeState(state: State) {
 // Algorithm for score estimation
 // TODO write tests for this
 
+// territory needs to be taken in order to be considered (hence the !! check)
 function isEnemyTerritory(
   territoryName: string,
   territories: Territory[],
   playerID: string
 ): boolean {
-  return territories.find((t) => t.name === territoryName)?.owner !== playerID;
+  const ownerId = territories.find((t) => t.name === territoryName)?.owner;
+  return !!ownerId && ownerId !== playerID;
 }
 
 function isPlayerTerritory(
