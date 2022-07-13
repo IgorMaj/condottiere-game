@@ -155,7 +155,7 @@ export const GameMap = () => {
     board: GameMapView,
     debug: false,
     multiplayer: Local({
-      bots: generateBots(MapBot, GameConfig.NUM_PLAYERS - 1),
+      bots: generateBots(MapBot, GameConfig.NUM_BOTS),
     }),
     numPlayers: GameConfig.NUM_PLAYERS,
   });

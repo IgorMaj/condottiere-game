@@ -75,7 +75,7 @@ export const Board = () => {
     board: BoardView,
     debug: false,
     multiplayer: Local({
-      bots: generateBots(AsyncBot, GameConfig.NUM_PLAYERS - 1),
+      bots: generateBots(AsyncBot, GameConfig.NUM_BOTS),
     }),
     numPlayers: GameConfig.NUM_PLAYERS,
   });
