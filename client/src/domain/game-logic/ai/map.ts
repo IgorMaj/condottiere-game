@@ -13,11 +13,13 @@ import {
   POPE_SCORE_BONUS,
   POPE_TOKEN_ID,
   SPRING_CLASS,
+  SURRENDER_CLASS,
   TerritoryStatus,
   WINTER_CLASS,
 } from '../../../utils/constants';
 import { findMaxByAttribute } from '../../../utils/methods';
 import { GameContext, GameState, ICardModel, Territory } from '../../entity';
+import { isEnemyTerritory, isPlayerTerritory, isPopeState } from '../utils';
 
 export const MAP_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
@@ -100,34 +102,7 @@ function generateState(
   };
 }
 
-function isPopeState(state: State) {
-  const gameState = state.G as GameState;
-  return (
-    !!gameState.territories.find((t) => t.status === TerritoryStatus.POPE) &&
-    !gameState.territories.find((t) => t.status === TerritoryStatus.BATTLE)
-  );
-}
-
 // Algorithm for score estimation
-// TODO write tests for this
-
-// territory needs to be taken in order to be considered (hence the !! check)
-function isEnemyTerritory(
-  territoryName: string,
-  territories: Territory[],
-  playerID: string
-): boolean {
-  const ownerId = territories.find((t) => t.name === territoryName)?.owner;
-  return !!ownerId && ownerId !== playerID;
-}
-
-function isPlayerTerritory(
-  territoryName: string,
-  territories: Territory[],
-  playerID: string
-): boolean {
-  return territories.find((t) => t.name === territoryName)?.owner === playerID;
-}
 
 // for pope states
 // simple - the more enemy territories the token is adjacent to, the better
@@ -180,6 +155,8 @@ function estimateHandStrength(hand: ICardModel[]): number {
       }
     } else if (card.class === BISHOP_CLASS) {
       strength += 5;
+    } else if (card.class === SURRENDER_CLASS) {
+      strength += sum(hand.map((c) => c.value)) * 10;
     }
   });
 
