@@ -18,7 +18,7 @@ import {
   WINTER_CLASS,
 } from '../../../utils/constants';
 import { findMaxByAttribute } from '../../../utils/methods';
-import { GameContext, GameState, ICardModel, Territory } from '../../entity';
+import { GameContext, GameState, ICardModel } from '../../entity';
 import { isEnemyTerritory, isPlayerTerritory, isPopeState } from '../utils';
 
 export const MAP_AI = {
