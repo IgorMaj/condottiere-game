@@ -19,7 +19,6 @@ Left to do
 <p>
 <ul>
 <li>Multiplayer (Server)</li>
-<li>Better Map AI</li>
 <li>A feature, allowing the last player who still has cards to keep them</li>
 </ul>
 </p>

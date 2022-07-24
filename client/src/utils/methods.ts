@@ -33,3 +33,14 @@ export function validGameState(g: any) {
 export function resolveG(G: GameState): GameState {
   return JSON.parse(JSON.stringify(G));
 }
+
+export function findMaxByAttribute<T>(data: T[], attr: string): T | null {
+  try {
+    const max: T = data.reduce((prev, current) =>
+      (prev as any)[attr] > (current as any)[attr] ? prev : current
+    );
+    return max;
+  } catch (err) {
+    return null;
+  }
+}

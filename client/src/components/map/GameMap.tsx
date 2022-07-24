@@ -20,11 +20,11 @@ import {
 import { showAlert } from '../../utils/alert/alert.service';
 import { toBattle } from '../../utils/navigation';
 import { Local } from 'boardgame.io/multiplayer';
-import { MCTSBot } from 'boardgame.io/ai';
 import { MapLegend } from './map-legend/MapLegend';
 import { useTranslation } from 'react-i18next';
 import { GameConfig } from '../../utils/game-config';
 import { useNavigate } from 'react-router-dom';
+import { MapBot } from '../../domain/game-logic/ai/map';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -155,7 +155,7 @@ export const GameMap = () => {
     board: GameMapView,
     debug: false,
     multiplayer: Local({
-      bots: generateBots(MCTSBot, GameConfig.NUM_PLAYERS - 1),
+      bots: generateBots(MapBot, GameConfig.NUM_BOTS),
     }),
     numPlayers: GameConfig.NUM_PLAYERS,
   });

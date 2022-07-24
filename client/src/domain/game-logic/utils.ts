@@ -12,6 +12,7 @@ import {
   Territory,
 } from '../entity';
 import i18n from '../../i18n';
+import { State } from 'boardgame.io';
 
 // if the count of max scores is higher
 // than 1 then it means that two or more players are tied for the same score
@@ -155,4 +156,30 @@ export function generateBots(
     retVal[indexStr] = bot;
   });
   return retVal;
+}
+
+// territory needs to be taken in order to be considered (hence the !! check)
+export function isEnemyTerritory(
+  territoryName: string,
+  territories: Territory[],
+  playerID: string
+): boolean {
+  const ownerId = territories.find((t) => t.name === territoryName)?.owner;
+  return !!ownerId && ownerId !== playerID;
+}
+
+export function isPlayerTerritory(
+  territoryName: string,
+  territories: Territory[],
+  playerID: string
+): boolean {
+  return territories.find((t) => t.name === territoryName)?.owner === playerID;
+}
+
+export function isPopeState(state: State) {
+  const gameState = state.G as GameState;
+  return (
+    !!gameState.territories.find((t) => t.status === TerritoryStatus.POPE) &&
+    !gameState.territories.find((t) => t.status === TerritoryStatus.BATTLE)
+  );
 }

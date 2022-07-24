@@ -16,6 +16,10 @@ export const GameConfig = {
     const init = !!localStorage.getItem(P_KEY);
     return init ? Number(localStorage.getItem(P_KEY)) : 1;
   },
+  get NUM_BOTS(): number {
+    const init = !!localStorage.getItem(P_KEY);
+    return (init ? Number(localStorage.getItem(P_KEY)) : 1) - 1;
+  },
   setConfig(conf: { numPlayers: number }) {
     localStorage.setItem(P_KEY, `${conf.numPlayers}`);
   },
