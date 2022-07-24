@@ -24,14 +24,14 @@ export const Hand = (props: {
   return (
     <div
       className={styles.Container}
-      style={handDisabled ? { pointerEvents: 'none', opacity: OPACITY } : {}}
+      style={handDisabled ? { opacity: OPACITY } : {}}
     >
       {!model?.length && <div className={styles.Empty}></div>}
       <TransitionGroup component={null}>
         {model.map((card: ICardModel, index: number) => {
           return (
             <CardTransition key={card.id}>
-              <div>
+              <div className={handDisabled ? styles.Disabled : ''}>
                 <DragCard
                   card={card}
                   key={card.id}
