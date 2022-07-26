@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { registerAntiRefresh } from './domain/game-logic/utils';
+
+registerAntiRefresh();
 
 ReactDOM.render(
   <React.StrictMode>
