@@ -124,7 +124,6 @@ function popeStateScore(childState: State, playerID: string): number {
       score -= 1;
     }
   }
-  console.log('Pope score: ' + score);
   return score;
 }
 
@@ -220,7 +219,6 @@ function condottiereStateScore(
         score -= 1;
       }
     });
-    console.log('Condottiere score: ' + score);
     return score;
   }
 }
