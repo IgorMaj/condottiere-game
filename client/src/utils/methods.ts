@@ -1,7 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import { GameState } from '../domain/entity';
 
-// in-place shuffle(no new array is created)
+// like pop, only picks an element randomly
+export const randomPop = (arr: any[]) => {
+  return arr.splice(Math.floor(Math.random() * arr.length), 1)?.[0];
+};
+
+// in-place shuffle (no new array is created)
 export function fisherYatesShuffle(arr: any[]) {
   for (var i = arr.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1)); //random index
@@ -12,7 +17,7 @@ export function fisherYatesShuffle(arr: any[]) {
 export function popMultiple(arr: any[], count: number) {
   const retVal: any[] = [];
   for (var i = 0; i < count; i++) {
-    const elem = arr.pop();
+    const elem = randomPop(arr);
     if (elem) {
       retVal.push(elem);
     } else {
