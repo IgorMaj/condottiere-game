@@ -36,6 +36,10 @@ export const endIf = (G: GameState, ctx: GameContext) => {
 export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
   G = _.cloneDeep(G);
   G.condottiereTokenOwnerId = getNextCondottiereTokenOwner(G, ctx);
+  G.condottiereTokenOwnerHistory = [
+    ...G.condottiereTokenOwnerHistory,
+    G.condottiereTokenOwnerId,
+  ];
   const players = Object.values(G.players);
   const remainingCount = playerWhoStillHaveCardsCount(players);
   players.forEach((player) => {

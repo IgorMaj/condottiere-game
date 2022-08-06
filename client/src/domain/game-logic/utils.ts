@@ -199,3 +199,9 @@ export function registerAntiRefresh() {
     navigate('/', { replace: true, state: null });
   });
 }
+
+export function getLastCondottiereOwnerPos(G: GameState): number {
+  return Number(
+    G.condottiereTokenOwnerHistory[G.condottiereTokenOwnerHistory.length - 1]
+  );
+}

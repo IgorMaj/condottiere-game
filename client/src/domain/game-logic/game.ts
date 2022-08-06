@@ -25,5 +25,6 @@ export const initGameData = (numPlayers: number): GameState => {
     popeTokenOwnerId: null,
     condottiereTokenOwnerId: '0',
     discardPile: [],
+    condottiereTokenOwnerHistory: ['0'],
   };
 };

@@ -36,6 +36,7 @@ export interface GameState {
   condottiereTokenOwnerId: string | null;
   popeTokenOwnerId: string | null;
   discardPile: ICardModel[];
+  condottiereTokenOwnerHistory: string[];
 }
 
 export interface Territory {

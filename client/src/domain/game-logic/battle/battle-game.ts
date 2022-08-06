@@ -5,15 +5,15 @@ import { endIf } from '../events/battle';
 import { initGameData } from '../game';
 import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
 import { drawCard } from '../moves/draw';
-import { allPlayersPassed } from '../utils';
+import { allPlayersPassed, getLastCondottiereOwnerPos } from '../utils';
 
 const first = (G: GameState, ctx: GameContext) => {
   if (allPlayersPassed(Object.values(G))) {
     // game should end anyway, so this num doesn't matter
     return 0;
   }
-  let firstPos = 0;
-  // return first player who hasn't passed(start from 0)
+  let firstPos = getLastCondottiereOwnerPos(G);
+  // return first player who hasn't passed(start from last condottiere token owner)
   while (G.players[ctx.playOrder[firstPos]].passed) {
     firstPos = (firstPos + 1) % ctx.numPlayers;
   }
