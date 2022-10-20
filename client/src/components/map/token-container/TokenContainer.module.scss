@@ -13,6 +13,8 @@
     margin: 1em;
     border-radius: 10px;
     background: var(--emptyColor);
+    border: 2px solid transparent;
+    cursor: pointer;
   }
   > .CondottiereToken {
     background-color: black;
