@@ -10,6 +10,7 @@ import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
 import { drawCard } from '../moves/draw';
 
 export const MultiplayerGame: Game = {
+  name: 'Condottiere',
   setup: (ctx: GameContext): GameState => {
     return initGameData(ctx.numPlayers);
   },

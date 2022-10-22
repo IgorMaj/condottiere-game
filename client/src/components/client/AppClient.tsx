@@ -4,6 +4,7 @@ import { GameMap } from '../map/GameMap';
 import { Board } from '../board/Board';
 import { MainMenu } from '../main-menu/MainMenu';
 import { GameConfig } from '../../utils/game-config';
+import { GameLobby } from '../game-lobby/GameLobby';
 
 export const AppClient = (): JSX.Element => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export const AppClient = (): JSX.Element => {
           return <BoardComponent playerID="0" />;
         })()}
       />
+      <Route path="/multiplayer" element={<GameLobby />} />
     </Routes>
   );
 };

@@ -25,7 +25,7 @@ import { GameConfig } from '../../utils/game-config';
 import { AsyncBot } from '../../domain/game-logic/ai/async';
 import { historyState } from '../../utils/client';
 
-const BoardView = (props: {
+export const BoardView = (props: {
   ctx: GameContext;
   G: GameState;
   moves: Moves;

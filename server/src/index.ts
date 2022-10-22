@@ -1,4 +1,4 @@
-import { Server } from 'boardgame.io/server';
+import { Origins, Server } from 'boardgame.io/server';
 import { MultiplayerGame } from '../../client/src/domain/game-logic/multiplayer/multiplayer-game';
 
 const server = Server({
@@ -7,7 +7,7 @@ const server = Server({
 
   origins: [
     // Allow localhost to connect, except when NODE_ENV is 'production'.
-    '*',
+    Origins.LOCALHOST_IN_DEVELOPMENT,
   ],
 });
 
