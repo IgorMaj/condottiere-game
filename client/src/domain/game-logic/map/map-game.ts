@@ -1,3 +1,4 @@
+import { Game } from 'boardgame.io';
 import { GameConfig } from '../../../utils/game-config';
 import { GameContext, GameState } from '../../entity';
 import { MAP_AI } from '../ai/map';
@@ -5,7 +6,7 @@ import { endIf } from '../events/map';
 import { initGameData } from '../game';
 import { setTokenOnTerritory } from '../moves/map';
 
-const nextTurn = (G: GameState, ctx: GameContext) => {
+const nextTurn = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   if (G.popeTokenOwnerId) {
     return Number(G.popeTokenOwnerId);
   }
@@ -16,8 +17,8 @@ const nextTurn = (G: GameState, ctx: GameContext) => {
 };
 
 export const initMapGame = (state?: GameState) => {
-  const MapGame = {
-    setup: (ctx: GameContext): GameState => {
+  const MapGame: Game = {
+    setup: ({ ctx }: { ctx: GameContext }): GameState => {
       return state ?? initGameData(GameConfig.NUM_PLAYERS);
     },
 

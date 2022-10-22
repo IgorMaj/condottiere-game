@@ -13,13 +13,18 @@ import {
 } from '../utils';
 import _ from 'lodash';
 
-export const endIf = (G: GameState, ctx: GameContext) => {
+export const endIf = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   const playerStates = Object.values(G.players);
   if (!battleEnded(playerStates)) {
     return;
   }
 
   const scoreObjs = calculateScores(playerStates);
+  // seems to happen in multiplayer
+  if (!scoreObjs?.length) {
+    return;
+  }
+
   if (isDraw(scoreObjs)) {
     return { draw: true };
   }
@@ -119,7 +124,7 @@ function getNextCondottiereTokenOwner(G: GameState, ctx: GameContext): string {
   return ownerOfMostCourtesans ? ownerOfMostCourtesans : ctx?.gameover?.winner;
 }
 
-export const first = (G: GameState, ctx: GameContext) => {
+export const first = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   if (allPlayersPassed(Object.values(G))) {
     // game should end anyway, so this num doesn't matter
     return 0;
@@ -132,7 +137,7 @@ export const first = (G: GameState, ctx: GameContext) => {
   return firstPos;
 };
 
-export const next = (G: GameState, ctx: GameContext) => {
+export const next = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   if (allPlayersPassed(Object.values(G))) {
     return;
   }

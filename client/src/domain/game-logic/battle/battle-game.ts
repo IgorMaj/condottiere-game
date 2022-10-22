@@ -1,3 +1,4 @@
+import { Game } from 'boardgame.io';
 import { GameConfig } from '../../../utils/game-config';
 import { GameContext, GameState } from '../../entity';
 import { BATTLE_AI } from '../ai/battle';
@@ -7,8 +8,8 @@ import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
 import { drawCard } from '../moves/draw';
 
 export const initBattleGame = (state?: GameState) => {
-  const BattleGame = {
-    setup: (ctx: GameContext): GameState => {
+  const BattleGame: Game = {
+    setup: (ctx: { ctx: GameContext }): GameState => {
       return state ?? initGameData(GameConfig.NUM_PLAYERS);
     },
 

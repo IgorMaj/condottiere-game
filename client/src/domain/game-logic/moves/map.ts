@@ -6,8 +6,11 @@ import {
 import { GameContext, GameState, Territory } from '../../entity';
 
 export const setTokenOnTerritory = (
-  G: GameState,
-  ctx: GameContext,
+  {
+    G,
+    ctx,
+    events,
+  }: { G: GameState; ctx: GameContext; events: { endTurn: () => void } },
   territoryName: string,
   tokenId: string
 ) => {
@@ -19,7 +22,7 @@ export const setTokenOnTerritory = (
     // if the current owner doesn't own a condottiere token as well
     // as the pope one, end his turn
     if (G.condottiereTokenOwnerId !== G.players[ctx.currentPlayer].id) {
-      ctx?.events?.endTurn();
+      events?.endTurn();
     }
   }
   if (tokenId === CONDOTTIERE_TOKEN_ID) {

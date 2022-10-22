@@ -11,7 +11,7 @@ import { drawCard } from '../moves/draw';
 
 export const MultiplayerGame: Game = {
   name: 'Condottiere',
-  setup: (ctx: GameContext): GameState => {
+  setup: ({ ctx }: { ctx: GameContext }): GameState => {
     return initGameData(ctx.numPlayers);
   },
 
