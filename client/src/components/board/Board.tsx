@@ -14,11 +14,7 @@ import { Pass } from './pass-btn/Pass';
 import { initBattleGame } from '../../domain/game-logic/battle/battle-game';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
-import {
-  battleEndMessage,
-  generateBots,
-  historyState,
-} from '../../domain/game-logic/utils';
+import { battleEndMessage, generateBots } from '../../domain/game-logic/utils';
 import { toMap } from '../../utils/navigation';
 import { showAlert } from '../../utils/alert/alert.service';
 import React from 'react';
@@ -27,6 +23,7 @@ import { Local } from 'boardgame.io/multiplayer';
 import { DiscardHand } from './discard-hand-btn/DiscardHand';
 import { GameConfig } from '../../utils/game-config';
 import { AsyncBot } from '../../domain/game-logic/ai/async';
+import { historyState } from '../../utils/client';
 
 const BoardView = (props: {
   ctx: GameContext;

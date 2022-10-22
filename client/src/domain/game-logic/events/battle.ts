@@ -3,8 +3,10 @@ import { fisherYatesShuffle, popMultiple } from '../../../utils/methods';
 import { GameState, GameContext, PlayerState } from '../../entity';
 import { calculateCourtesanCounts, calculateScores } from '../score';
 import {
+  allPlayersPassed,
   battleEnded,
   getCurrentBattleTerritory,
+  getLastCondottiereOwnerPos,
   getPlayerTerritoryCount,
   isDraw,
   playerWhoStillHaveCardsCount,
@@ -116,3 +118,29 @@ function getNextCondottiereTokenOwner(G: GameState, ctx: GameContext): string {
   // courtesans FTW
   return ownerOfMostCourtesans ? ownerOfMostCourtesans : ctx?.gameover?.winner;
 }
+
+export const first = (G: GameState, ctx: GameContext) => {
+  if (allPlayersPassed(Object.values(G))) {
+    // game should end anyway, so this num doesn't matter
+    return 0;
+  }
+  let firstPos = getLastCondottiereOwnerPos(G);
+  // return first player who hasn't passed(start from last condottiere token owner)
+  while (G.players[ctx.playOrder[firstPos]].passed) {
+    firstPos = (firstPos + 1) % ctx.numPlayers;
+  }
+  return firstPos;
+};
+
+export const next = (G: GameState, ctx: GameContext) => {
+  if (allPlayersPassed(Object.values(G))) {
+    return;
+  }
+  // we seek to find a player who hasn't passed
+  // Loop through next position until we do
+  let nextPos = (ctx.playOrderPos + 1) % ctx.numPlayers;
+  while (G.players[ctx.playOrder[nextPos]].passed) {
+    nextPos = (nextPos + 1) % ctx.numPlayers;
+  }
+  return nextPos;
+};

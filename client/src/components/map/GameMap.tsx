@@ -12,11 +12,7 @@ import styles from './GameMap.module.scss';
 import { TokenContainer } from './token-container/TokenContainer';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
-import {
-  gameEndMessage,
-  generateBots,
-  historyState,
-} from '../../domain/game-logic/utils';
+import { gameEndMessage, generateBots } from '../../domain/game-logic/utils';
 import { showAlert } from '../../utils/alert/alert.service';
 import { toBattle } from '../../utils/navigation';
 import { Local } from 'boardgame.io/multiplayer';
@@ -25,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { GameConfig } from '../../utils/game-config';
 import { useNavigate } from 'react-router-dom';
 import { MapBot } from '../../domain/game-logic/ai/map';
+import { historyState } from '../../utils/client';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
