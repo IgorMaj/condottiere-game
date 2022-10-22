@@ -48,7 +48,10 @@ export function useMainMenu(props?: any) {
       },
       {
         name: t('Menu.multiplayer'),
-        disabled: true,
+        onClick: () => {
+          navigation('/multiplayer', { replace: true });
+          setMenu(rootMenuEntry);
+        },
       },
     ],
     name: 'Main',

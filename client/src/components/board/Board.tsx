@@ -25,12 +25,28 @@ import { GameConfig } from '../../utils/game-config';
 import { AsyncBot } from '../../domain/game-logic/ai/async';
 import { historyState } from '../../utils/client';
 
-export const BoardView = (props: {
+/**
+ *
+ * @param states
+ * @param playerIndex
+ * @returns battle lines reorder so that the last one is the one belonging
+ * to the player playing the game. That way it's displayed as closest on the screen
+ */
+const reorderBattleLines = (states: PlayerState[], playerIndex?: number) => {
+  const retVal = [...states];
+  const playerState = retVal.splice(playerIndex ?? 0, 1)[0];
+  retVal.reverse();
+  retVal.push(playerState);
+  return retVal;
+};
+
+const BoardView = (props: {
   ctx: GameContext;
   G: GameState;
   moves: Moves;
+  playerIndex?: number;
 }): JSX.Element => {
-  const { G, moves, ctx } = props;
+  const { G, moves, ctx, playerIndex } = props;
   const playerStates = Object.values(G.players);
   React.useEffect(() => {
     if (ctx.gameover) {
@@ -42,27 +58,49 @@ export const BoardView = (props: {
     <DndProvider backend={HTML5Backend}>
       <div className={styles.Container}>
         <ScoreBoard model={playerStates} ctx={ctx} />
-        {[...playerStates].reverse().map((playerState: PlayerState) => {
-          return (
-            <BattleLine
-              key={playerState.id}
-              state={playerState}
-              moves={moves}
-            />
-          );
-        })}
-        <Hand ctx={ctx} moves={moves} state={playerStates[0]} />
+        {reorderBattleLines(playerStates, playerIndex).map(
+          (playerState: PlayerState) => {
+            return (
+              <BattleLine
+                key={playerState.id}
+                state={playerState}
+                moves={moves}
+              />
+            );
+          }
+        )}
+        <Hand ctx={ctx} moves={moves} state={playerStates[playerIndex ?? 0]} />
         <div className={styles.BtnsContainer}>
           <div className={styles.LeftBtnContainer}>
-            <DiscardHand ctx={ctx} moves={moves} state={playerStates[0]} />
+            <DiscardHand
+              ctx={ctx}
+              moves={moves}
+              state={playerStates[playerIndex ?? 0]}
+            />
           </div>
           <div className={styles.RightButtonContainer}>
-            <Pass ctx={ctx} moves={moves} state={playerStates[0]} />
+            <Pass
+              ctx={ctx}
+              moves={moves}
+              state={playerStates[playerIndex ?? 0]}
+            />
           </div>
         </div>
       </div>
     </DndProvider>
   );
+};
+
+export const MultiplayerBoardView = (props: {
+  ctx: GameContext;
+  G: GameState;
+  moves: Moves;
+  playerID: string;
+}) => {
+  const playerIndex = Object.values(props.G.players).findIndex(
+    (pState) => pState.id === props.playerID
+  );
+  return <BoardView {...props} playerIndex={playerIndex} />;
 };
 
 export const Board = () => {
