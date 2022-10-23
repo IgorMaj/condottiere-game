@@ -16,11 +16,12 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     background-color: var(--orangebrown);
+    border: 2px solid black;
   }
 
   .buttons {
@@ -28,18 +29,17 @@
     flex-direction: row;
     justify-items: center;
     justify-content: center;
-    margin-top: 1em;
   }
 
   button {
     border-radius: 20px;
     cursor: pointer;
     display: flex;
-    padding: 1em;
+    padding: 0.6em;
     background-color: var(--orangebrown);
     color: black;
-    font-weight: bold;
-    font-size: large;
+    font-weight: bolder;
+    font-size: larger;
     &:hover {
       color: white;
     }
@@ -48,29 +48,42 @@
   .phase-title,
   p {
     color: black;
-    font-size: xx-large;
+    font-size: x-large;
     font-weight: bolder;
+    margin: 0.2em;
+  }
+
+  #instances {
+    border: 5px solid black;
+    border-radius: 20px;
+    background-color: var(--orangebrown);
+    max-height: 30vh;
+    overflow-y: auto;
+  }
+
+  table {
+    padding: 0.5em;
+    width: 100%;
   }
 
   td {
+    background-color: var(--orangebrown);
     color: black;
-    font-style: italic;
-    font-size: x-large;
     font-weight: bolder;
+    width: fit-content;
+    > div {
+      display: flex;
+      float: right;
+      flex-direction: row;
+      justify-self: flex-end;
+      margin-left: auto;
+    }
   }
 
   .error-msg {
     color: red;
-    font-size: xx-large;
+    font-size: x-large;
     font-weight: bolder;
-  }
-
-  .phase {
-    > * {
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-    }
   }
 
   #lobby-view {
@@ -78,5 +91,17 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
+  }
+
+  .bgio-client {
+    display: flex;
+    width: fit-content;
+    > * {
+      display: flex;
+    }
+  }
+
+  #match-exit {
+    margin-bottom: 0.5em;
   }
 }
