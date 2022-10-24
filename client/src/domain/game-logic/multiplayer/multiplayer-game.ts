@@ -15,6 +15,9 @@ export const MultiplayerGame: Game = {
     return initGameData(ctx.numPlayers);
   },
 
+  minPlayers: 2,
+  maxPlayers: 6,
+
   endIf: endIf,
   turn: {
     minMoves: 1,
