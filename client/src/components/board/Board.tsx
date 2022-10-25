@@ -17,7 +17,7 @@ import { validGameState } from '../../utils/methods';
 import { battleEndMessage, generateBots } from '../../domain/game-logic/utils';
 import { toMap } from '../../utils/navigation';
 import { showAlert } from '../../utils/alert/alert.service';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { afterBattle } from '../../domain/game-logic/events/battle';
 import { Local } from 'boardgame.io/multiplayer';
 import { DiscardHand } from './discard-hand-btn/DiscardHand';
@@ -45,15 +45,13 @@ const BoardView = (props: {
   G: GameState;
   moves: Moves;
   playerIndex?: number;
+  callback: (G: GameState, ctx: GameContext) => void; // triggers when G or ctx change
 }): JSX.Element => {
-  const { G, moves, ctx, playerIndex } = props;
+  const { G, moves, ctx, playerIndex, callback } = props;
   const playerStates = Object.values(G.players);
   React.useEffect(() => {
-    if (ctx.gameover) {
-      showAlert(battleEndMessage(ctx));
-      toMap(afterBattle(G, ctx));
-    }
-  }, [ctx.gameover, G, ctx]);
+    callback(G, ctx);
+  }, [G, ctx, callback]);
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={styles.Container}>
@@ -100,14 +98,33 @@ export const MultiplayerBoardView = (props: {
   const playerIndex = Object.values(props.G.players).findIndex(
     (pState) => pState.id === props.playerID
   );
-  return <BoardView {...props} playerIndex={playerIndex} />;
+  const callback = useCallback((G: GameState, ctx: GameContext) => {
+    if (ctx.gameover) {
+      showAlert(battleEndMessage(ctx));
+    }
+  }, []);
+  return <BoardView {...props} playerIndex={playerIndex} callback={callback} />;
+};
+
+export const SinglePlayerBoardView = (props: {
+  ctx: GameContext;
+  G: GameState;
+  moves: Moves;
+}) => {
+  const callback = useCallback((G: GameState, ctx: GameContext) => {
+    if (ctx.gameover) {
+      showAlert(battleEndMessage(ctx));
+      toMap(afterBattle(G, ctx));
+    }
+  }, []);
+  return <BoardView {...props} callback={callback} />;
 };
 
 export const Board = () => {
   const state = historyState();
   return Client({
     game: initBattleGame(validGameState(state) ? state : undefined),
-    board: BoardView,
+    board: SinglePlayerBoardView,
     debug: false,
     multiplayer: Local({
       bots: generateBots(AsyncBot, GameConfig.NUM_BOTS),
