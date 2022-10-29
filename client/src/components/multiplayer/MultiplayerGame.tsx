@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { GameContext, GameState, Moves } from '../../domain/entity';
+import { DELAYED_ACTION_TIMEOUT } from '../../utils/constants';
 import { MultiplayerBoardView } from '../board/Board';
 import { MultiplayerPlayerMapView } from '../map/GameMap';
 
@@ -11,10 +13,17 @@ export const MultiplayerGameView = (props: {
   moves: Moves;
   playerID: string;
 }) => {
+  const [currentPhase, setCurrentPhase] = useState(props.ctx.phase);
+  useEffect(() => {
+    setTimeout(() => {
+      setCurrentPhase(props.ctx.phase);
+    }, DELAYED_ACTION_TIMEOUT);
+  }, [props.ctx.phase]);
+
   return (
     <>
-      {props.ctx.phase === BATTLE_PHASE && <MultiplayerBoardView {...props} />}
-      {(props.ctx.phase === MAP_PHASE || !props.ctx.phase) && (
+      {currentPhase === BATTLE_PHASE && <MultiplayerBoardView {...props} />}
+      {(currentPhase === MAP_PHASE || !currentPhase) && (
         <MultiplayerPlayerMapView {...props} />
       )}
     </>
