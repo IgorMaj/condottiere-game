@@ -42,6 +42,11 @@ export const endIf = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
 // so more battles and rounds can be played
 export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
   G = _.cloneDeep(G);
+  onBattleEnd({ G, ctx });
+  return G;
+};
+
+export const onBattleEnd = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   G.condottiereTokenOwnerId = getNextCondottiereTokenOwner(G, ctx);
   G.condottiereTokenOwnerHistory = [
     ...G.condottiereTokenOwnerHistory,
@@ -70,11 +75,9 @@ export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
     // we end the round by allowing the players to draw more cards
     redrawLogic(G, players);
   }
-
-  return G;
 };
 
-function redrawLogic(G: GameState, players: PlayerState[]) {
+export function redrawLogic(G: GameState, players: PlayerState[]) {
   players.forEach((player) => {
     // discard all the hands
     G.discardPile.push(...player.hand);
@@ -95,7 +98,7 @@ function redrawLogic(G: GameState, players: PlayerState[]) {
   });
 }
 
-function getOwnerOfMostCourtesans(G: GameState): string | undefined {
+export function getOwnerOfMostCourtesans(G: GameState): string | undefined {
   const playerStates = Object.values(G.players);
   const scoreObjs = calculateCourtesanCounts(playerStates);
   if (isDraw(scoreObjs)) {
@@ -131,7 +134,7 @@ export const first = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   }
   let firstPos = getLastCondottiereOwnerPos(G);
   // return first player who hasn't passed(start from last condottiere token owner)
-  while (G.players[ctx.playOrder[firstPos]].passed) {
+  while (G.players[ctx.playOrder[firstPos]]?.passed) {
     firstPos = (firstPos + 1) % ctx.numPlayers;
   }
   return firstPos;

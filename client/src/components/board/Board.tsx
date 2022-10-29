@@ -14,7 +14,11 @@ import { Pass } from './pass-btn/Pass';
 import { initBattleGame } from '../../domain/game-logic/battle/battle-game';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
-import { battleEndMessage, generateBots } from '../../domain/game-logic/utils';
+import {
+  battleEnded,
+  battleEndMessage,
+  generateBots,
+} from '../../domain/game-logic/utils';
 import { toMap } from '../../utils/navigation';
 import { showAlert } from '../../utils/alert/alert.service';
 import React, { useCallback } from 'react';
@@ -99,8 +103,8 @@ export const MultiplayerBoardView = (props: {
     (pState) => pState.id === props.playerID
   );
   const callback = useCallback((G: GameState, ctx: GameContext) => {
-    if (ctx.gameover) {
-      showAlert(battleEndMessage(ctx));
+    if (battleEnded(Object.values(G.players))) {
+      showAlert('Battle ended, back to map!');
     }
   }, []);
   return <BoardView {...props} playerIndex={playerIndex} callback={callback} />;
