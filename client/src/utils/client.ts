@@ -1,4 +1,4 @@
-import { GameState } from '../domain/entity';
+import { GameContext, GameState } from '../domain/entity';
 import { GameConfig } from './game-config';
 import { navigate } from './navigation';
 
@@ -18,4 +18,12 @@ export function registerAntiRefresh() {
 
 export function historyState(): GameState {
   return window?.history?.state?.usr;
+}
+
+export function isMapPhase(ctx: GameContext) {
+  return ctx.phase === 'map';
+}
+
+export function isBattlePhase(ctx: GameContext) {
+  return ctx.phase === 'battle';
 }

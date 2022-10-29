@@ -6,6 +6,7 @@ import {
   PlayerState,
 } from '../../../domain/entity';
 import { scarecrowPlayed } from '../../../domain/game-logic/utils';
+import { isMapPhase } from '../../../utils/client';
 import { OPACITY } from '../../../utils/constants';
 import { CardTransition } from '../../card-transition/CardTransition';
 import { DragCard } from './DragCard';
@@ -19,7 +20,8 @@ export const Hand = (props: {
   const { state, moves, ctx } = props;
   const playerId = state.id;
   const model = state.hand;
-  const handDisabled = playerId !== ctx.currentPlayer || scarecrowPlayed(state);
+  const handDisabled =
+    playerId !== ctx.currentPlayer || scarecrowPlayed(state) || isMapPhase(ctx);
 
   return (
     <div
