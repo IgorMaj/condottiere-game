@@ -8,6 +8,7 @@ import {
   GameContext,
   GameState,
   Moves,
+  MultiplayerGameState,
   PlayerState,
 } from '../../domain/entity';
 import { Pass } from './pass-btn/Pass';
@@ -24,6 +25,7 @@ import { DiscardHand } from './discard-hand-btn/DiscardHand';
 import { GameConfig } from '../../utils/game-config';
 import { AsyncBot } from '../../domain/game-logic/ai/async';
 import { historyState } from '../../utils/client';
+import i18n from '../../i18n';
 
 /**
  *
@@ -98,9 +100,16 @@ export const MultiplayerBoardView = (props: {
   const playerIndex = Object.values(props.G.players).findIndex(
     (pState) => pState.id === props.playerID
   );
-  const callback = useCallback((G: GameState, ctx: GameContext) => {
-    console.log('TODO: Make sure that a message shows up on battle end');
-  }, []);
+  const callback = useCallback(() => {
+    const gameState = props.G as MultiplayerGameState;
+    if (gameState?.battleEnded) {
+      if (gameState?.battleWinner) {
+        showAlert(`${i18n.t('Battle.wonBy')} P${gameState.battleWinner}`);
+      } else {
+        showAlert(i18n.t('Battle.draw'));
+      }
+    }
+  }, [props.G]);
   return <BoardView {...props} playerIndex={playerIndex} callback={callback} />;
 };
 

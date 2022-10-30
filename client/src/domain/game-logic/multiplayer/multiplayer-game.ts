@@ -1,5 +1,5 @@
 import { Game } from 'boardgame.io';
-import { GameContext, GameState } from '../../entity';
+import { GameContext, GameState, MultiplayerGameState } from '../../entity';
 import { first as firstBattle, next as nextBattle } from '../events/battle';
 import { mapPhaseHasEnded, nextTurn as turnMap } from '../events/map-common';
 import {
@@ -7,6 +7,7 @@ import {
   gameHasEnded,
   onMapBegin,
   onBattleEnd,
+  onMapEnd,
 } from '../events/multiplayer';
 import { initGameData } from '../game';
 import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
@@ -15,7 +16,7 @@ import { setTokenOnTerritory } from '../moves/map';
 
 export const MultiplayerGame: Game = {
   name: 'Condottiere',
-  setup: ({ ctx }: { ctx: GameContext }): GameState => {
+  setup: ({ ctx }: { ctx: GameContext }): MultiplayerGameState => {
     return initGameData(ctx.numPlayers);
   },
   minPlayers: 2,
@@ -34,6 +35,7 @@ export const MultiplayerGame: Game = {
           onMapBegin({ G, ctx });
         }
       },
+      onEnd: onMapEnd,
       turn: {
         minMoves: 1,
         maxMoves: 2,

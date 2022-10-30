@@ -1,4 +1,4 @@
-import { GameContext, GameState } from '../../entity';
+import { GameContext, GameState, MultiplayerGameState } from '../../entity';
 import {
   calculateAdjacentTerritoryCounts,
   calculateTotalTerritoryCounts,
@@ -105,7 +105,13 @@ function getNextCondottiereTokenOwner(G: GameState, ctx: GameContext): string {
     : (battleStatus?.winner as string);
 }
 
-export const onBattleEnd = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
+export const onBattleEnd = ({
+  G,
+  ctx,
+}: {
+  G: MultiplayerGameState;
+  ctx: GameContext;
+}) => {
   // take care of the one who receives the next condottiere token
   G.condottiereTokenOwnerId = getNextCondottiereTokenOwner(G, ctx);
   G.condottiereTokenOwnerHistory = [
@@ -122,6 +128,9 @@ export const onBattleEnd = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
     battleTerritory.status = TerritoryStatus.TAKEN;
     battleTerritory.owner = battleStatus?.winner;
   }
+  // Multiplayer-only-code, so that the battle status can be broadcast to clients
+  G.battleEnded = true;
+  G.battleWinner = battleStatus?.winner;
 
   const players = Object.values(G.players);
   const remainingCount = playerWhoStillHaveCardsCount(players);
@@ -141,4 +150,16 @@ export const onMapBegin = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
     player.battleLine = [];
     player.passed = !player?.hand?.length ? true : false;
   });
+};
+
+// This code fires before battle phase
+export const onMapEnd = ({
+  G,
+  ctx,
+}: {
+  G: MultiplayerGameState;
+  ctx: GameContext;
+}) => {
+  G.battleEnded = false;
+  G.battleWinner = '';
 };
