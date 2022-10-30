@@ -13,26 +13,49 @@ import {
   hasOnlyNonMercenaryCards,
 } from '../utils';
 
-export const pass = (G: GameState, ctx: GameContext) => {
+export const pass = ({
+  G,
+  ctx,
+  events,
+}: {
+  G: GameState;
+  ctx: GameContext;
+  events: { endTurn: () => void };
+}) => {
   const playerState = G.players[ctx.currentPlayer];
   playerState.passed = true;
-  ctx?.events?.endTurn();
+  events?.endTurn();
 };
 
 // if the player doesn't have any mercenary cards
 // he has the option to discard his hand
-export const discardHand = (G: GameState, ctx: GameContext) => {
+export const discardHand = ({
+  G,
+  ctx,
+  events,
+}: {
+  G: GameState;
+  ctx: GameContext;
+  events: { endTurn: () => void };
+}) => {
   const playerState = G.players[ctx.currentPlayer];
   if (hasOnlyNonMercenaryCards(playerState)) {
     // discard hand
     G.discardPile.push(...playerState.hand);
     playerState.hand = [];
     playerState.passed = true;
-    ctx?.events?.endTurn();
+    events?.endTurn();
   }
 };
 
-export const playCard = (G: GameState, ctx: GameContext, cardId: string) => {
+export const playCard = (
+  {
+    G,
+    ctx,
+    events,
+  }: { G: GameState; ctx: GameContext; events: { endTurn: () => void } },
+  cardId: string
+) => {
   const playerState = G.players[ctx.currentPlayer];
   // remove the card from hand
   const card = playerState.hand.filter(
@@ -72,7 +95,7 @@ export const playCard = (G: GameState, ctx: GameContext, cardId: string) => {
 
   if (!cardHasAdditionalEffects(card)) {
     playerState.passed = !playerState?.hand?.length ? true : false;
-    ctx?.events?.endTurn();
+    events?.endTurn();
   }
 };
 
@@ -86,8 +109,11 @@ function cardHasAdditionalEffects(card: ICardModel): boolean {
 // It is also possible to just play scarecrow without picking a mercenary card
 // which has the effect of discarding the scarecrow card
 export const scarecrow = (
-  G: GameState,
-  ctx: GameContext,
+  {
+    G,
+    ctx,
+    events,
+  }: { G: GameState; ctx: GameContext; events: { endTurn: () => void } },
   scarecrowId: string,
   mercenaryId?: string
 ) => {
@@ -118,7 +144,7 @@ export const scarecrow = (
     (card) => card.id !== scarecrowId
   );
   playerState.passed = !playerState?.hand?.length ? true : false;
-  ctx?.events?.endTurn();
+  events?.endTurn();
 };
 
 // Discard all winter cards

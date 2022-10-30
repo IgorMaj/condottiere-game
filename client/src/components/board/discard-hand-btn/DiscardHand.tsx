@@ -4,6 +4,7 @@ import {
   hasOnlyNonMercenaryCards,
   scarecrowPlayed,
 } from '../../../domain/game-logic/utils';
+import { isMapPhase } from '../../../utils/client';
 import styles from './DiscardHand.module.scss';
 
 export const DiscardHand = (props: {
@@ -16,7 +17,8 @@ export const DiscardHand = (props: {
   const isEnabled =
     state.id === ctx.currentPlayer &&
     !scarecrowPlayed(state) &&
-    hasOnlyNonMercenaryCards(state);
+    hasOnlyNonMercenaryCards(state) &&
+    !isMapPhase(ctx);
   return (
     <div
       onDoubleClick={() => moves?.discardHand()}

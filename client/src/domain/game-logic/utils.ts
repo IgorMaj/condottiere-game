@@ -13,8 +13,6 @@ import {
 } from '../entity';
 import i18n from '../../i18n';
 import { State } from 'boardgame.io';
-import { GameConfig } from '../../utils/game-config';
-import { navigate } from '../../utils/navigation';
 
 // if the count of max scores is higher
 // than 1 then it means that two or more players are tied for the same score
@@ -121,10 +119,6 @@ export function getPlayerTerritoryCount(
   return territories.filter((t) => t.owner === playedId).length;
 }
 
-export function historyState(): GameState {
-  return window?.history?.state?.usr;
-}
-
 export function battleEndMessage(ctx: GameContext) {
   if (ctx?.gameover?.draw) {
     return i18n.t('Battle.draw');
@@ -184,20 +178,6 @@ export function isPopeState(state: State) {
     !!gameState.territories.find((t) => t.status === TerritoryStatus.POPE) &&
     !gameState.territories.find((t) => t.status === TerritoryStatus.BATTLE)
   );
-}
-
-export function registerAntiRefresh() {
-  // To prevent accidental page refresh (at least give the user the option to decline)
-  window.addEventListener('beforeunload', function (e) {
-    // Cancel the event
-    e.preventDefault();
-    // Chrome requires returnValue to be set
-    e.returnValue = '';
-  });
-  window.addEventListener('unload', () => {
-    GameConfig.reset();
-    navigate('/', { replace: true, state: null });
-  });
 }
 
 export function getLastCondottiereOwnerPos(G: GameState): number {

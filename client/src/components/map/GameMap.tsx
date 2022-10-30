@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
 import { initMapGame } from '../../domain/game-logic/map/map-game';
@@ -12,11 +12,7 @@ import styles from './GameMap.module.scss';
 import { TokenContainer } from './token-container/TokenContainer';
 import { Client } from 'boardgame.io/react';
 import { validGameState } from '../../utils/methods';
-import {
-  gameEndMessage,
-  generateBots,
-  historyState,
-} from '../../domain/game-logic/utils';
+import { gameEndMessage, generateBots } from '../../domain/game-logic/utils';
 import { showAlert } from '../../utils/alert/alert.service';
 import { toBattle } from '../../utils/navigation';
 import { Local } from 'boardgame.io/multiplayer';
@@ -25,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { GameConfig } from '../../utils/game-config';
 import { useNavigate } from 'react-router-dom';
 import { MapBot } from '../../domain/game-logic/ai/map';
+import { historyState } from '../../utils/client';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -65,12 +62,16 @@ const GameMapView = (props: {
   ctx: GameContext;
   G: GameState;
   moves: Moves;
+  playerID: string;
+  callback?: () => void;
 }): JSX.Element => {
   const {
     G,
     G: { territories },
     moves,
     ctx,
+    playerID,
+    callback,
   } = props;
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -78,9 +79,9 @@ const GameMapView = (props: {
   React.useEffect(() => {
     if (!G.condottiereTokenOwnerId) {
       showAlert(t('Map.territoryMarked'));
-      toBattle(G);
+      callback?.();
     }
-  }, [G.condottiereTokenOwnerId, G, t]);
+  }, [G.condottiereTokenOwnerId, G, t, callback]);
 
   React.useEffect(() => {
     if (ctx.gameover) {
@@ -134,7 +135,7 @@ const GameMapView = (props: {
           ctx={ctx}
           G={G}
           moves={moves}
-          playerId={'0'}
+          playerId={playerID}
         />
       </div>
       <div className={styles.BackToMenuContainer}>
@@ -146,13 +147,33 @@ const GameMapView = (props: {
   );
 };
 
+export const SinglePlayerMapView = (props: {
+  ctx: GameContext;
+  G: GameState;
+  moves: Moves;
+}): JSX.Element => {
+  const toBattleCallback = useCallback(() => {
+    toBattle(props.G);
+  }, [props.G]);
+  return <GameMapView {...props} playerID={'0'} callback={toBattleCallback} />;
+};
+
+export const MultiplayerPlayerMapView = (props: {
+  ctx: GameContext;
+  G: GameState;
+  moves: Moves;
+  playerID: string;
+}): JSX.Element => {
+  return <GameMapView {...props} playerID={props.playerID} />;
+};
+
 export const GameMap = () => {
   // we extract the user state from here
   // (we use the history object to send the state to different games)
   const state = historyState();
   return Client({
     game: initMapGame(validGameState(state) ? state : undefined),
-    board: GameMapView,
+    board: SinglePlayerMapView,
     debug: false,
     multiplayer: Local({
       bots: generateBots(MapBot, GameConfig.NUM_BOTS),

@@ -39,6 +39,12 @@ export interface GameState {
   condottiereTokenOwnerHistory: string[];
 }
 
+// because in multiplayer, battle is just a phase, not a full-fledged game like in singleplayer
+export interface MultiplayerGameState extends GameState {
+  battleEnded?: boolean;
+  battleWinner?: string;
+}
+
 export interface Territory {
   name: string;
   top: string;

@@ -3,21 +3,28 @@ import { fisherYatesShuffle, popMultiple } from '../../../utils/methods';
 import { GameState, GameContext, PlayerState } from '../../entity';
 import { calculateCourtesanCounts, calculateScores } from '../score';
 import {
+  allPlayersPassed,
   battleEnded,
   getCurrentBattleTerritory,
+  getLastCondottiereOwnerPos,
   getPlayerTerritoryCount,
   isDraw,
   playerWhoStillHaveCardsCount,
 } from '../utils';
 import _ from 'lodash';
 
-export const endIf = (G: GameState, ctx: GameContext) => {
+export const endIf = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   const playerStates = Object.values(G.players);
   if (!battleEnded(playerStates)) {
     return;
   }
 
   const scoreObjs = calculateScores(playerStates);
+  // seems to happen in multiplayer
+  if (!scoreObjs?.length) {
+    return;
+  }
+
   if (isDraw(scoreObjs)) {
     return { draw: true };
   }
@@ -35,6 +42,11 @@ export const endIf = (G: GameState, ctx: GameContext) => {
 // so more battles and rounds can be played
 export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
   G = _.cloneDeep(G);
+  onBattleEnd({ G, ctx });
+  return G;
+};
+
+export const onBattleEnd = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   G.condottiereTokenOwnerId = getNextCondottiereTokenOwner(G, ctx);
   G.condottiereTokenOwnerHistory = [
     ...G.condottiereTokenOwnerHistory,
@@ -63,11 +75,9 @@ export const afterBattle = (G: GameState, ctx: GameContext): GameState => {
     // we end the round by allowing the players to draw more cards
     redrawLogic(G, players);
   }
-
-  return G;
 };
 
-function redrawLogic(G: GameState, players: PlayerState[]) {
+export function redrawLogic(G: GameState, players: PlayerState[]) {
   players.forEach((player) => {
     // discard all the hands
     G.discardPile.push(...player.hand);
@@ -88,7 +98,7 @@ function redrawLogic(G: GameState, players: PlayerState[]) {
   });
 }
 
-function getOwnerOfMostCourtesans(G: GameState): string | undefined {
+export function getOwnerOfMostCourtesans(G: GameState): string | undefined {
   const playerStates = Object.values(G.players);
   const scoreObjs = calculateCourtesanCounts(playerStates);
   if (isDraw(scoreObjs)) {
@@ -116,3 +126,29 @@ function getNextCondottiereTokenOwner(G: GameState, ctx: GameContext): string {
   // courtesans FTW
   return ownerOfMostCourtesans ? ownerOfMostCourtesans : ctx?.gameover?.winner;
 }
+
+export const first = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
+  if (allPlayersPassed(Object.values(G))) {
+    // game should end anyway, so this num doesn't matter
+    return 0;
+  }
+  let firstPos = getLastCondottiereOwnerPos(G);
+  // return first player who hasn't passed(start from last condottiere token owner)
+  while (G.players[ctx.playOrder[firstPos]]?.passed) {
+    firstPos = (firstPos + 1) % ctx.numPlayers;
+  }
+  return firstPos;
+};
+
+export const next = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
+  if (allPlayersPassed(Object.values(G))) {
+    return;
+  }
+  // we seek to find a player who hasn't passed
+  // Loop through next position until we do
+  let nextPos = (ctx.playOrderPos + 1) % ctx.numPlayers;
+  while (G.players[ctx.playOrder[nextPos]].passed) {
+    nextPos = (nextPos + 1) % ctx.numPlayers;
+  }
+  return nextPos;
+};

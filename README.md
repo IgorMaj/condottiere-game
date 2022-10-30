@@ -11,6 +11,7 @@ The object of Condottiere is to acquire four connected provinces in renaissance 
 <ul>
 <li>Singleplayer (2-6) players with bots
 </li>
+<li>Multiplayer against other players</li>
 </ul>
 </p>
 <h2>
@@ -18,7 +19,6 @@ Left to do
 </h2>
 <p>
 <ul>
-<li>Multiplayer (Server)</li>
 <li>A feature, allowing the last player who still has cards to keep them</li>
 </ul>
 </p>

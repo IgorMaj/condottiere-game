@@ -7,7 +7,7 @@ export const Card = (props: { model: ICardModel }): JSX.Element => {
     <div
       className={styles.Container}
       style={{
-        backgroundImage: `url('${model.image}')`,
+        backgroundImage: `url(${require(`../../assets/cards/${model.image}`)})`,
       }}
     ></div>
   );

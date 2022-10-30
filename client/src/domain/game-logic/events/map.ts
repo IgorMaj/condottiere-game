@@ -5,7 +5,7 @@ import {
   calculateTotalTerritoryCounts,
 } from '../score';
 
-export const endIf = (G: GameState, ctx: GameContext) => {
+export const endIf = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   const adjacentWinner = adjacentTerritoryCondition(G);
   return adjacentWinner ? adjacentWinner : totalTerritoryCondition(G);
 };

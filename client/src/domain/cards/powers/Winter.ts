@@ -1,11 +1,10 @@
-import IMG from '../../../assets/cards/powers/winter.jpg';
 import { POWER_TYPE, WINTER_CLASS } from '../../../utils/constants';
 import { generateId } from '../../../utils/methods';
 import { ICardModel } from '../../entity';
 
 export const createWinter = (): ICardModel => {
   return {
-    image: IMG,
+    image: 'powers/winter.jpg',
     class: WINTER_CLASS,
     type: POWER_TYPE,
     id: generateId(),
