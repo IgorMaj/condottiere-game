@@ -1,6 +1,6 @@
 import { Game } from 'boardgame.io';
 import { Server } from 'boardgame.io/server';
-import { MultiplayerGame } from '../client/src/domain/game-logic/multiplayer/multiplayer-game';
+import { MultiplayerGame } from './domain/game-logic/multiplayer/multiplayer-game';
 
 const ALL_ORIGIN = new RegExp('.*');
 

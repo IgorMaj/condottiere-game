@@ -32,7 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-server": "ts-node src/server.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +56,8 @@
   "devDependencies": {
     "@types/lodash": "^4.14.182",
     "@types/react-transition-group": "^4.4.4",
-    "@types/uuid": "^8.3.4"
+    "@types/uuid": "^8.3.4",
+    "@types/node": "^18.11.3",
+    "ts-node": "^10.9.1"
   }
 }
