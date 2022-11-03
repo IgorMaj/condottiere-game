@@ -3,7 +3,9 @@ import { MultiplayerGame } from '../../domain/game-logic/multiplayer/multiplayer
 import { MultiplayerGameView } from '../multiplayer/MultiplayerGame';
 import './GameLobby.scss';
 
-const SERVER_URL = `${window.location.protocol}//${window.location.hostname}:8000`;
+const SERVER_URL =
+  process.env.REACT_APP_SERVER_URL ??
+  `${window.location.protocol}//${window.location.hostname}:8000`;
 
 export const GameLobby = (): JSX.Element => {
   return (
