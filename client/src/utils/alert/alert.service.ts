@@ -6,6 +6,7 @@ export const showAlert = (msg: string) => {
     position: 'top-center',
     type: 'default',
     progress: 0,
+    toastId: msg,
     closeOnClick: true,
     autoClose: TOAST_TIMEOUT,
     style: {
