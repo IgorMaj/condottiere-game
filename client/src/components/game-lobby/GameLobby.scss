@@ -108,4 +108,9 @@
     flex-direction: column;
     width: 100%;
   }
+
+  // hide exit lobby button when the div which allows you to enter the lobby is visible
+  .phase + .hidden + .hidden + .buttons {
+    display: none;
+  }
 }
