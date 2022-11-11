@@ -14,11 +14,12 @@ export const TokenContainer = (props: {
   selectToken: (tokenId: string) => void;
 }): JSX.Element => {
   const { t } = useTranslation();
-  const { G, playerId, selectedTokenId, selectToken } = props;
+  const { G, playerId, selectedTokenId, selectToken, ctx } = props;
   const hasCondottiereToken = G.condottiereTokenOwnerId === playerId;
   const hasPopeToken = G.popeTokenOwnerId === playerId;
   const condottiereTokenSelected = CONDOTTIERE_TOKEN_ID === selectedTokenId;
   const popeTokenSelected = POPE_TOKEN_ID === selectedTokenId;
+  const isDisabled = playerId !== ctx.currentPlayer;
 
   useEffect(() => {
     const outsideClick = () => {
@@ -31,7 +32,7 @@ export const TokenContainer = (props: {
   }, [selectToken]);
 
   return (
-    <div className={styles.Container}>
+    <div className={`${styles.Container} ${isDisabled ? styles.Disabled : ''}`}>
       <div
         className={`${styles.Token} ${
           hasCondottiereToken ? styles.CondottiereToken : ''

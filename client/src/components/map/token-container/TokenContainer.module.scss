@@ -28,3 +28,8 @@
     border: 2px solid var(--scarecrowColor);
   }
 }
+
+.Disabled {
+  pointer-events: none;
+  opacity: 0.75;
+}
