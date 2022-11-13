@@ -33,6 +33,10 @@ cd "client"
 npm install
 npm start
 </pre>
+<p>The server shares much of the logic with the client. To simply run it (after running the client):</p>
+<pre>
+npm run start-server
+</pre>
 <h1>Demo</h1>
 <p>The live demo can be found <a href="https://condottiere-game.github.io/">here</a>.</p>
 <h1>License</h1>
