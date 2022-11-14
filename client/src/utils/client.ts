@@ -46,3 +46,7 @@ export function gameEndMessage(ctx: GameContext) {
   }
   return '';
 }
+
+export function getCrownIcon() {
+  return String.fromCodePoint(0x1f451);
+}

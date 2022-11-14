@@ -19,7 +19,7 @@ export const TokenContainer = (props: {
   const hasPopeToken = G.popeTokenOwnerId === playerId;
   const condottiereTokenSelected = CONDOTTIERE_TOKEN_ID === selectedTokenId;
   const popeTokenSelected = POPE_TOKEN_ID === selectedTokenId;
-  const isDisabled = playerId !== ctx.currentPlayer;
+  const isDisabled = ctx.gameover || playerId !== ctx.currentPlayer;
 
   useEffect(() => {
     const outsideClick = () => {

@@ -126,7 +126,7 @@ const GameMapView = (props: {
             </div>
           );
         })}
-        <MapLegend G={G} />
+        <MapLegend G={G} ctx={ctx} />
       </div>
       <div className={styles.OuterTokenContainer}>
         <TokenContainer
