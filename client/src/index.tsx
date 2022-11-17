@@ -6,8 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { registerAntiRefresh } from './utils/client';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 registerAntiRefresh();
+serviceWorkerRegistration.register();
 
 ReactDOM.render(
   <React.StrictMode>
