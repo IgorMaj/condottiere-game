@@ -7,12 +7,15 @@ const SERVER_URL =
   process.env.REACT_APP_SERVER_URL ??
   `${window.location.protocol}//${window.location.hostname}:8000`;
 
+const REFRESH_INTERVAL = 6000;
+
 export const GameLobby = (): JSX.Element => {
   return (
     <div className="game-lobby-container">
       <Lobby
         gameServer={SERVER_URL}
         lobbyServer={SERVER_URL}
+        refreshInterval={REFRESH_INTERVAL}
         gameComponents={[{ game: MultiplayerGame, board: MultiplayerGameView }]}
       />
     </div>
