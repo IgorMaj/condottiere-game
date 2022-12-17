@@ -1,4 +1,5 @@
 import { Game } from 'boardgame.io';
+import { GAME_NAME } from '../../../utils/constants';
 import { GameContext, GameState, MultiplayerGameState } from '../../entity';
 import { first as firstBattle, next as nextBattle } from '../events/battle';
 import { mapPhaseHasEnded, nextTurn as turnMap } from '../events/map-common';
@@ -15,7 +16,7 @@ import { drawCard } from '../moves/draw';
 import { setTokenOnTerritory } from '../moves/map';
 
 export const MultiplayerGame: Game = {
-  name: 'Condottiere',
+  name: GAME_NAME,
   setup: ({ ctx }: { ctx: GameContext }): MultiplayerGameState => {
     return initGameData(ctx.numPlayers);
   },

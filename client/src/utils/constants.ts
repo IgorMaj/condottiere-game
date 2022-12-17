@@ -56,3 +56,5 @@ export const ANIMATION_TIMEOUT = 700;
 
 // to make pope token child states more attractive(so pope token gets placed first)
 export const POPE_SCORE_BONUS = 1000000;
+
+export const GAME_NAME = 'Condottiere';
