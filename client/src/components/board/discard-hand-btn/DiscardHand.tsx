@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next';
-import { GameContext, Moves, PlayerState } from '../../../domain/entity';
+import { useTranslation } from "react-i18next";
+import { GameContext, Moves, PlayerState } from "../../../domain/entity";
 import {
   hasOnlyNonMercenaryCards,
   scarecrowPlayed,
-} from '../../../domain/game-logic/utils';
-import { isMapPhase } from '../../../utils/client';
-import styles from './DiscardHand.module.scss';
+} from "../../../domain/game-logic/utils";
+import { isMapPhase } from "../../../utils/client";
+import Button from "../../ui/button/Button";
 
 export const DiscardHand = (props: {
   moves: Moves;
@@ -20,12 +20,10 @@ export const DiscardHand = (props: {
     hasOnlyNonMercenaryCards(state) &&
     !isMapPhase(ctx);
   return (
-    <div
+    <Button
+      label={t("Battle.discard")}
       onDoubleClick={() => moves?.discardHand()}
-      className={isEnabled ? styles.Container : styles.ContainerDisabled}
-      style={!isEnabled ? { pointerEvents: 'none' } : {}}
-    >
-      <span>{t('Battle.discard')}</span>
-    </div>
+      disabled={!isEnabled}
+    />
   );
 };

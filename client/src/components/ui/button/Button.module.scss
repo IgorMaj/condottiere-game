@@ -1,4 +1,4 @@
-.Container {
+.Button {
   border-radius: 20px;
   cursor: pointer;
   display: flex;
@@ -16,9 +16,9 @@
   }
 }
 
-.ContainerDisabled {
-  @extend .Container;
+.Disabled {
   cursor: not-allowed;
+  pointer-events: none;
   > * {
     color: gray;
   }
