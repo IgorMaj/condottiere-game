@@ -20,6 +20,7 @@ export const initGameData = (numPlayers: number): GameState => {
   }
   return {
     deck: deck,
+    
     players: players,
     territories: initTerritories(),
     popeTokenOwnerId: null,

@@ -20,7 +20,7 @@
   > .MapContainer {
     margin-top: 1em;
     display: flex;
-    background-image: url('../../assets/map.jpg');
+    background-image: url("../../assets/map.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: calc(var(--mapHeight) / 4);
