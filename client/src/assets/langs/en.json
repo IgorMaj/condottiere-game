@@ -13,13 +13,15 @@
   "Map": {
     "territoryMarked": "Territory marked. The battle will start soon.",
     "condottiereTokenSlot": "Condottiere Token Slot",
-    "popeTokenSlot": "Pope Token Slot",
-    "backToMenu": "Back to menu"
+    "popeTokenSlot": "Pope Token Slot"
   },
   "Menu": {
     "singleplayer": "Singleplayer (Bots)",
     "players": "players",
     "back": "Back",
     "multiplayer": "Multiplayer"
+  },
+  "Common": {
+    "backToMenu": "Back to menu"
   }
 }

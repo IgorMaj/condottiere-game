@@ -113,4 +113,14 @@
   .phase + .hidden + .hidden + .buttons {
     display: none;
   }
+
+  .back-to-menu-container {
+    flex-direction: row;
+    width: 100%;
+    justify-items: center;
+    justify-content: center;
+    margin-top: 4em;
+    margin-bottom: 0.5em;
+    display: flex;
+  }
 }

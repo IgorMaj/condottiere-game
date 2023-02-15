@@ -17,7 +17,7 @@ describe('Map Event Test Suite', () => {
     expect(endIf({ G: state, ctx: {} as GameContext })?.winner).toBeFalsy();
 
     state = initGameData(2);
-    wonTerritories = ['Firenze', 'Roma', 'Napoli', 'Speleto'];
+    wonTerritories = ['Firenze', 'Roma', 'Napoli', 'Spoleto'];
     state.territories = state.territories.map((t) =>
       wonTerritories.includes(t.name)
         ? { ...t, owner: '0', status: TerritoryStatus.TAKEN }
@@ -27,7 +27,7 @@ describe('Map Event Test Suite', () => {
     expect(endIf({ G: state, ctx: {} as GameContext })?.winner).toBeTruthy();
 
     state = initGameData(2);
-    wonTerritories = ['Firenze', 'Roma', 'Napoli', 'Speleto'];
+    wonTerritories = ['Firenze', 'Roma', 'Napoli', 'Spoleto'];
     state.territories = state.territories.map((t) =>
       wonTerritories.includes(t.name)
         ? { ...t, owner: '0', status: TerritoryStatus.TAKEN }
