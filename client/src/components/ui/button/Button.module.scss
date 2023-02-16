@@ -1,4 +1,4 @@
-.Container {
+.Button {
   border-radius: 20px;
   cursor: pointer;
   display: flex;
@@ -7,7 +7,7 @@
   > * {
     color: black;
     font-weight: bold;
-    font-size: 24px;
+    font-size: var(--standardSize);
     margin-left: 1em;
     margin-right: 1em;
     &:hover {
@@ -16,9 +16,9 @@
   }
 }
 
-.ContainerDisabled {
-  @extend .Container;
+.Disabled {
   cursor: not-allowed;
+  pointer-events: none;
   > * {
     color: gray;
   }

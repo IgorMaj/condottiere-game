@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next';
-import { GameContext, Moves, PlayerState } from '../../../domain/entity';
-import { scarecrowPlayed } from '../../../domain/game-logic/utils';
-import { isMapPhase } from '../../../utils/client';
-import styles from './Pass.module.scss';
+import { useTranslation } from "react-i18next";
+import { GameContext, Moves, PlayerState } from "../../../domain/entity";
+import { scarecrowPlayed } from "../../../domain/game-logic/utils";
+import { isMapPhase } from "../../../utils/client";
+import Button from "../../ui/button/Button";
 
 export const Pass = (props: {
   moves: Moves;
@@ -16,12 +16,10 @@ export const Pass = (props: {
     !scarecrowPlayed(state) &&
     !isMapPhase(ctx);
   return (
-    <div
+    <Button
+      label={t("Battle.pass")}
       onDoubleClick={() => moves?.pass()}
-      className={isEnabled ? styles.Container : styles.ContainerDisabled}
-      style={!isEnabled ? { pointerEvents: 'none' } : {}}
-    >
-      <span>{t('Battle.pass')}</span>
-    </div>
+      disabled={!isEnabled}
+    />
   );
 };

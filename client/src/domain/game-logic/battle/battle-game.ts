@@ -5,7 +5,6 @@ import { BATTLE_AI } from '../ai/battle';
 import { endIf, first, next } from '../events/battle';
 import { initGameData } from '../game';
 import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
-import { drawCard } from '../moves/draw';
 
 export const initBattleGame = (state?: GameState) => {
   const BattleGame: Game = {
@@ -28,7 +27,6 @@ export const initBattleGame = (state?: GameState) => {
     moves: {
       playCard: playCard,
       pass: pass,
-      drawCard: drawCard,
       scarecrow: scarecrow,
       discardHand: discardHand,
     },

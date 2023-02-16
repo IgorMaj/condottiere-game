@@ -1,9 +1,13 @@
 import { Lobby } from 'boardgame.io/react';
 import _ from 'lodash';
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { MultiplayerGame } from '../../domain/game-logic/multiplayer/multiplayer-game';
+import { clearCookies } from '../../utils/client';
 import { GAME_NAME } from '../../utils/constants';
 import { MultiplayerGameView } from '../multiplayer/MultiplayerGame';
+import Button from '../ui/button/Button';
 import './GameLobby.scss';
 
 const SERVER_URL =
@@ -25,6 +29,8 @@ const refreshPatched = async function (this: any) {
 
 export const GameLobby = (): JSX.Element => {
   const ref = useRef<Lobby>(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const conn = (ref?.current as any)?.connection;
     if (conn) {
@@ -32,15 +38,29 @@ export const GameLobby = (): JSX.Element => {
       conn.__proto__.refresh = refreshPatched;
     }
   }, [ref]);
+
+  const backToMenu = () => {
+    clearCookies();
+    navigate('/', { replace: true, state: null });
+  };
+
+  const { t } = useTranslation();
   return (
-    <div className="game-lobby-container">
-      <Lobby
-        ref={ref}
-        gameServer={SERVER_URL}
-        lobbyServer={SERVER_URL}
-        refreshInterval={REFRESH_INTERVAL}
-        gameComponents={[{ game: MultiplayerGame, board: MultiplayerGameView }]}
-      />
-    </div>
+    <>
+      <div className='game-lobby-container'>
+        <Lobby
+          ref={ref}
+          gameServer={SERVER_URL}
+          lobbyServer={SERVER_URL}
+          refreshInterval={REFRESH_INTERVAL}
+          gameComponents={[
+            { game: MultiplayerGame, board: MultiplayerGameView },
+          ]}
+        />
+      </div>
+      <div className='back-to-menu-container '>
+        <Button label={t('Common.backToMenu')} onClick={backToMenu} />
+      </div>
+    </>
   );
 };

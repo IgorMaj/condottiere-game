@@ -81,7 +81,7 @@ export function initTerritories(): Territory[] {
       left: '65.25%',
       status: TerritoryStatus.FREE,
       owner: null,
-      adjacentTo: ['Firenze', 'Bologna', 'Speleto', 'Aurona'],
+      adjacentTo: ['Firenze', 'Bologna', 'Spoleto', 'Aurona'],
     },
     {
       name: 'Aurona',
@@ -89,7 +89,7 @@ export function initTerritories(): Territory[] {
       left: '78.3%',
       status: TerritoryStatus.FREE,
       owner: null,
-      adjacentTo: ['Speleto', 'Urbino', 'Napoli'],
+      adjacentTo: ['Spoleto', 'Urbino', 'Napoli'],
     },
     {
       name: 'Siena',
@@ -111,7 +111,7 @@ export function initTerritories(): Territory[] {
         'Bologna',
         'Siena',
         'Urbino',
-        'Speleto',
+        'Spoleto',
         'Roma',
       ],
     },
@@ -132,7 +132,7 @@ export function initTerritories(): Territory[] {
       adjacentTo: ['Bologna', 'Modena', 'Mantova', 'Venezia'],
     },
     {
-      name: 'Speleto',
+      name: 'Spoleto',
       top: '58.8%',
       left: '57.25%',
       status: TerritoryStatus.FREE,
@@ -145,7 +145,7 @@ export function initTerritories(): Territory[] {
       left: '54.25%',
       status: TerritoryStatus.FREE,
       owner: null,
-      adjacentTo: ['Siena', 'Firenze', 'Speleto', 'Napoli'],
+      adjacentTo: ['Siena', 'Firenze', 'Spoleto', 'Napoli'],
     },
     {
       name: 'Napoli',
@@ -153,7 +153,7 @@ export function initTerritories(): Territory[] {
       left: '78.95%',
       status: TerritoryStatus.FREE,
       owner: null,
-      adjacentTo: ['Roma', 'Speleto', 'Aurona'],
+      adjacentTo: ['Roma', 'Spoleto', 'Aurona'],
     },
   ];
   return territories;

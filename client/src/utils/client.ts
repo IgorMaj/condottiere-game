@@ -17,6 +17,20 @@ export function registerAntiRefresh() {
   });
 }
 
+/**
+ * Predefined lobby class uses cookies to store data, hence the existence of this method
+ */
+export function clearCookies() {
+  const cookies = document.cookie.split(';');
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i];
+    const eqPos = cookie.indexOf('=');
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  }
+}
+
 export function historyState(): GameState {
   return window?.history?.state?.usr;
 }

@@ -20,7 +20,7 @@
   > .MapContainer {
     margin-top: 1em;
     display: flex;
-    background-image: url('../../assets/map.jpg');
+    background-image: url("../../assets/map.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: calc(var(--mapHeight) / 4);
@@ -66,21 +66,4 @@
   justify-content: center;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  > .BackToMenu {
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    padding: 1em;
-    background-color: var(--orangebrown);
-    > * {
-      color: black;
-      font-weight: bold;
-      font-size: 24px;
-      margin-left: 1em;
-      margin-right: 1em;
-      &:hover {
-        color: white;
-      }
-    }
-  }
 }

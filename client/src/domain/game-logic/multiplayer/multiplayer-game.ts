@@ -12,7 +12,6 @@ import {
 } from '../events/multiplayer';
 import { initGameData } from '../game';
 import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
-import { drawCard } from '../moves/draw';
 import { setTokenOnTerritory } from '../moves/map';
 
 export const MultiplayerGame: Game = {
@@ -66,7 +65,6 @@ export const MultiplayerGame: Game = {
       moves: {
         playCard: playCard,
         pass: pass,
-        drawCard: drawCard,
         scarecrow: scarecrow,
         discardHand: discardHand,
       },

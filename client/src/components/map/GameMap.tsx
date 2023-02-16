@@ -22,6 +22,7 @@ import { GameConfig } from '../../utils/game-config';
 import { useNavigate } from 'react-router-dom';
 import { MapBot } from '../../domain/game-logic/ai/map';
 import { gameEndMessage, historyState } from '../../utils/client';
+import Button from '../ui/button/Button';
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -74,7 +75,6 @@ const GameMapView = (props: {
     callback,
   } = props;
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [selectedTokenId, setToken] = React.useState('');
   React.useEffect(() => {
     if (!G.condottiereTokenOwnerId) {
@@ -88,10 +88,6 @@ const GameMapView = (props: {
       return showAlert(gameEndMessage(ctx));
     }
   }, [ctx.gameover, ctx]);
-  const backToMenu = () => {
-    GameConfig.reset();
-    navigate('/', { replace: true, state: null });
-  };
   return (
     <div className={styles.Container}>
       <div className={styles.MapContainer}>
@@ -120,7 +116,7 @@ const GameMapView = (props: {
                   ...takenPointStyle(point),
                 }}
               ></div>
-              <ReactTooltip id={`${point.name}Tip`} place="top" effect="solid">
+              <ReactTooltip id={`${point.name}Tip`} place='top' effect='solid'>
                 {point.name} {point.owner ? `(Player ${point.owner})` : ''}
               </ReactTooltip>
             </div>
@@ -138,11 +134,6 @@ const GameMapView = (props: {
           playerId={playerID}
         />
       </div>
-      <div className={styles.BackToMenuContainer}>
-        <div onClick={backToMenu} className={styles.BackToMenu}>
-          <span>{t('Map.backToMenu')}</span>
-        </div>
-      </div>
     </div>
   );
 };
@@ -155,7 +146,22 @@ export const SinglePlayerMapView = (props: {
   const toBattleCallback = useCallback(() => {
     toBattle(props.G);
   }, [props.G]);
-  return <GameMapView {...props} playerID={'0'} callback={toBattleCallback} />;
+  const { t } = useTranslation();
+
+  const navigate = useNavigate();
+  const backToMenu = () => {
+    GameConfig.reset();
+    navigate('/', { replace: true, state: null });
+  };
+
+  return (
+    <>
+      <GameMapView {...props} playerID={'0'} callback={toBattleCallback} />
+      <div className={styles.BackToMenuContainer}>
+        <Button label={t('Common.backToMenu')} onClick={backToMenu} />
+      </div>
+    </>
+  );
 };
 
 export const MultiplayerPlayerMapView = (props: {
