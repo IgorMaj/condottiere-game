@@ -7,7 +7,7 @@ export const MainMenu = (): JSX.Element => {
     <div className={styles.Container}>
       {menu?.entries?.map((entry: MenuEntry, index: number) => {
         return (
-          <div
+          <button
             key={index}
             className={entry.disabled ? styles.EntryDisabled : styles.Entry}
             onClick={() => {
@@ -17,7 +17,7 @@ export const MainMenu = (): JSX.Element => {
             }}
           >
             <div className={styles.Text}>{entry.name}</div>
-          </div>
+          </button>
         );
       })}
     </div>

@@ -1,5 +1,6 @@
 .game-lobby-container {
   display: contents;
+  font-size: 1rem;
 
   .hidden {
     display: none !important;
@@ -22,6 +23,7 @@
     padding-bottom: 6px;
     background-color: var(--orangebrown);
     border: 2px solid black;
+    font-size: var(--standardSize);
   }
 
   .buttons {
@@ -35,11 +37,11 @@
     border-radius: 20px;
     cursor: pointer;
     display: flex;
-    padding: 0.6em;
+    padding: 1rem;
     background-color: var(--orangebrown);
     color: black;
-    font-weight: bolder;
-    font-size: larger;
+    font-size: var(--standardSize);
+    font-weight: bold;
     &:hover {
       color: white;
     }
@@ -113,14 +115,14 @@
   .phase + .hidden + .hidden + .buttons {
     display: none;
   }
+}
 
-  .back-to-menu-container {
-    flex-direction: row;
-    width: 100%;
-    justify-items: center;
-    justify-content: center;
-    margin-top: 4em;
-    margin-bottom: 0.5em;
-    display: flex;
-  }
+.back-to-menu-container {
+  flex-direction: row;
+  width: 100%;
+  justify-items: center;
+  justify-content: center;
+  margin-top: 4em;
+  margin-bottom: 0.5em;
+  display: flex;
 }

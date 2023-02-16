@@ -46,17 +46,21 @@ export const GameLobby = (): JSX.Element => {
 
   const { t } = useTranslation();
   return (
-    <div className='game-lobby-container'>
-      <Lobby
-        ref={ref}
-        gameServer={SERVER_URL}
-        lobbyServer={SERVER_URL}
-        refreshInterval={REFRESH_INTERVAL}
-        gameComponents={[{ game: MultiplayerGame, board: MultiplayerGameView }]}
-      />
+    <>
+      <div className='game-lobby-container'>
+        <Lobby
+          ref={ref}
+          gameServer={SERVER_URL}
+          lobbyServer={SERVER_URL}
+          refreshInterval={REFRESH_INTERVAL}
+          gameComponents={[
+            { game: MultiplayerGame, board: MultiplayerGameView },
+          ]}
+        />
+      </div>
       <div className='back-to-menu-container '>
         <Button label={t('Common.backToMenu')} onClick={backToMenu} />
       </div>
-    </div>
+    </>
   );
 };

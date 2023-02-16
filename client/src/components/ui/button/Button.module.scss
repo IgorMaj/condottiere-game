@@ -7,7 +7,7 @@
   > * {
     color: black;
     font-weight: bold;
-    font-size: 24px;
+    font-size: var(--standardSize);
     margin-left: 1em;
     margin-right: 1em;
     &:hover {
