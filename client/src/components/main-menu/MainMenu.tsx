@@ -1,5 +1,5 @@
-import styles from './MainMenu.module.scss';
-import { MenuEntry, useMainMenu } from './menu-hook';
+import styles from "./MainMenu.module.scss";
+import { MenuEntry, useMainMenu } from "./menu-hook";
 
 export const MainMenu = (): JSX.Element => {
   const { menu } = useMainMenu();

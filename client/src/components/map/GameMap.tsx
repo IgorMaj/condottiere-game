@@ -1,28 +1,28 @@
-import React, { useCallback } from 'react';
-import ReactTooltip from 'react-tooltip';
-import { GameContext, GameState, Moves, Territory } from '../../domain/entity';
-import { initMapGame } from '../../domain/game-logic/map/map-game';
+import React, { useCallback } from "react";
+import ReactTooltip from "react-tooltip";
+import { GameContext, GameState, Moves, Territory } from "../../domain/entity";
+import { initMapGame } from "../../domain/game-logic/map/map-game";
 import {
   CONDOTTIERE_TOKEN_ID,
   PLAYER_COLORS,
   POPE_TOKEN_ID,
   TerritoryStatus,
-} from '../../utils/constants';
-import styles from './GameMap.module.scss';
-import { TokenContainer } from './token-container/TokenContainer';
-import { Client } from 'boardgame.io/react';
-import { validGameState } from '../../utils/methods';
-import { generateBots } from '../../domain/game-logic/utils';
-import { showAlert } from '../../utils/alert/alert.service';
-import { toBattle } from '../../utils/navigation';
-import { Local } from 'boardgame.io/multiplayer';
-import { MapLegend } from './map-legend/MapLegend';
-import { useTranslation } from 'react-i18next';
-import { GameConfig } from '../../utils/game-config';
-import { useNavigate } from 'react-router-dom';
-import { MapBot } from '../../domain/game-logic/ai/map';
-import { gameEndMessage, historyState } from '../../utils/client';
-import Button from '../ui/button/Button';
+} from "../../utils/constants";
+import styles from "./GameMap.module.scss";
+import { TokenContainer } from "./token-container/TokenContainer";
+import { Client } from "boardgame.io/react";
+import { validGameState } from "../../utils/methods";
+import { generateBots } from "../../domain/game-logic/utils";
+import { showAlert } from "../../utils/alert/alert.service";
+import { toBattle } from "../../utils/navigation";
+import { Local } from "boardgame.io/multiplayer";
+import { MapLegend } from "./map-legend/MapLegend";
+import { useTranslation } from "react-i18next";
+import { GameConfig } from "../../utils/game-config";
+import { useNavigate } from "react-router-dom";
+import { MapBot } from "../../domain/game-logic/ai/map";
+import { gameEndMessage, historyState } from "../../utils/client";
+import Button from "../ui/button/Button";
 
 const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
   if (
@@ -47,7 +47,7 @@ const calculatePointStatus = (point: Territory, selectedTokenId: string) => {
     return styles.PopeProtectionPoint;
   }
 
-  return '';
+  return "";
 };
 
 const takenPointStyle = (point: Territory) => {
@@ -75,10 +75,10 @@ const GameMapView = (props: {
     callback,
   } = props;
   const { t } = useTranslation();
-  const [selectedTokenId, setToken] = React.useState('');
+  const [selectedTokenId, setToken] = React.useState("");
   React.useEffect(() => {
     if (!G.condottiereTokenOwnerId) {
-      showAlert(t('Map.territoryMarked'));
+      showAlert(t("Map.territoryMarked"));
       callback?.();
     }
   }, [G.condottiereTokenOwnerId, G, t, callback]);
@@ -101,7 +101,7 @@ const GameMapView = (props: {
                     selectedTokenId
                   ) {
                     moves.setTokenOnTerritory(point.name, selectedTokenId);
-                    setToken('');
+                    setToken("");
                   }
                 }}
                 data-tip
@@ -116,8 +116,8 @@ const GameMapView = (props: {
                   ...takenPointStyle(point),
                 }}
               ></div>
-              <ReactTooltip id={`${point.name}Tip`} place='top' effect='solid'>
-                {point.name} {point.owner ? `(Player ${point.owner})` : ''}
+              <ReactTooltip id={`${point.name}Tip`} place="top" effect="solid">
+                {point.name} {point.owner ? `(Player ${point.owner})` : ""}
               </ReactTooltip>
             </div>
           );
@@ -151,14 +151,14 @@ export const SinglePlayerMapView = (props: {
   const navigate = useNavigate();
   const backToMenu = () => {
     GameConfig.reset();
-    navigate('/', { replace: true, state: null });
+    navigate("/", { replace: true, state: null });
   };
 
   return (
     <>
-      <GameMapView {...props} playerID={'0'} callback={toBattleCallback} />
+      <GameMapView {...props} playerID={"0"} callback={toBattleCallback} />
       <div className={styles.BackToMenuContainer}>
-        <Button label={t('Common.backToMenu')} onClick={backToMenu} />
+        <Button label={t("Common.backToMenu")} onClick={backToMenu} />
       </div>
     </>
   );

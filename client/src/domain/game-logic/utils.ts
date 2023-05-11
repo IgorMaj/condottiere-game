@@ -3,9 +3,9 @@ import {
   SCARECROW_CLASS,
   SURRENDER_CLASS,
   TerritoryStatus,
-} from '../../utils/constants';
-import { GameState, ICardModel, PlayerState, Territory } from '../entity';
-import { State } from 'boardgame.io';
+} from "../../utils/constants";
+import { GameState, ICardModel, PlayerState, Territory } from "../entity";
+import { State } from "boardgame.io";
 
 // if the count of max scores is higher
 // than 1 then it means that two or more players are tied for the same score

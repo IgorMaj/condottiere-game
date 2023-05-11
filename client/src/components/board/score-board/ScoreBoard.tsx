@@ -1,7 +1,7 @@
-import { GameContext, PlayerState } from '../../../domain/entity';
-import { calculateScores } from '../../../domain/game-logic/score';
-import { PLAYER_COLORS } from '../../../utils/constants';
-import styles from './ScoreBoard.module.scss';
+import { GameContext, PlayerState } from "../../../domain/entity";
+import { calculateScores } from "../../../domain/game-logic/score";
+import { PLAYER_COLORS } from "../../../utils/constants";
+import styles from "./ScoreBoard.module.scss";
 
 function currentTurn(
   playerId: string,
@@ -10,12 +10,12 @@ function currentTurn(
 ) {
   return playerId === currentPlayerId
     ? {
-        textDecoration: `underline ${passed ? 'line-through' : ''}`,
+        textDecoration: `underline ${passed ? "line-through" : ""}`,
       }
     : {
         ...(passed
           ? {
-              textDecoration: 'line-through',
+              textDecoration: "line-through",
             }
           : {}),
       };

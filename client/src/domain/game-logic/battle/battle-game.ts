@@ -1,10 +1,10 @@
-import { Game } from 'boardgame.io';
-import { GameConfig } from '../../../utils/game-config';
-import { GameContext, GameState } from '../../entity';
-import { BATTLE_AI } from '../ai/battle';
-import { endIf, first, next } from '../events/battle';
-import { initGameData } from '../game';
-import { playCard, pass, scarecrow, discardHand } from '../moves/battle';
+import { Game } from "boardgame.io";
+import { GameConfig } from "../../../utils/game-config";
+import { GameContext, GameState } from "../../entity";
+import { BATTLE_AI } from "../ai/battle";
+import { endIf, first, next } from "../events/battle";
+import { initGameData } from "../game";
+import { playCard, pass, scarecrow, discardHand } from "../moves/battle";
 
 export const initBattleGame = (state?: GameState) => {
   const BattleGame: Game = {

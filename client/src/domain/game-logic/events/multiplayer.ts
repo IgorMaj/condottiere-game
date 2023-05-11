@@ -1,20 +1,20 @@
-import { GameContext, GameState, MultiplayerGameState } from '../../entity';
+import { GameContext, GameState, MultiplayerGameState } from "../../entity";
 import {
   calculateAdjacentTerritoryCounts,
   calculateTotalTerritoryCounts,
-} from '../score';
+} from "../score";
 import {
   battleEnded,
   getCurrentBattleTerritory,
   playerWhoStillHaveCardsCount,
-} from '../utils';
+} from "../utils";
 import {
   endIf as battleEndIf,
   getOwnerOfMostCourtesans,
   redrawLogic,
-} from '../events/battle';
-import { TerritoryStatus } from '../../../utils/constants';
-import _ from 'lodash';
+} from "../events/battle";
+import { TerritoryStatus } from "../../../utils/constants";
+import _ from "lodash";
 
 export const battleHasEnded = ({
   G,
@@ -161,5 +161,5 @@ export const onMapEnd = ({
   ctx: GameContext;
 }) => {
   G.battleEnded = false;
-  G.battleWinner = '';
+  G.battleWinner = "";
 };

@@ -1,4 +1,4 @@
-import styles from './Button.module.scss';
+import styles from "./Button.module.scss";
 
 const Button = (props: {
   label: string;
@@ -10,7 +10,7 @@ const Button = (props: {
     <button
       onClick={props.onClick}
       onDoubleClick={props.onDoubleClick}
-      className={`${styles.Button} ${props.disabled ? styles.Disabled : ''}`}
+      className={`${styles.Button} ${props.disabled ? styles.Disabled : ""}`}
     >
       <span>{props.label}</span>
     </button>

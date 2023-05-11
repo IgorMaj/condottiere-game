@@ -1,7 +1,7 @@
-import { useDrag } from 'react-dnd';
-import { ICardModel, Moves } from '../../../domain/entity';
-import { Card } from '../../cards/Card';
-import styles from './Hand.module.scss';
+import { useDrag } from "react-dnd";
+import { ICardModel, Moves } from "../../../domain/entity";
+import { Card } from "../../cards/Card";
+import styles from "./Hand.module.scss";
 
 export const DragCard = (props: {
   card: ICardModel;
@@ -20,9 +20,9 @@ export const DragCard = (props: {
     <div
       style={{
         opacity: opacity,
-        cursor: 'pointer',
-        height: 'fit-content',
-        width: 'fit-content',
+        cursor: "pointer",
+        height: "fit-content",
+        width: "fit-content",
       }}
       ref={dragRef}
     >

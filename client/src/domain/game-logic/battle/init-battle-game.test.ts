@@ -1,7 +1,7 @@
-import { initBattleGame } from './battle-game';
+import { initBattleGame } from "./battle-game";
 
-describe('Init battle test suite', () => {
-  test('Init map game test', () => {
+describe("Init battle test suite", () => {
+  test("Init map game test", () => {
     const inited = initBattleGame();
     expect(inited.ai).toBeTruthy();
     expect(inited.endIf).toBeTruthy();

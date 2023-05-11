@@ -1,20 +1,20 @@
-import { fisherYatesShuffle } from '../../utils/methods';
-import { createMercenary1 } from '../cards/mercenaries/Mercenary1';
-import { createMercenary10 } from '../cards/mercenaries/Mercenary10';
-import { createMercenary2 } from '../cards/mercenaries/Mercenary2';
-import { createMercenary3 } from '../cards/mercenaries/Mercenary3';
-import { createMercenary4 } from '../cards/mercenaries/Mercenary4';
-import { createMercenary5 } from '../cards/mercenaries/Mercenary5';
-import { createMercenary6 } from '../cards/mercenaries/Mercenary6';
-import { createScarecrow } from '../cards/powers/Scarecrow';
-import { createSpring } from '../cards/powers/Spring';
-import { createSurrender } from '../cards/powers/Surrender';
-import { createWinter } from '../cards/powers/Winter';
-import { createBishop } from '../cards/special/Bishop';
-import { createCourtesan } from '../cards/special/Courtesan';
-import { createDrummer } from '../cards/special/Drummer';
-import { createHeroine } from '../cards/special/Heroine';
-import { ICardModel } from '../entity';
+import { fisherYatesShuffle } from "../../utils/methods";
+import { createMercenary1 } from "../cards/mercenaries/Mercenary1";
+import { createMercenary10 } from "../cards/mercenaries/Mercenary10";
+import { createMercenary2 } from "../cards/mercenaries/Mercenary2";
+import { createMercenary3 } from "../cards/mercenaries/Mercenary3";
+import { createMercenary4 } from "../cards/mercenaries/Mercenary4";
+import { createMercenary5 } from "../cards/mercenaries/Mercenary5";
+import { createMercenary6 } from "../cards/mercenaries/Mercenary6";
+import { createScarecrow } from "../cards/powers/Scarecrow";
+import { createSpring } from "../cards/powers/Spring";
+import { createSurrender } from "../cards/powers/Surrender";
+import { createWinter } from "../cards/powers/Winter";
+import { createBishop } from "../cards/special/Bishop";
+import { createCourtesan } from "../cards/special/Courtesan";
+import { createDrummer } from "../cards/special/Drummer";
+import { createHeroine } from "../cards/special/Heroine";
+import { ICardModel } from "../entity";
 
 export const createMultipleCards = (
   createFn: () => ICardModel,

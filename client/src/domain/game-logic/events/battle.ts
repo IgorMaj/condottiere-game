@@ -1,7 +1,7 @@
-import { TerritoryStatus } from '../../../utils/constants';
-import { fisherYatesShuffle, popMultiple } from '../../../utils/methods';
-import { GameState, GameContext, PlayerState } from '../../entity';
-import { calculateCourtesanCounts, calculateScores } from '../score';
+import { TerritoryStatus } from "../../../utils/constants";
+import { fisherYatesShuffle, popMultiple } from "../../../utils/methods";
+import { GameState, GameContext, PlayerState } from "../../entity";
+import { calculateCourtesanCounts, calculateScores } from "../score";
 import {
   allPlayersPassed,
   battleEnded,
@@ -10,8 +10,8 @@ import {
   getPlayerTerritoryCount,
   isDraw,
   playerWhoStillHaveCardsCount,
-} from '../utils';
-import _ from 'lodash';
+} from "../utils";
+import _ from "lodash";
 
 export const endIf = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   const playerStates = Object.values(G.players);

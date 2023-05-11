@@ -5,13 +5,13 @@ import {
   SPRING_CLASS,
   TerritoryStatus,
   WINTER_CLASS,
-} from '../../../utils/constants';
-import { GameContext, GameState, ICardModel } from '../../entity';
+} from "../../../utils/constants";
+import { GameContext, GameState, ICardModel } from "../../entity";
 import {
   findStrongestMercenaryCard,
   getCurrentPopeTerritory,
   hasOnlyNonMercenaryCards,
-} from '../utils';
+} from "../utils";
 
 export const pass = ({
   G,

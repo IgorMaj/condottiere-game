@@ -1,11 +1,11 @@
-import { Game } from 'boardgame.io';
-import { GameConfig } from '../../../utils/game-config';
-import { GameContext, GameState } from '../../entity';
-import { MAP_AI } from '../ai/map';
-import { endIf } from '../events/map';
-import { nextTurn } from '../events/map-common';
-import { initGameData } from '../game';
-import { setTokenOnTerritory } from '../moves/map';
+import { Game } from "boardgame.io";
+import { GameConfig } from "../../../utils/game-config";
+import { GameContext, GameState } from "../../entity";
+import { MAP_AI } from "../ai/map";
+import { endIf } from "../events/map";
+import { nextTurn } from "../events/map-common";
+import { initGameData } from "../game";
+import { setTokenOnTerritory } from "../moves/map";
 
 export const initMapGame = (state?: GameState) => {
   const MapGame: Game = {

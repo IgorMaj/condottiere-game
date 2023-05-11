@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { GameContext, GameState, Moves } from '../../domain/entity';
-import { DELAYED_ACTION_TIMEOUT } from '../../utils/constants';
-import { MultiplayerBoardView } from '../board/Board';
-import { MultiplayerPlayerMapView } from '../map/GameMap';
+import { useEffect, useState } from "react";
+import { GameContext, GameState, Moves } from "../../domain/entity";
+import { DELAYED_ACTION_TIMEOUT } from "../../utils/constants";
+import { MultiplayerBoardView } from "../board/Board";
+import { MultiplayerPlayerMapView } from "../map/GameMap";
 
-const BATTLE_PHASE = 'battle';
-const MAP_PHASE = 'map';
+const BATTLE_PHASE = "battle";
+const MAP_PHASE = "map";
 
 export const MultiplayerGameView = (props: {
   ctx: GameContext;

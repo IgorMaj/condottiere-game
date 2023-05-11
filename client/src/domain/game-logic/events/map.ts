@@ -1,9 +1,9 @@
-import { GameConfig } from '../../../utils/game-config';
-import { GameContext, GameState } from '../../entity';
+import { GameConfig } from "../../../utils/game-config";
+import { GameContext, GameState } from "../../entity";
 import {
   calculateAdjacentTerritoryCounts,
   calculateTotalTerritoryCounts,
-} from '../score';
+} from "../score";
 
 export const endIf = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   const adjacentWinner = adjacentTerritoryCondition(G);

@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
-import { CSSTransition } from 'react-transition-group';
-import { ANIMATION_TIMEOUT } from '../../utils/constants';
-import './transition.scss';
+import React, { useRef } from "react";
+import { CSSTransition } from "react-transition-group";
+import { ANIMATION_TIMEOUT } from "../../utils/constants";
+import "./transition.scss";
 
 export const CardTransition = (props: any) => {
   const nodeRef = useRef(null);

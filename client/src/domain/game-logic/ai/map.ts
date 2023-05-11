@@ -1,7 +1,7 @@
-import { Game, PlayerID, Reducer, State } from 'boardgame.io';
-import { Bot } from 'boardgame.io/ai';
-import { CreateGameReducer } from 'boardgame.io/internal';
-import { sum } from 'lodash';
+import { Game, PlayerID, Reducer, State } from "boardgame.io";
+import { Bot } from "boardgame.io/ai";
+import { CreateGameReducer } from "boardgame.io/internal";
+import { sum } from "lodash";
 
 import {
   BISHOP_CLASS,
@@ -16,10 +16,10 @@ import {
   SURRENDER_CLASS,
   TerritoryStatus,
   WINTER_CLASS,
-} from '../../../utils/constants';
-import { findMaxByAttribute } from '../../../utils/methods';
-import { GameContext, GameState, ICardModel } from '../../entity';
-import { isEnemyTerritory, isPlayerTerritory, isPopeState } from '../utils';
+} from "../../../utils/constants";
+import { findMaxByAttribute } from "../../../utils/methods";
+import { GameContext, GameState, ICardModel } from "../../entity";
+import { isEnemyTerritory, isPlayerTerritory, isPopeState } from "../utils";
 
 export const MAP_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
@@ -32,7 +32,7 @@ export const MAP_AI = {
     if (G.popeTokenOwnerId === playerId) {
       moves.push(
         ...freeTerritories.map((t) => ({
-          move: 'setTokenOnTerritory',
+          move: "setTokenOnTerritory",
           args: [t.name, POPE_TOKEN_ID],
         }))
       );
@@ -41,7 +41,7 @@ export const MAP_AI = {
     if (G.condottiereTokenOwnerId === playerId) {
       moves.push(
         ...freeTerritories.map((t) => ({
-          move: 'setTokenOnTerritory',
+          move: "setTokenOnTerritory",
           args: [t.name, CONDOTTIERE_TOKEN_ID],
         }))
       );
@@ -85,7 +85,7 @@ export class MapBot extends Bot {
     });
 
     return Promise.resolve({
-      action: findMaxByAttribute(botStates, 'score')?.move,
+      action: findMaxByAttribute(botStates, "score")?.move,
     });
   }
 }

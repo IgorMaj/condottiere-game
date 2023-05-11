@@ -1,4 +1,4 @@
-import { GameContext, GameState } from '../../entity';
+import { GameContext, GameState } from "../../entity";
 
 export const nextTurn = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   if (G.popeTokenOwnerId) {

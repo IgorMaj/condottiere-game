@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-import { GameState } from '../domain/entity';
+import { v4 as uuidv4 } from "uuid";
+import { GameState } from "../domain/entity";
 
 // like pop, only picks an element randomly
 export const randomPop = (arr: any[]) => {
@@ -28,7 +28,7 @@ export function popMultiple(arr: any[], count: number) {
 }
 
 export const generateId = (): string => {
-  return `o_${uuidv4().replaceAll('-', '_')}`;
+  return `o_${uuidv4().replaceAll("-", "_")}`;
 };
 
 export function validGameState(g: any) {

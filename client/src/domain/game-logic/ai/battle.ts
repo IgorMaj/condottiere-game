@@ -1,10 +1,10 @@
-import { MERCENARY_TYPE } from '../../../utils/constants';
-import { GameContext, GameState, PlayerState } from '../../entity';
+import { MERCENARY_TYPE } from "../../../utils/constants";
+import { GameContext, GameState, PlayerState } from "../../entity";
 import {
   getScarecrow,
   hasOnlyNonMercenaryCards,
   scarecrowPlayed,
-} from '../utils';
+} from "../utils";
 
 export const BATTLE_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
@@ -20,11 +20,11 @@ export const BATTLE_AI = {
       generateScarecrowMoves(G.players[ctx.currentPlayer], moves);
     } else {
       for (let i = 0; i < botHand.length; i++) {
-        moves.push({ move: 'playCard', args: [botHand[i].id] });
+        moves.push({ move: "playCard", args: [botHand[i].id] });
       }
-      moves.push({ move: 'pass' });
+      moves.push({ move: "pass" });
       if (hasOnlyNonMercenaryCards(G.players[ctx.currentPlayer])) {
-        moves.push({ move: 'discardHand' });
+        moves.push({ move: "discardHand" });
       }
     }
     return moves;
@@ -34,10 +34,10 @@ export const BATTLE_AI = {
 function generateScarecrowMoves(state: PlayerState, moves: any[]) {
   const botBattleLine = state.battleLine;
   const scarecrow = getScarecrow(state);
-  moves.push({ move: 'scarecrow', args: [scarecrow.id] });
+  moves.push({ move: "scarecrow", args: [scarecrow.id] });
   botBattleLine
     .filter((card) => card.type === MERCENARY_TYPE)
     .forEach((mercenary) => {
-      moves.push({ move: 'scarecrow', args: [scarecrow.id, mercenary.id] });
+      moves.push({ move: "scarecrow", args: [scarecrow.id, mercenary.id] });
     });
 }

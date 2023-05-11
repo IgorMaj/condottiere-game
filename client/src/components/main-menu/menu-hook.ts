@@ -1,7 +1,7 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { GameConfig } from '../../utils/game-config';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { GameConfig } from "../../utils/game-config";
 
 export interface MenuEntry {
   entries?: MenuEntry[];
@@ -18,7 +18,7 @@ export function useMainMenu(props?: any) {
   const [rootMenuEntry] = React.useState<MenuEntry>({
     entries: [
       {
-        name: t('Menu.singleplayer'),
+        name: t("Menu.singleplayer"),
         onClick: () => {
           const entry = rootMenuEntry?.entries?.[0];
           if (entry) {
@@ -28,18 +28,18 @@ export function useMainMenu(props?: any) {
         entries: [
           ...PLAYER_ENTRIES.map((num) => {
             return {
-              name: `${num} ${t('Menu.players')}`,
+              name: `${num} ${t("Menu.players")}`,
               onClick: () => {
                 GameConfig.setConfig({
                   numPlayers: num,
                 });
-                navigation('/map', { replace: true });
+                navigation("/map", { replace: true });
                 setMenu(rootMenuEntry);
               },
             };
           }),
           {
-            name: t('Menu.back'),
+            name: t("Menu.back"),
             onClick: () => {
               setMenu(rootMenuEntry);
             },
@@ -47,14 +47,14 @@ export function useMainMenu(props?: any) {
         ],
       },
       {
-        name: t('Menu.multiplayer'),
+        name: t("Menu.multiplayer"),
         onClick: () => {
-          navigation('/multiplayer', { replace: true });
+          navigation("/multiplayer", { replace: true });
           setMenu(rootMenuEntry);
         },
       },
     ],
-    name: 'Main',
+    name: "Main",
     disabled: false,
   });
   const [menu, setMenu] = React.useState<MenuEntry>(rootMenuEntry);

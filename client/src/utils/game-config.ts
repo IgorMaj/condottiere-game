@@ -1,4 +1,4 @@
-const P_KEY = 'playerCount';
+const P_KEY = "playerCount";
 
 export const GameConfig = {
   get isInitialized(): boolean {

@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import ReactTooltip from 'react-tooltip';
-import { GameContext, GameState, Moves } from '../../../domain/entity';
-import { CONDOTTIERE_TOKEN_ID, POPE_TOKEN_ID } from '../../../utils/constants';
-import styles from './TokenContainer.module.scss';
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import ReactTooltip from "react-tooltip";
+import { GameContext, GameState, Moves } from "../../../domain/entity";
+import { CONDOTTIERE_TOKEN_ID, POPE_TOKEN_ID } from "../../../utils/constants";
+import styles from "./TokenContainer.module.scss";
 
 export const TokenContainer = (props: {
   ctx: GameContext;
@@ -23,20 +23,20 @@ export const TokenContainer = (props: {
 
   useEffect(() => {
     const outsideClick = () => {
-      selectToken('');
+      selectToken("");
     };
-    window.addEventListener('click', outsideClick);
+    window.addEventListener("click", outsideClick);
     return () => {
-      window.removeEventListener('click', outsideClick);
+      window.removeEventListener("click", outsideClick);
     };
   }, [selectToken]);
 
   return (
-    <div className={`${styles.Container} ${isDisabled ? styles.Disabled : ''}`}>
+    <div className={`${styles.Container} ${isDisabled ? styles.Disabled : ""}`}>
       <div
         className={`${styles.Token} ${
-          hasCondottiereToken ? styles.CondottiereToken : ''
-        } ${condottiereTokenSelected ? styles.Selected : ''}`}
+          hasCondottiereToken ? styles.CondottiereToken : ""
+        } ${condottiereTokenSelected ? styles.Selected : ""}`}
         data-tip
         onClick={(e) => {
           e.stopPropagation();
@@ -47,12 +47,12 @@ export const TokenContainer = (props: {
         data-for={CONDOTTIERE_TOKEN_ID}
       >
         <ReactTooltip id={CONDOTTIERE_TOKEN_ID} place="top" effect="solid">
-          {t('Map.condottiereTokenSlot')}
+          {t("Map.condottiereTokenSlot")}
         </ReactTooltip>
       </div>
       <div
-        className={`${styles.Token} ${hasPopeToken ? styles.PopeToken : ''} ${
-          popeTokenSelected ? styles.Selected : ''
+        className={`${styles.Token} ${hasPopeToken ? styles.PopeToken : ""} ${
+          popeTokenSelected ? styles.Selected : ""
         }`}
         data-tip
         onClick={(e) => {
@@ -64,7 +64,7 @@ export const TokenContainer = (props: {
         data-for={POPE_TOKEN_ID}
       >
         <ReactTooltip id={POPE_TOKEN_ID} place="top" effect="solid">
-          {t('Map.popeTokenSlot')}
+          {t("Map.popeTokenSlot")}
         </ReactTooltip>
       </div>
     </div>

@@ -1,32 +1,32 @@
-import { useDrop } from 'react-dnd';
-import { ICardModel, Moves, PlayerState } from '../../../domain/entity';
+import { useDrop } from "react-dnd";
+import { ICardModel, Moves, PlayerState } from "../../../domain/entity";
 import {
   getScarecrow,
   scarecrowPlayed,
-} from '../../../domain/game-logic/utils';
+} from "../../../domain/game-logic/utils";
 import {
   BACK_ICON_DIM,
   MERCENARY_TYPE,
   OPACITY,
   PLAYER_COLORS,
   SCARECROW_CLASS,
-} from '../../../utils/constants';
-import { Card } from '../../cards/Card';
-import styles from './BattleLine.module.scss';
-import BACK_ICON from '../../../assets/icons/back.png';
-import { showAlert } from '../../../utils/alert/alert.service';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { TransitionGroup } from 'react-transition-group';
-import { CardTransition } from '../../card-transition/CardTransition';
+} from "../../../utils/constants";
+import { Card } from "../../cards/Card";
+import styles from "./BattleLine.module.scss";
+import BACK_ICON from "../../../assets/icons/back.png";
+import { showAlert } from "../../../utils/alert/alert.service";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { TransitionGroup } from "react-transition-group";
+import { CardTransition } from "../../card-transition/CardTransition";
 
 function getBorderColor(isDragging: boolean, playerId: string) {
-  if (isDragging) return { borderColor: 'var(--selectColor)' };
+  if (isDragging) return { borderColor: "var(--selectColor)" };
   return { borderColor: PLAYER_COLORS[playerId] };
 }
 
 function getBackground(passed: boolean) {
-  return passed ? { background: 'var(--lightgray)', opacity: OPACITY } : {};
+  return passed ? { background: "var(--lightgray)", opacity: OPACITY } : {};
 }
 
 export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
@@ -58,7 +58,7 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
 
   React.useEffect(() => {
     if (state.passed) {
-      showAlert(`P${state.id} ${t('Battle.passed')}`);
+      showAlert(`P${state.id} ${t("Battle.passed")}`);
     }
   }, [state.passed, state.id, t]);
 
@@ -100,7 +100,7 @@ export const BattleLine = (props: { state: PlayerState; moves: Moves }) => {
                 >
                   <img
                     src={BACK_ICON}
-                    alt={''}
+                    alt={""}
                     width={BACK_ICON_DIM}
                     height={BACK_ICON_DIM}
                   />

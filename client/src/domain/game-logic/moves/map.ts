@@ -2,8 +2,8 @@ import {
   CONDOTTIERE_TOKEN_ID,
   POPE_TOKEN_ID,
   TerritoryStatus,
-} from '../../../utils/constants';
-import { GameContext, GameState, Territory } from '../../entity';
+} from "../../../utils/constants";
+import { GameContext, GameState, Territory } from "../../entity";
 
 export const setTokenOnTerritory = (
   {

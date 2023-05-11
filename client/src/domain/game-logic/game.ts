@@ -1,7 +1,7 @@
-import { popMultiple } from '../../utils/methods';
-import { createDeck } from '../board/Board';
-import { ICardModel, PlayerState, GameState, Players } from '../entity';
-import { initTerritories } from './map/init-map';
+import { popMultiple } from "../../utils/methods";
+import { createDeck } from "../board/Board";
+import { ICardModel, PlayerState, GameState, Players } from "../entity";
+import { initTerritories } from "./map/init-map";
 
 const initPlayer = (id: string, initialHand: ICardModel[]): PlayerState => {
   return {
@@ -20,12 +20,12 @@ export const initGameData = (numPlayers: number): GameState => {
   }
   return {
     deck: deck,
-    
+
     players: players,
     territories: initTerritories(),
     popeTokenOwnerId: null,
-    condottiereTokenOwnerId: '0',
+    condottiereTokenOwnerId: "0",
     discardPile: [],
-    condottiereTokenOwnerHistory: ['0'],
+    condottiereTokenOwnerHistory: ["0"],
   };
 };

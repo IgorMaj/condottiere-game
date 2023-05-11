@@ -1,7 +1,7 @@
-import { NavigateFunction, NavigateOptions, To } from 'react-router-dom';
-import { GameState } from '../domain/entity';
-import { DELAYED_ACTION_TIMEOUT } from './constants';
-import { resolveG } from './methods';
+import { NavigateFunction, NavigateOptions, To } from "react-router-dom";
+import { GameState } from "../domain/entity";
+import { DELAYED_ACTION_TIMEOUT } from "./constants";
+import { resolveG } from "./methods";
 
 let nav: NavigateFunction | null = null;
 export function registerNavigate(navigate: NavigateFunction) {
@@ -15,7 +15,7 @@ export function navigate(to: To, options?: NavigateOptions) {
 export function toBattle(state: GameState) {
   state = resolveG(state);
   setTimeout(() => {
-    navigate('/battle', {
+    navigate("/battle", {
       replace: true,
       state: state,
     });
@@ -25,7 +25,7 @@ export function toBattle(state: GameState) {
 export function toMap(state: GameState) {
   state = resolveG(state);
   setTimeout(() => {
-    navigate('/map', {
+    navigate("/map", {
       replace: true,
       state: state,
     });

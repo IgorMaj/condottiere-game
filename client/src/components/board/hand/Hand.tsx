@@ -1,16 +1,16 @@
-import { TransitionGroup } from 'react-transition-group';
+import { TransitionGroup } from "react-transition-group";
 import {
   ICardModel,
   GameContext,
   Moves,
   PlayerState,
-} from '../../../domain/entity';
-import { scarecrowPlayed } from '../../../domain/game-logic/utils';
-import { isMapPhase } from '../../../utils/client';
-import { OPACITY } from '../../../utils/constants';
-import { CardTransition } from '../../card-transition/CardTransition';
-import { DragCard } from './DragCard';
-import styles from './Hand.module.scss';
+} from "../../../domain/entity";
+import { scarecrowPlayed } from "../../../domain/game-logic/utils";
+import { isMapPhase } from "../../../utils/client";
+import { OPACITY } from "../../../utils/constants";
+import { CardTransition } from "../../card-transition/CardTransition";
+import { DragCard } from "./DragCard";
+import styles from "./Hand.module.scss";
 
 export const Hand = (props: {
   state: PlayerState;
@@ -33,7 +33,7 @@ export const Hand = (props: {
         {model.map((card: ICardModel, index: number) => {
           return (
             <CardTransition key={card.id}>
-              <div className={handDisabled ? styles.Disabled : ''}>
+              <div className={handDisabled ? styles.Disabled : ""}>
                 <DragCard
                   card={card}
                   key={card.id}

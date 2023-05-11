@@ -1,5 +1,5 @@
-import { Game, Ctx, PlayerID } from 'boardgame.io';
-import { MCTSBot } from 'boardgame.io/ai';
+import { Game, Ctx, PlayerID } from "boardgame.io";
+import { MCTSBot } from "boardgame.io/ai";
 
 export class AsyncBot extends MCTSBot {
   constructor({
@@ -28,6 +28,6 @@ export class AsyncBot extends MCTSBot {
       playoutDepth,
       iterationCallback,
     });
-    this.setOpt('async', true);
+    this.setOpt("async", true);
   }
 }

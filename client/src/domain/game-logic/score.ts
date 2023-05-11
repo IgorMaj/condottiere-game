@@ -4,9 +4,9 @@ import {
   MERCENARY_TYPE,
   SPRING_CLASS,
   WINTER_CLASS,
-} from '../../utils/constants';
-import { GameState, ICardModel, PlayerState, Territory } from '../entity';
-import { findStrongestMercenaryCard, getPlayerTerritoryCount } from './utils';
+} from "../../utils/constants";
+import { GameState, ICardModel, PlayerState, Territory } from "../entity";
+import { findStrongestMercenaryCard, getPlayerTerritoryCount } from "./utils";
 
 export const calculateScores = (
   states: PlayerState[]

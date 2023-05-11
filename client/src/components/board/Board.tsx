@@ -1,31 +1,31 @@
-import styles from './Board.module.scss';
-import { Hand } from './hand/Hand';
-import { BattleLine } from './battle-line/BattleLine';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { ScoreBoard } from './score-board/ScoreBoard';
+import styles from "./Board.module.scss";
+import { Hand } from "./hand/Hand";
+import { BattleLine } from "./battle-line/BattleLine";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { ScoreBoard } from "./score-board/ScoreBoard";
 import {
   GameContext,
   GameState,
   Moves,
   MultiplayerGameState,
   PlayerState,
-} from '../../domain/entity';
-import { Pass } from './pass-btn/Pass';
-import { initBattleGame } from '../../domain/game-logic/battle/battle-game';
-import { Client } from 'boardgame.io/react';
-import { validGameState } from '../../utils/methods';
-import { generateBots } from '../../domain/game-logic/utils';
-import { toMap } from '../../utils/navigation';
-import { showAlert } from '../../utils/alert/alert.service';
-import React, { useCallback } from 'react';
-import { afterBattle } from '../../domain/game-logic/events/battle';
-import { Local } from 'boardgame.io/multiplayer';
-import { DiscardHand } from './discard-hand-btn/DiscardHand';
-import { GameConfig } from '../../utils/game-config';
-import { AsyncBot } from '../../domain/game-logic/ai/async';
-import { battleEndMessage, historyState } from '../../utils/client';
-import i18n from '../../i18n';
+} from "../../domain/entity";
+import { Pass } from "./pass-btn/Pass";
+import { initBattleGame } from "../../domain/game-logic/battle/battle-game";
+import { Client } from "boardgame.io/react";
+import { validGameState } from "../../utils/methods";
+import { generateBots } from "../../domain/game-logic/utils";
+import { toMap } from "../../utils/navigation";
+import { showAlert } from "../../utils/alert/alert.service";
+import React, { useCallback } from "react";
+import { afterBattle } from "../../domain/game-logic/events/battle";
+import { Local } from "boardgame.io/multiplayer";
+import { DiscardHand } from "./discard-hand-btn/DiscardHand";
+import { GameConfig } from "../../utils/game-config";
+import { AsyncBot } from "../../domain/game-logic/ai/async";
+import { battleEndMessage, historyState } from "../../utils/client";
+import i18n from "../../i18n";
 
 /**
  *
@@ -104,9 +104,9 @@ export const MultiplayerBoardView = (props: {
     const gameState = props.G as MultiplayerGameState;
     if (gameState?.battleEnded) {
       if (gameState?.battleWinner) {
-        showAlert(`${i18n.t('Battle.wonBy')} P${gameState.battleWinner}`);
+        showAlert(`${i18n.t("Battle.wonBy")} P${gameState.battleWinner}`);
       } else {
-        showAlert(i18n.t('Battle.draw'));
+        showAlert(i18n.t("Battle.draw"));
       }
     }
   }, [props.G]);

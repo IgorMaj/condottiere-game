@@ -1,14 +1,14 @@
-import { Lobby } from 'boardgame.io/react';
-import _ from 'lodash';
-import { useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { MultiplayerGame } from '../../domain/game-logic/multiplayer/multiplayer-game';
-import { clearCookies } from '../../utils/client';
-import { GAME_NAME } from '../../utils/constants';
-import { MultiplayerGameView } from '../multiplayer/MultiplayerGame';
-import Button from '../ui/button/Button';
-import './GameLobby.scss';
+import { Lobby } from "boardgame.io/react";
+import _ from "lodash";
+import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { MultiplayerGame } from "../../domain/game-logic/multiplayer/multiplayer-game";
+import { clearCookies } from "../../utils/client";
+import { GAME_NAME } from "../../utils/constants";
+import { MultiplayerGameView } from "../multiplayer/MultiplayerGame";
+import Button from "../ui/button/Button";
+import "./GameLobby.scss";
 
 const SERVER_URL =
   process.env.REACT_APP_SERVER_URL ??
@@ -21,9 +21,9 @@ const REFRESH_INTERVAL = 1500;
 const refreshPatched = async function (this: any) {
   try {
     const { matches } = await this.client.listMatches(GAME_NAME);
-    this.matches = _.uniqBy(matches, 'matchID');
+    this.matches = _.uniqBy(matches, "matchID");
   } catch (error) {
-    throw new Error('failed to retrieve list of matches (' + error + ')');
+    throw new Error("failed to retrieve list of matches (" + error + ")");
   }
 };
 
@@ -41,13 +41,13 @@ export const GameLobby = (): JSX.Element => {
 
   const backToMenu = () => {
     clearCookies();
-    navigate('/', { replace: true, state: null });
+    navigate("/", { replace: true, state: null });
   };
 
   const { t } = useTranslation();
   return (
     <>
-      <div className='game-lobby-container'>
+      <div className="game-lobby-container">
         <Lobby
           ref={ref}
           gameServer={SERVER_URL}
@@ -58,8 +58,8 @@ export const GameLobby = (): JSX.Element => {
           ]}
         />
       </div>
-      <div className='back-to-menu-container '>
-        <Button label={t('Common.backToMenu')} onClick={backToMenu} />
+      <div className="back-to-menu-container ">
+        <Button label={t("Common.backToMenu")} onClick={backToMenu} />
       </div>
     </>
   );

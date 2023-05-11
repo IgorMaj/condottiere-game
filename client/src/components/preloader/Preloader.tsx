@@ -1,6 +1,6 @@
-import { useReducer } from 'react';
-import { MediaType, PreloadMedia } from 'react-preload-media';
-import { SpinnerCircular } from 'spinners-react';
+import { useReducer } from "react";
+import { MediaType, PreloadMedia } from "react-preload-media";
+import { SpinnerCircular } from "spinners-react";
 
 function importAll(r: any) {
   const images: any = [];
@@ -12,14 +12,14 @@ function importAll(r: any) {
 
 const getImages = () =>
   importAll(
-    (require as any).context('../../assets', true, /\.(png|jpe?g|svg)$/)
+    (require as any).context("../../assets", true, /\.(png|jpe?g|svg)$/)
   );
 
 const media = getImages().map((url: string) => {
   return { type: MediaType.Image, url: url };
 });
 
-const SPINNER_SIZE = '150px';
+const SPINNER_SIZE = "150px";
 
 export const Preloader = (props: { children: any }) => {
   const [isLoaded, loaded] = useReducer(() => true, false);
@@ -28,10 +28,10 @@ export const Preloader = (props: { children: any }) => {
       <PreloadMedia media={media} onFinished={() => loaded()}>
         <div
           style={{
-            display: 'flex',
-            width: '100%',
-            justifyContent: 'center',
-            marginTop: '200px',
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+            marginTop: "200px",
           }}
         >
           <SpinnerCircular color="#ba8c63" size={SPINNER_SIZE} />

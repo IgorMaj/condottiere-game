@@ -1,9 +1,9 @@
-import { TerritoryStatus } from '../../../utils/constants';
-import { initTerritories } from './init-map';
-import { initMapGame } from './map-game';
+import { TerritoryStatus } from "../../../utils/constants";
+import { initTerritories } from "./init-map";
+import { initMapGame } from "./map-game";
 
-describe('Init map test suite', () => {
-  test('Territory test', () => {
+describe("Init map test suite", () => {
+  test("Territory test", () => {
     const territories = initTerritories();
     expect(territories.length).toBe(17);
     expect(territories.find((t) => !!t.owner)).toBeFalsy();
@@ -12,7 +12,7 @@ describe('Init map test suite', () => {
     ).toBe(17);
   });
 
-  test('Init map game test', () => {
+  test("Init map game test", () => {
     const inited = initMapGame();
     expect(inited.ai).toBeTruthy();
     expect(inited.endIf).toBeTruthy();

@@ -1,4 +1,4 @@
-import { Ctx } from 'boardgame.io';
+import { Ctx } from "boardgame.io";
 
 /**
  * class denotes the exact kind of the card i.e mercenary10 (Knight), or courtesan
