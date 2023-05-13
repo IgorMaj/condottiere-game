@@ -9,6 +9,10 @@ export const showAlert = (msg: string) => {
     toastId: msg,
     closeOnClick: true,
     autoClose: TOAST_TIMEOUT,
+    progressStyle: {
+      background: "black",
+      height: "2px",
+    },
     style: {
       marginTop: "0.5em",
       border: "1px solid black",
