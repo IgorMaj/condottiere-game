@@ -58,3 +58,6 @@ export const ANIMATION_TIMEOUT = 700;
 export const POPE_SCORE_BONUS = 1000000;
 
 export const GAME_NAME = "Condottiere";
+
+// the id of the player, who is playing against bots
+export const SINGLE_PLAYER_ID = "0";

@@ -1,15 +1,22 @@
 import { MERCENARY_TYPE } from "../../../utils/constants";
 import { GameContext, GameState, PlayerState } from "../../entity";
 import {
+  battleTeamwork,
   getScarecrow,
   hasOnlyNonMercenaryCards,
+  notSurrenderOnFirstMove,
   scarecrowPlayed,
 } from "../utils";
+
+interface BotMove {
+  move: string;
+  args?: string[];
+}
 
 export const BATTLE_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
     const botHand = G.players[ctx.currentPlayer].hand;
-    const moves: any = [];
+    const moves: BotMove[] = [];
 
     if (G.players[ctx.currentPlayer].passed) {
       return moves;
@@ -19,8 +26,11 @@ export const BATTLE_AI = {
     if (scarecrowPlayed(G.players[ctx.currentPlayer])) {
       generateScarecrowMoves(G.players[ctx.currentPlayer], moves);
     } else {
-      for (let i = 0; i < botHand.length; i++) {
-        moves.push({ move: "playCard", args: [botHand[i].id] });
+      if (!battleTeamwork(G)) {
+        for (let i = 0; i < botHand.length; i++) {
+          if (notSurrenderOnFirstMove(botHand[i], ctx))
+            moves.push({ move: "playCard", args: [botHand[i].id] });
+        }
       }
       moves.push({ move: "pass" });
       if (hasOnlyNonMercenaryCards(G.players[ctx.currentPlayer])) {

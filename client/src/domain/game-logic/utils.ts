@@ -1,11 +1,19 @@
 import {
   MERCENARY_TYPE,
   SCARECROW_CLASS,
+  SINGLE_PLAYER_ID,
   SURRENDER_CLASS,
   TerritoryStatus,
 } from "../../utils/constants";
-import { GameState, ICardModel, PlayerState, Territory } from "../entity";
+import {
+  GameContext,
+  GameState,
+  ICardModel,
+  PlayerState,
+  Territory,
+} from "../entity";
 import { State } from "boardgame.io";
+import { calculateScores } from "./score";
 
 // if the count of max scores is higher
 // than 1 then it means that two or more players are tied for the same score
@@ -159,4 +167,41 @@ export function getLastCondottiereOwnerPos(G: GameState): number {
   return Number(
     G.condottiereTokenOwnerHistory[G.condottiereTokenOwnerHistory.length - 1]
   );
+}
+// TODO write tests for these
+export function singleplayerPassed(G: GameState): boolean {
+  return G.players[SINGLE_PLAYER_ID].passed;
+}
+
+export function botScoresHigherThanPlayer(G: GameState) {
+  const scores = calculateScores(Object.values(G.players));
+  const maxBotScore = scores
+    .filter((sc) => sc.playerId !== SINGLE_PLAYER_ID)
+    .map((sc) => sc.score)
+    .reduce((a, b) => Math.max(a, b));
+  const playerScore =
+    scores.find((sc) => sc.playerId === SINGLE_PLAYER_ID)?.score ?? 0;
+  return maxBotScore > playerScore;
+}
+
+export function gameStateIsNotDraw(G: GameState) {
+  const scores = calculateScores(Object.values(G.players));
+  return !isDraw(scores);
+}
+
+/**
+ *
+ * @param G GameState
+ * @returns whether the bots should work together to defeat the player and save their resources
+ */
+export function battleTeamwork(G: GameState) {
+  return (
+    singleplayerPassed(G) &&
+    botScoresHigherThanPlayer(G) &&
+    gameStateIsNotDraw(G)
+  );
+}
+
+export function notSurrenderOnFirstMove(card: ICardModel, ctx: GameContext) {
+  return !(card.class === SURRENDER_CLASS && ctx.turn === 1);
 }
