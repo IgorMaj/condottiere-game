@@ -168,7 +168,12 @@ export function getLastCondottiereOwnerPos(G: GameState): number {
     G.condottiereTokenOwnerHistory[G.condottiereTokenOwnerHistory.length - 1]
   );
 }
-// TODO write tests for these
+
+/**
+ *
+ * @param G Game State
+ * @returns boolean indicating whether the player (id "0") playing against the AI passed
+ */
 export function singleplayerPassed(G: GameState): boolean {
   return G.players[SINGLE_PLAYER_ID].passed;
 }
@@ -192,7 +197,8 @@ export function gameStateIsNotDraw(G: GameState) {
 /**
  *
  * @param G GameState
- * @returns whether the bots should work together to defeat the player and save their resources
+ * @returns boolean indicating whether the bots should work together to defeat the player and save their resources,
+ * by not playing cards and passing instead
  */
 export function battleTeamwork(G: GameState) {
   return (
