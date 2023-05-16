@@ -1,6 +1,9 @@
 import { Game, Ctx, PlayerID } from "boardgame.io";
 import { MCTSBot } from "boardgame.io/ai";
 
+const NUM_ITERATIONS = 100;
+const PLAYOUT_DEPTH = 10;
+
 export class AsyncBot extends MCTSBot {
   constructor({
     enumerate,
@@ -29,5 +32,7 @@ export class AsyncBot extends MCTSBot {
       iterationCallback,
     });
     this.setOpt("async", true);
+    this.setOpt("iterations", NUM_ITERATIONS);
+    this.setOpt("playoutDepth", PLAYOUT_DEPTH);
   }
 }
