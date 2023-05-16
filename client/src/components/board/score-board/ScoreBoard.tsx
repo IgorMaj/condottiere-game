@@ -43,7 +43,12 @@ export const ScoreBoard = (props: {
                 ),
               }}
               className={styles.ScoreElement}
-            >{`P${score.playerId}: ${score.score}`}</div>
+            >
+              {`P${score.playerId}: ${score.score}`}
+              <sub>
+                {model.find((pS) => pS.id === score.playerId)?.hand?.length}
+              </sub>
+            </div>
           );
         })}
       </div>
