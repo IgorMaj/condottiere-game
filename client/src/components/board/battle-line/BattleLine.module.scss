@@ -19,9 +19,8 @@
 
 .BattleLineCardSelectable {
   @extend .BattleLineCard;
-  border-color: var(--scarecrowColor);
-  border-style: solid;
-  border-width: 5px;
+  outline: 5px solid var(--scarecrowColor);
+  outline-offset: -5px;
   cursor: pointer;
 }
 
