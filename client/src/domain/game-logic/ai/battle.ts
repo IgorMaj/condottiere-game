@@ -28,7 +28,7 @@ export const BATTLE_AI = {
     } else {
       if (!battleTeamwork(G)) {
         for (let i = 0; i < botHand.length; i++) {
-          if (notSurrenderOnFirstMove(botHand[i], ctx))
+          if (notSurrenderOnFirstMove(botHand[i], G, ctx))
             moves.push({ move: "playCard", args: [botHand[i].id] });
         }
       }

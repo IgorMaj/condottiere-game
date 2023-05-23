@@ -212,9 +212,16 @@ export function battleTeamwork(G: GameState) {
  *
  * @param card
  * @param ctx
- * @returns false if the card is of type surrender AND the turn number is lower or equal than player number.
+ * @returns false if the card is of type surrender AND the turn number is lower or equal than active player number.
  * The goal is to get all players a chance to play before someone plays surrender
  */
-export function notSurrenderOnFirstMove(card: ICardModel, ctx: GameContext) {
-  return !(card.class === SURRENDER_CLASS && ctx.turn <= ctx.numPlayers);
+export function notSurrenderOnFirstMove(
+  card: ICardModel,
+  G: GameState,
+  ctx: GameContext
+) {
+  const activePlayerCount = Object.values(G.players).filter(
+    (p) => !p.passed
+  ).length;
+  return !(card.class === SURRENDER_CLASS && ctx.turn <= activePlayerCount);
 }

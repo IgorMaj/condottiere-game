@@ -3,7 +3,7 @@ import { createMercenary10 } from "../cards/mercenaries/Mercenary10";
 import { createMercenary2 } from "../cards/mercenaries/Mercenary2";
 import { createSurrender } from "../cards/powers/Surrender";
 import { createHeroine } from "../cards/special/Heroine";
-import { GameContext, GameState } from "../entity";
+import { GameContext, GameState, PlayerState, Players } from "../entity";
 import {
   battleTeamwork,
   botScoresHigherThanPlayer,
@@ -14,34 +14,42 @@ import {
 
 describe("Utils method Test Suite", () => {
   test("notSurrenderOnFirstMove (turn) test", () => {
+    const mockGameState = (numPlayers: number): GameState => {
+      const players: Players = {} as Players;
+      for (let i = 0; i < numPlayers; i++) {
+        players[i] = {
+          id: `${i}`,
+          passed: false,
+        } as PlayerState;
+      }
+      return {
+        players,
+      } as unknown as GameState;
+    };
+
     expect(
-      notSurrenderOnFirstMove(createMercenary1(), {
+      notSurrenderOnFirstMove(createMercenary1(), mockGameState(2), {
         turn: 3,
-        numPlayers: 2,
       } as GameContext)
     ).toBe(true);
     expect(
-      notSurrenderOnFirstMove(createMercenary1(), {
+      notSurrenderOnFirstMove(createMercenary1(), mockGameState(4), {
         turn: 4,
-        numPlayers: 3,
       } as GameContext)
     ).toBe(true);
     expect(
-      notSurrenderOnFirstMove(createSurrender(), {
+      notSurrenderOnFirstMove(createSurrender(), mockGameState(2), {
         turn: 2,
-        numPlayers: 2,
       } as GameContext)
     ).toBe(false);
     expect(
-      notSurrenderOnFirstMove(createSurrender(), {
+      notSurrenderOnFirstMove(createSurrender(), mockGameState(3), {
         turn: 2,
-        numPlayers: 3,
       } as GameContext)
     ).toBe(false);
     expect(
-      notSurrenderOnFirstMove(createSurrender(), {
+      notSurrenderOnFirstMove(createSurrender(), mockGameState(2), {
         turn: 1,
-        numPlayers: 2,
       } as GameContext)
     ).toBe(false);
   });
