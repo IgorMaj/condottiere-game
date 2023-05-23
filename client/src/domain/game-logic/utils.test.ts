@@ -15,13 +15,34 @@ import {
 describe("Utils method Test Suite", () => {
   test("notSurrenderOnFirstMove (turn) test", () => {
     expect(
-      notSurrenderOnFirstMove(createMercenary1(), { turn: 2 } as GameContext)
+      notSurrenderOnFirstMove(createMercenary1(), {
+        turn: 3,
+        numPlayers: 2,
+      } as GameContext)
     ).toBe(true);
     expect(
-      notSurrenderOnFirstMove(createMercenary1(), { turn: 1 } as GameContext)
+      notSurrenderOnFirstMove(createMercenary1(), {
+        turn: 4,
+        numPlayers: 3,
+      } as GameContext)
     ).toBe(true);
     expect(
-      notSurrenderOnFirstMove(createSurrender(), { turn: 1 } as GameContext)
+      notSurrenderOnFirstMove(createSurrender(), {
+        turn: 2,
+        numPlayers: 2,
+      } as GameContext)
+    ).toBe(false);
+    expect(
+      notSurrenderOnFirstMove(createSurrender(), {
+        turn: 2,
+        numPlayers: 3,
+      } as GameContext)
+    ).toBe(false);
+    expect(
+      notSurrenderOnFirstMove(createSurrender(), {
+        turn: 1,
+        numPlayers: 2,
+      } as GameContext)
     ).toBe(false);
   });
 
