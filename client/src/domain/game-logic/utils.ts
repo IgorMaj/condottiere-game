@@ -1,4 +1,5 @@
 import {
+  DRUMMER_CLASS,
   MERCENARY_TYPE,
   SCARECROW_CLASS,
   SINGLE_PLAYER_ID,
@@ -212,16 +213,30 @@ export function battleTeamwork(G: GameState) {
  *
  * @param card
  * @param ctx
- * @returns false if the card is of type surrender AND the turn number is lower or equal than active player number.
- * The goal is to get all players a chance to play before someone plays surrender
+ * @returns true if the card is of type surrender AND the turn number is equal to 1.
  */
-export function notSurrenderOnFirstMove(
+export function surrenderOnFirstMove(card: ICardModel, ctx: GameContext) {
+  return card.class === SURRENDER_CLASS && ctx.turn === 1;
+}
+
+/**
+ *
+ * @param card card to be played
+ * @param G Game State
+ * @param ctx game context
+ * @returns true if the card is of class drummer AND drummer is already in the battle line
+ */
+export function alreadyHasDrummerInLine(
   card: ICardModel,
   G: GameState,
   ctx: GameContext
 ) {
-  const activePlayerCount = Object.values(G.players).filter(
-    (p) => !p.passed
-  ).length;
-  return !(card.class === SURRENDER_CLASS && ctx.turn <= activePlayerCount);
+  return (
+    card.class === DRUMMER_CLASS &&
+    Boolean(
+      G.players[ctx.currentPlayer].battleLine.find(
+        (c) => c.class === DRUMMER_CLASS
+      )
+    )
+  );
 }

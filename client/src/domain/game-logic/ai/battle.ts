@@ -1,17 +1,21 @@
 import { MERCENARY_TYPE } from "../../../utils/constants";
-import { GameContext, GameState, PlayerState } from "../../entity";
+import { GameContext, GameState, ICardModel, PlayerState } from "../../entity";
 import {
+  alreadyHasDrummerInLine,
   battleTeamwork,
   getScarecrow,
   hasOnlyNonMercenaryCards,
-  notSurrenderOnFirstMove,
   scarecrowPlayed,
+  surrenderOnFirstMove,
 } from "../utils";
 
 interface BotMove {
   move: string;
   args?: string[];
 }
+// TODO tests
+const nonsensicalMove = (card: ICardModel, G: GameState, ctx: GameContext) =>
+  surrenderOnFirstMove(card, ctx) || alreadyHasDrummerInLine(card, G, ctx);
 
 export const BATTLE_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
@@ -28,7 +32,7 @@ export const BATTLE_AI = {
     } else {
       if (!battleTeamwork(G)) {
         for (let i = 0; i < botHand.length; i++) {
-          if (notSurrenderOnFirstMove(botHand[i], G, ctx))
+          if (!nonsensicalMove(botHand[i], G, ctx))
             moves.push({ move: "playCard", args: [botHand[i].id] });
         }
       }

@@ -8,50 +8,37 @@ import {
   battleTeamwork,
   botScoresHigherThanPlayer,
   gameStateIsNotDraw,
-  notSurrenderOnFirstMove,
+  surrenderOnFirstMove,
   singleplayerPassed,
 } from "./utils";
 
 describe("Utils method Test Suite", () => {
   test("notSurrenderOnFirstMove (turn) test", () => {
-    const mockGameState = (numPlayers: number): GameState => {
-      const players: Players = {} as Players;
-      for (let i = 0; i < numPlayers; i++) {
-        players[i] = {
-          id: `${i}`,
-          passed: false,
-        } as PlayerState;
-      }
-      return {
-        players,
-      } as unknown as GameState;
-    };
-
     expect(
-      notSurrenderOnFirstMove(createMercenary1(), mockGameState(2), {
+      surrenderOnFirstMove(createMercenary1(), {
         turn: 3,
       } as GameContext)
-    ).toBe(true);
+    ).toBe(false);
     expect(
-      notSurrenderOnFirstMove(createMercenary1(), mockGameState(4), {
+      surrenderOnFirstMove(createMercenary1(), {
         turn: 4,
       } as GameContext)
-    ).toBe(true);
+    ).toBe(false);
     expect(
-      notSurrenderOnFirstMove(createSurrender(), mockGameState(2), {
+      surrenderOnFirstMove(createSurrender(), {
         turn: 2,
       } as GameContext)
     ).toBe(false);
     expect(
-      notSurrenderOnFirstMove(createSurrender(), mockGameState(3), {
+      surrenderOnFirstMove(createSurrender(), {
         turn: 2,
       } as GameContext)
     ).toBe(false);
     expect(
-      notSurrenderOnFirstMove(createSurrender(), mockGameState(2), {
+      surrenderOnFirstMove(createSurrender(), {
         turn: 1,
       } as GameContext)
-    ).toBe(false);
+    ).toBe(true);
   });
 
   test("singleplayerPassed test", () => {

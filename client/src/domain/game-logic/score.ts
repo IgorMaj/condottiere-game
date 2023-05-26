@@ -13,16 +13,23 @@ export const calculateScores = (
 ): { playerId: string; score: number }[] => {
   const retVal: { playerId: string; score: number }[] = [];
   for (let state of states) {
-    retVal.push({
-      playerId: state.id,
-      score: state.battleLine
-        .map((card: ICardModel) => calculateCardValue(states, card))
-        .reduce((partialSum, a) => partialSum + a, 0),
-    });
+    retVal.push(calculateScore(state, states));
   }
 
   return retVal;
 };
+// TODO reduce Object.values of G.players + tests
+export function calculateScore(
+  state: PlayerState,
+  states: PlayerState[]
+): { playerId: string; score: number } {
+  return {
+    playerId: state.id,
+    score: state.battleLine
+      .map((card: ICardModel) => calculateCardValue(states, card))
+      .reduce((partialSum, a) => partialSum + a, 0),
+  };
+}
 
 // Calculates whole card value with all the possible effects
 function calculateCardValue(states: PlayerState[], card: ICardModel): number {
