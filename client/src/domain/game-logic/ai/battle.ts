@@ -1,4 +1,8 @@
-import { MERCENARY_TYPE } from "../../../utils/constants";
+import {
+  MERCENARY_TYPE,
+  SPRING_CLASS,
+  WINTER_CLASS,
+} from "../../../utils/constants";
 import { GameContext, GameState, ICardModel, PlayerState } from "../../entity";
 import {
   alreadyHasDrummerInLine,
@@ -6,6 +10,7 @@ import {
   getScarecrow,
   hasOnlyNonMercenaryCards,
   scarecrowPlayed,
+  seasonAlreadyActive,
   surrenderOnFirstMove,
 } from "../utils";
 
@@ -15,7 +20,10 @@ interface BotMove {
 }
 // TODO tests
 const nonsensicalMove = (card: ICardModel, G: GameState, ctx: GameContext) =>
-  surrenderOnFirstMove(card, ctx) || alreadyHasDrummerInLine(card, G, ctx);
+  surrenderOnFirstMove(card, ctx) ||
+  alreadyHasDrummerInLine(card, G, ctx) ||
+  seasonAlreadyActive(card, G, WINTER_CLASS) ||
+  seasonAlreadyActive(card, G, SPRING_CLASS);
 
 export const BATTLE_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {

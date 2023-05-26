@@ -240,3 +240,25 @@ export function alreadyHasDrummerInLine(
     )
   );
 }
+
+// TODO tests
+/**
+ *
+ * @param card card to be played
+ * @param G game state
+ * @param seasonClass winter or summer
+ * @returns true if there is already a season card active on the battlefield
+ */
+export function seasonAlreadyActive(
+  card: ICardModel,
+  G: GameState,
+  seasonClass: "winter" | "spring"
+) {
+  const allCardsInBattle = [
+    ...Object.values(G.players).map((p) => p.battleLine),
+  ].flat();
+  return (
+    card.class === seasonClass &&
+    Boolean(allCardsInBattle.find((c) => c.class === seasonClass))
+  );
+}
