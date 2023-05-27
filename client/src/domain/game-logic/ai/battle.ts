@@ -18,7 +18,7 @@ interface BotMove {
   move: string;
   args?: string[];
 }
-// TODO tests
+
 const nonsensicalMove = (card: ICardModel, G: GameState, ctx: GameContext) =>
   surrenderOnFirstMove(card, ctx) ||
   alreadyHasDrummerInLine(card, G, ctx) ||

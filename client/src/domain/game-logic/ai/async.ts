@@ -15,7 +15,6 @@ declare type Objectives = Record<string, Objective>;
 
 // we give negative weight to player's score, making the bots
 // like the states where player's score is lower
-// TODO reduce Object.values(G.players)
 const objectivesMethod = (
   G: GameState,
   ctx: Ctx,

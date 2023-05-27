@@ -1,15 +1,21 @@
+import { SPRING_CLASS, WINTER_CLASS } from "../../utils/constants";
 import { createMercenary1 } from "../cards/mercenaries/Mercenary1";
 import { createMercenary10 } from "../cards/mercenaries/Mercenary10";
 import { createMercenary2 } from "../cards/mercenaries/Mercenary2";
+import { createSpring } from "../cards/powers/Spring";
 import { createSurrender } from "../cards/powers/Surrender";
+import { createWinter } from "../cards/powers/Winter";
+import { createDrummer } from "../cards/special/Drummer";
 import { createHeroine } from "../cards/special/Heroine";
-import { GameContext, GameState, PlayerState, Players } from "../entity";
+import { GameContext, GameState } from "../entity";
 import {
   battleTeamwork,
   botScoresHigherThanPlayer,
   gameStateIsNotDraw,
   surrenderOnFirstMove,
   singleplayerPassed,
+  alreadyHasDrummerInLine,
+  seasonAlreadyActive,
 } from "./utils";
 
 describe("Utils method Test Suite", () => {
@@ -177,5 +183,134 @@ describe("Utils method Test Suite", () => {
     // player has passed, others should preserve their forces
     state.players["0"].passed = true;
     expect(battleTeamwork(state)).toBe(true);
+  });
+
+  test("alreadyHasDrummerInLine test", () => {
+    expect(
+      alreadyHasDrummerInLine(
+        createDrummer(),
+        {
+          players: {
+            "0": {
+              id: "0",
+              battleLine: [createHeroine(), createMercenary2()],
+            },
+          },
+        } as unknown as GameState,
+        { currentPlayer: "0" } as GameContext
+      )
+    ).toBe(false);
+
+    expect(
+      alreadyHasDrummerInLine(
+        createDrummer(),
+        {
+          players: {
+            "0": {
+              id: "0",
+              battleLine: [createDrummer(), createMercenary2()],
+            },
+          },
+        } as unknown as GameState,
+        { currentPlayer: "0" } as GameContext
+      )
+    ).toBe(true);
+  });
+
+  test("seasonAlreadyActive test", () => {
+    expect(
+      seasonAlreadyActive(
+        createSpring(),
+        {
+          players: {
+            "0": {
+              id: "0",
+              battleLine: [createDrummer(), createMercenary2()],
+            },
+            "1": {
+              id: "1",
+              battleLine: [createDrummer(), createHeroine()],
+            },
+          },
+        } as unknown as GameState,
+        SPRING_CLASS
+      )
+    ).toBe(false);
+
+    expect(
+      seasonAlreadyActive(
+        createSpring(),
+        {
+          players: {
+            "0": {
+              id: "0",
+              battleLine: [createDrummer(), createMercenary2()],
+            },
+            "1": {
+              id: "1",
+              battleLine: [createSpring(), createHeroine()],
+            },
+          },
+        } as unknown as GameState,
+        SPRING_CLASS
+      )
+    ).toBe(true);
+
+    expect(
+      seasonAlreadyActive(
+        createWinter(),
+        {
+          players: {
+            "0": {
+              id: "0",
+              battleLine: [createDrummer(), createMercenary2()],
+            },
+            "1": {
+              id: "1",
+              battleLine: [createSpring(), createHeroine()],
+            },
+          },
+        } as unknown as GameState,
+        SPRING_CLASS
+      )
+    ).toBe(false);
+
+    expect(
+      seasonAlreadyActive(
+        createWinter(),
+        {
+          players: {
+            "0": {
+              id: "0",
+              battleLine: [createDrummer(), createMercenary2()],
+            },
+            "1": {
+              id: "1",
+              battleLine: [createWinter(), createHeroine()],
+            },
+          },
+        } as unknown as GameState,
+        WINTER_CLASS
+      )
+    ).toBe(true);
+
+    expect(
+      seasonAlreadyActive(
+        createWinter(),
+        {
+          players: {
+            "0": {
+              id: "0",
+              battleLine: [createDrummer(), createMercenary2()],
+            },
+            "1": {
+              id: "1",
+              battleLine: [createHeroine()],
+            },
+          },
+        } as unknown as GameState,
+        WINTER_CLASS
+      )
+    ).toBe(false);
   });
 });

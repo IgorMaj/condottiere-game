@@ -241,7 +241,6 @@ export function alreadyHasDrummerInLine(
   );
 }
 
-// TODO tests
 /**
  *
  * @param card card to be played

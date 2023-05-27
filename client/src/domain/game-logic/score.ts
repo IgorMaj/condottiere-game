@@ -18,7 +18,6 @@ export const calculateScores = (
 
   return retVal;
 };
-// TODO reduce Object.values of G.players + tests
 export function calculateScore(
   state: PlayerState,
   states: PlayerState[]
