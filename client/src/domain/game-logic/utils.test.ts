@@ -16,6 +16,7 @@ import {
   singleplayerPassed,
   alreadyHasDrummerInLine,
   seasonAlreadyActive,
+  surrenderOnPlayerWin,
 } from "./utils";
 
 describe("Utils method Test Suite", () => {
@@ -152,6 +153,88 @@ describe("Utils method Test Suite", () => {
         },
       } as unknown as GameState)
     ).toBe(false); // player has the highest score
+  });
+
+  test("botScoresHigherThanPlayer test", () => {
+    expect(
+      surrenderOnPlayerWin(createSurrender(), {
+        players: {
+          "0": {
+            id: "0",
+            battleLine: [createMercenary1()],
+          },
+          "1": {
+            id: "1",
+            battleLine: [createMercenary2()],
+          },
+          "2": {
+            id: "2",
+            battleLine: [],
+          },
+        },
+      } as unknown as GameState)
+    ).toBe(false); // bot "1" has the highest score and surrender is played
+
+    expect(
+      surrenderOnPlayerWin(createSurrender(), {
+        players: {
+          "0": {
+            id: "0",
+            battleLine: [createMercenary1(), createHeroine()],
+          },
+          "1": {
+            id: "1",
+            battleLine: [createMercenary1(), createMercenary10()],
+          },
+          "2": {
+            id: "2",
+            battleLine: [
+              createMercenary1(),
+              createMercenary10(),
+              createMercenary1(),
+            ],
+          },
+        },
+      } as unknown as GameState)
+    ).toBe(false); // bot "2" has the highest score and surrender is played
+
+    expect(
+      surrenderOnPlayerWin(createSurrender(), {
+        players: {
+          "0": {
+            id: "0",
+            battleLine: [createMercenary1(), createHeroine()],
+          },
+          "1": {
+            id: "1",
+            battleLine: [createMercenary1()],
+          },
+          "2": {
+            id: "2",
+            battleLine: [createMercenary1(), createMercenary1()],
+          },
+        },
+      } as unknown as GameState)
+    ).toBe(true); // player has the highest score and surrender is played
+
+    expect(
+      surrenderOnPlayerWin(createMercenary1(), {
+        players: {
+          "0": {
+            id: "0",
+            battleLine: [createMercenary1(), createHeroine()],
+          },
+          "1": {
+            id: "1",
+            battleLine: [createMercenary1()],
+          },
+          "2": {
+            id: "2",
+            battleLine: [createMercenary1(), createMercenary1()],
+          },
+        },
+      } as unknown as GameState)
+    ).toBe(false); // player has the highest score, but no surrender is played
   });
 
   test("battleTeamwork test", () => {

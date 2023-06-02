@@ -12,6 +12,7 @@ import {
   scarecrowPlayed,
   seasonAlreadyActive,
   surrenderOnFirstMove,
+  surrenderOnPlayerWin,
 } from "../utils";
 
 interface BotMove {
@@ -23,7 +24,8 @@ const nonsensicalMove = (card: ICardModel, G: GameState, ctx: GameContext) =>
   surrenderOnFirstMove(card, ctx) ||
   alreadyHasDrummerInLine(card, G, ctx) ||
   seasonAlreadyActive(card, G, WINTER_CLASS) ||
-  seasonAlreadyActive(card, G, SPRING_CLASS);
+  seasonAlreadyActive(card, G, SPRING_CLASS) ||
+  surrenderOnPlayerWin(card, G);
 
 export const BATTLE_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {

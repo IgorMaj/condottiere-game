@@ -222,6 +222,20 @@ export function surrenderOnFirstMove(card: ICardModel, ctx: GameContext) {
 /**
  *
  * @param card card to be played
+ * @param G Game state
+ * @returns true if the player would win if a bot were to play surrender (i.e no bot scores higher than player and the game is not draw)
+ */
+export function surrenderOnPlayerWin(card: ICardModel, G: GameState) {
+  return (
+    card.class === SURRENDER_CLASS &&
+    !botScoresHigherThanPlayer(G) &&
+    gameStateIsNotDraw(G)
+  );
+}
+
+/**
+ *
+ * @param card card to be played
  * @param G Game State
  * @param ctx game context
  * @returns true if the card is of class drummer AND drummer is already in the battle line
