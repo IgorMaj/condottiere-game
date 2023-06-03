@@ -3,8 +3,10 @@ import {
   MERCENARY_TYPE,
   SCARECROW_CLASS,
   SINGLE_PLAYER_ID,
+  SPRING_CLASS,
   SURRENDER_CLASS,
   TerritoryStatus,
+  WINTER_CLASS,
 } from "../../utils/constants";
 import {
   GameContext,
@@ -15,6 +17,7 @@ import {
 } from "../entity";
 import { State } from "boardgame.io";
 import { calculateScores } from "./score";
+import _ from "lodash";
 
 // if the count of max scores is higher
 // than 1 then it means that two or more players are tied for the same score
@@ -274,4 +277,25 @@ export function seasonAlreadyActive(
     card.class === seasonClass &&
     Boolean(allCardsInBattle.find((c) => c.class === seasonClass))
   );
+}
+
+/**
+ *
+ * @param G Game state
+ * @param ctx Game context
+ * @returns true if player only contains cards that can't get their score off the ground (0).
+ * Bishop could force a draw so is therefore excluded
+ */
+export function offensivePowerZero(G: GameState, ctx: GameContext) {
+  const hand = G.players[ctx.currentPlayer].hand;
+  const handCardClasses = _.uniq(hand.map((c) => c.class));
+  const nonOffensiveCardClasses = [
+    SURRENDER_CLASS,
+    DRUMMER_CLASS,
+    SPRING_CLASS,
+    WINTER_CLASS,
+    SCARECROW_CLASS,
+  ];
+
+  return _.difference(handCardClasses, nonOffensiveCardClasses).length === 0;
 }

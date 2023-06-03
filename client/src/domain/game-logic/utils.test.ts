@@ -5,6 +5,7 @@ import { createMercenary2 } from "../cards/mercenaries/Mercenary2";
 import { createSpring } from "../cards/powers/Spring";
 import { createSurrender } from "../cards/powers/Surrender";
 import { createWinter } from "../cards/powers/Winter";
+import { createBishop } from "../cards/special/Bishop";
 import { createDrummer } from "../cards/special/Drummer";
 import { createHeroine } from "../cards/special/Heroine";
 import { GameContext, GameState } from "../entity";
@@ -17,6 +18,7 @@ import {
   alreadyHasDrummerInLine,
   seasonAlreadyActive,
   surrenderOnPlayerWin,
+  offensivePowerZero,
 } from "./utils";
 
 describe("Utils method Test Suite", () => {
@@ -59,6 +61,52 @@ describe("Utils method Test Suite", () => {
         players: { "0": { passed: true } },
       } as unknown as GameState)
     ).toBe(true); // the player passed
+  });
+
+  test("offensivePowerZero test", () => {
+    expect(
+      offensivePowerZero(
+        {
+          players: { "0": { hand: [] } },
+        } as unknown as GameState,
+        {
+          currentPlayer: "0",
+        } as unknown as GameContext
+      )
+    ).toBe(true); // the player can't do anything
+
+    expect(
+      offensivePowerZero(
+        {
+          players: {
+            "0": { hand: [createSurrender(), createDrummer(), createSpring()] },
+          },
+        } as unknown as GameState,
+        {
+          currentPlayer: "0",
+        } as unknown as GameContext
+      )
+    ).toBe(true); // the player can't do anything meanigful
+
+    expect(
+      offensivePowerZero(
+        {
+          players: {
+            "0": {
+              hand: [
+                createSurrender(),
+                createBishop(),
+                createSpring(),
+                createHeroine(),
+              ],
+            },
+          },
+        } as unknown as GameState,
+        {
+          currentPlayer: "0",
+        } as unknown as GameContext
+      )
+    ).toBe(false); // player can do something, in theory
   });
 
   test("gameStateIsNotDraw test", () => {

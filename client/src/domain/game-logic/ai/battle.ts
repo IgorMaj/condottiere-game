@@ -9,6 +9,7 @@ import {
   battleTeamwork,
   getScarecrow,
   hasOnlyNonMercenaryCards,
+  offensivePowerZero,
   scarecrowPlayed,
   seasonAlreadyActive,
   surrenderOnFirstMove,
@@ -46,7 +47,9 @@ export const BATTLE_AI = {
             moves.push({ move: "playCard", args: [botHand[i].id] });
         }
       }
-      moves.push({ move: "pass" });
+      if (!offensivePowerZero(G, ctx)) {
+        moves.push({ move: "pass" });
+      }
       if (hasOnlyNonMercenaryCards(G.players[ctx.currentPlayer])) {
         moves.push({ move: "discardHand" });
       }
@@ -55,7 +58,7 @@ export const BATTLE_AI = {
   },
 };
 
-function generateScarecrowMoves(state: PlayerState, moves: any[]) {
+function generateScarecrowMoves(state: PlayerState, moves: BotMove[]) {
   const botBattleLine = state.battleLine;
   const scarecrow = getScarecrow(state);
   moves.push({ move: "scarecrow", args: [scarecrow.id] });
