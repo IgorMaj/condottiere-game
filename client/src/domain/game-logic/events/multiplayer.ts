@@ -133,8 +133,11 @@ export const onBattleEnd = ({
   G.battleWinner = battleStatus?.winner;
 };
 
-// TODO tests
-const discardBattleLines = (G: MultiplayerGameState) => {
+/**
+ * Empties battle lines and resolves passed status depending on hand
+ * @param G Game state
+ */
+export const discardBattleLines = (G: MultiplayerGameState) => {
   const players = Object.values(G.players);
   players.forEach((player) => {
     // all battlelines are discarded
@@ -144,8 +147,12 @@ const discardBattleLines = (G: MultiplayerGameState) => {
   });
 };
 
-// TODO tests
-const advanceRound = (G: MultiplayerGameState) => {
+/**
+ *
+ * @param G game state
+ * handles round end (i.e dealing of new cards), if the condition is met
+ */
+export const advanceRound = (G: MultiplayerGameState) => {
   const players = Object.values(G.players);
   const remainingCount = playerWhoStillHaveCardsCount(players);
   if (remainingCount <= 1) {
