@@ -1,12 +1,11 @@
 import { Game } from "boardgame.io";
 import { GAME_NAME } from "../../../utils/constants";
-import { GameContext, GameState, MultiplayerGameState } from "../../entity";
+import { GameContext, MultiplayerGameState } from "../../entity";
 import { first as firstBattle, next as nextBattle } from "../events/battle";
 import { mapPhaseHasEnded, nextTurn as turnMap } from "../events/map-common";
 import {
   battleHasEnded,
   gameHasEnded,
-  onMapBegin,
   onBattleEnd,
   onMapEnd,
 } from "../events/multiplayer";
@@ -29,12 +28,6 @@ export const MultiplayerGame: Game = {
       start: true,
       next: "battle",
       endIf: mapPhaseHasEnded,
-      onBegin: ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
-        // turn is 0 at the beginning of the game, at that point no battles have been fought
-        if (ctx.turn) {
-          onMapBegin({ G, ctx });
-        }
-      },
       onEnd: onMapEnd,
       turn: {
         minMoves: 1,

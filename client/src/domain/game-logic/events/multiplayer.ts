@@ -131,18 +131,10 @@ export const onBattleEnd = ({
   // Multiplayer-only-code, so that the battle status can be broadcast to clients
   G.battleEnded = true;
   G.battleWinner = battleStatus?.winner;
-
-  const players = Object.values(G.players);
-  const remainingCount = playerWhoStillHaveCardsCount(players);
-
-  if (remainingCount <= 1) {
-    // when only one (or fewer) player still has cards left
-    // we end the round by allowing the players to draw more cards
-    redrawLogic(G, players);
-  }
 };
 
-export const onMapBegin = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
+// TODO tests
+const discardBattleLines = (G: MultiplayerGameState) => {
   const players = Object.values(G.players);
   players.forEach((player) => {
     // all battlelines are discarded
@@ -150,6 +142,17 @@ export const onMapBegin = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
     player.battleLine = [];
     player.passed = !player?.hand?.length ? true : false;
   });
+};
+
+// TODO tests
+const advanceRound = (G: MultiplayerGameState) => {
+  const players = Object.values(G.players);
+  const remainingCount = playerWhoStillHaveCardsCount(players);
+  if (remainingCount <= 1) {
+    // when only one (or fewer) player still has cards left
+    // we end the round by allowing the players to draw more cards
+    redrawLogic(G, players);
+  }
 };
 
 // This code fires before battle phase
@@ -162,4 +165,7 @@ export const onMapEnd = ({
 }) => {
   G.battleEnded = false;
   G.battleWinner = "";
+
+  discardBattleLines(G);
+  advanceRound(G);
 };
