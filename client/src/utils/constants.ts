@@ -61,3 +61,7 @@ export const GAME_NAME = "Condottiere";
 
 // the id of the player, who is playing against bots
 export const SINGLE_PLAYER_ID = "0";
+
+export const BATTLE_PHASE = "battle";
+export const MAP_PHASE = "map";
+export const KEEP_CARDS_PHASE = "keepCards";

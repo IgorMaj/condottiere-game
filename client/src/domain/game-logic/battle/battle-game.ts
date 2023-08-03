@@ -5,6 +5,11 @@ import { BATTLE_AI } from "../ai/battle";
 import { endIf, first, next } from "../events/battle";
 import { initGameData } from "../game";
 import { playCard, pass, scarecrow, discardHand } from "../moves/battle";
+import { keepCards } from "../moves/keep-cards";
+import {
+  firstPlayerWhoStillHasCards,
+  onlyOnePlayerHasCards,
+} from "../events/keep-cards";
 
 export const initBattleGame = (state?: GameState) => {
   const BattleGame: Game = {
@@ -15,20 +20,43 @@ export const initBattleGame = (state?: GameState) => {
     ai: BATTLE_AI,
 
     endIf: endIf,
-    turn: {
-      minMoves: 1,
-      maxMoves: 2,
-      order: {
-        first: first,
-        next: next,
-      },
-    },
+    phases: {
+      default: {
+        endIf: onlyOnePlayerHasCards,
+        start: true,
+        next: "keepCards",
+        turn: {
+          minMoves: 1,
+          maxMoves: 2,
+          order: {
+            first: first,
+            next: next,
+          },
+        },
 
-    moves: {
-      playCard: playCard,
-      pass: pass,
-      scarecrow: scarecrow,
-      discardHand: discardHand,
+        moves: {
+          playCard: playCard,
+          pass: pass,
+          scarecrow: scarecrow,
+          discardHand: discardHand,
+        },
+      },
+
+      keepCards: {
+        next: "default",
+        turn: {
+          minMoves: 1,
+          maxMoves: 1,
+          order: {
+            first: firstPlayerWhoStillHasCards,
+            next: firstPlayerWhoStillHasCards,
+          },
+        },
+
+        moves: {
+          keepCards: keepCards,
+        },
+      },
     },
   };
   return BattleGame;

@@ -12,9 +12,17 @@ import {
   playerWhoStillHaveCardsCount,
 } from "../utils";
 import _ from "lodash";
+import { onlyOnePlayerHasCards } from "./keep-cards";
 
 export const endIf = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   const playerStates = Object.values(G.players);
+  // This condition means that we are in a special 'keepCards' phase
+  // where the last card carrying player can elect to keep up to to two cards
+  // before eventually passing as well
+  // TODO: Check edge cases, such as surrender, read rules again as well to implement this properly
+  if (onlyOnePlayerHasCards({ G, ctx }) && !allPlayersPassed(playerStates)) {
+    return;
+  }
   if (!battleEnded(playerStates)) {
     return;
   }
@@ -78,11 +86,6 @@ export const onBattleEnd = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
 };
 
 export function redrawLogic(G: GameState, players: PlayerState[]) {
-  players.forEach((player) => {
-    // discard all the hands
-    G.discardPile.push(...player.hand);
-    player.hand = [];
-  });
   // we add the discard pile back to the deck
   G.deck.push(...G.discardPile);
   G.discardPile = [];
@@ -91,8 +94,10 @@ export function redrawLogic(G: GameState, players: PlayerState[]) {
   fisherYatesShuffle(G.deck);
 
   players.forEach((player) => {
-    // pop 10 cards + number of territories the player controls
-    const toPop = 10 + getPlayerTerritoryCount(G.territories, player.id);
+    const toPop =
+      10 -
+      player.hand.length +
+      getPlayerTerritoryCount(G.territories, player.id);
     player.hand.push(...popMultiple(G.deck, toPop));
     player.passed = false;
   });

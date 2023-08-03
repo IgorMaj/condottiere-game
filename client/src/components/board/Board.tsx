@@ -26,6 +26,9 @@ import { GameConfig } from "../../utils/game-config";
 import { AsyncBot } from "../../domain/game-logic/ai/async";
 import { battleEndMessage, historyState } from "../../utils/client";
 import i18n from "../../i18n";
+import KeepCardsDialog from "../keep-cards-dialog/KeepCardsDialog";
+import { firstPlayerWhoStillHasCards } from "../../domain/game-logic/events/keep-cards";
+import { KEEP_CARDS_PHASE } from "../../utils/constants";
 
 /**
  *
@@ -46,7 +49,7 @@ const BoardView = (props: {
   ctx: GameContext;
   G: GameState;
   moves: Moves;
-  playerIndex?: number;
+  playerIndex: number;
   callback: (G: GameState, ctx: GameContext) => void; // triggers when G or ctx change
 }): JSX.Element => {
   const { G, moves, ctx, playerIndex, callback } = props;
@@ -54,40 +57,51 @@ const BoardView = (props: {
   React.useEffect(() => {
     callback(G, ctx);
   }, [G, ctx, callback]);
+  const playerID = `${playerIndex}`; // TODO simplify playerID and playerIndex relationship
+  console.log(firstPlayerWhoStillHasCards({ G, ctx }));
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className={styles.Container}>
-        <ScoreBoard model={playerStates} ctx={ctx} />
-        {reorderBattleLines(playerStates, playerIndex).map(
-          (playerState: PlayerState) => {
-            return (
-              <BattleLine
-                key={playerState.id}
-                state={playerState}
+    <>
+      <DndProvider backend={HTML5Backend}>
+        <div className={styles.Container}>
+          <ScoreBoard model={playerStates} ctx={ctx} />
+          {reorderBattleLines(playerStates, playerIndex).map(
+            (playerState: PlayerState) => {
+              return (
+                <BattleLine
+                  key={playerState.id}
+                  state={playerState}
+                  moves={moves}
+                />
+              );
+            }
+          )}
+          <Hand
+            ctx={ctx}
+            moves={moves}
+            state={playerStates[playerIndex ?? 0]}
+          />
+          <div className={styles.BtnsContainer}>
+            <div className={styles.LeftBtnContainer}>
+              <DiscardHand
+                ctx={ctx}
                 moves={moves}
+                state={playerStates[playerIndex ?? 0]}
               />
-            );
-          }
-        )}
-        <Hand ctx={ctx} moves={moves} state={playerStates[playerIndex ?? 0]} />
-        <div className={styles.BtnsContainer}>
-          <div className={styles.LeftBtnContainer}>
-            <DiscardHand
-              ctx={ctx}
-              moves={moves}
-              state={playerStates[playerIndex ?? 0]}
-            />
-          </div>
-          <div className={styles.RightButtonContainer}>
-            <Pass
-              ctx={ctx}
-              moves={moves}
-              state={playerStates[playerIndex ?? 0]}
-            />
+            </div>
+            <div className={styles.RightButtonContainer}>
+              <Pass
+                ctx={ctx}
+                moves={moves}
+                state={playerStates[playerIndex ?? 0]}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </DndProvider>
+      </DndProvider>
+      {ctx.phase === KEEP_CARDS_PHASE && ctx.currentPlayer === playerID && (
+        <KeepCardsDialog cards={G.players[playerID].hand} moves={moves} />
+      )}
+    </>
   );
 };
 
@@ -124,7 +138,7 @@ export const SinglePlayerBoardView = (props: {
       toMap(afterBattle(G, ctx));
     }
   }, []);
-  return <BoardView {...props} callback={callback} />;
+  return <BoardView {...props} callback={callback} playerIndex={0} />;
 };
 
 export const Board = () => {

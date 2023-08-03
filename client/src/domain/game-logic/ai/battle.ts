@@ -1,4 +1,5 @@
 import {
+  KEEP_CARDS_PHASE,
   MERCENARY_TYPE,
   SPRING_CLASS,
   WINTER_CLASS,
@@ -30,6 +31,14 @@ const nonsensicalMove = (card: ICardModel, G: GameState, ctx: GameContext) =>
 
 export const BATTLE_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
+    if (ctx.phase === KEEP_CARDS_PHASE) {
+      // TODO smarter algorithm for keeping cards
+      const cardIds = G.players[ctx.currentPlayer].hand
+        .map((c) => c.id)
+        .slice(0, 2);
+      return [{ move: "keepCards", args: [cardIds] }];
+    }
+
     const botHand = G.players[ctx.currentPlayer].hand;
     const moves: BotMove[] = [];
 

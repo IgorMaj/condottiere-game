@@ -28,4 +28,5 @@ code {
   --mapWidth: 1473px;
   --lightGray: #d3d3d3;
   --standardSize: 1.25em;
+  --dialogOverlay: rgba(0, 0, 0, 0.5);
 }

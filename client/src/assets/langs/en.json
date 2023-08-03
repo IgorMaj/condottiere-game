@@ -21,7 +21,12 @@
     "back": "Back",
     "multiplayer": "Multiplayer"
   },
+  "KeepCards": {
+    "explanation": "You are the last player who still has cards left, you can elect to keep up to two (0-2) of them. Pick them below."
+  },
   "Common": {
-    "backToMenu": "Back to menu"
+    "backToMenu": "Back to menu",
+    "continue": "Continue",
+    "clear": "Clear"
   }
 }
