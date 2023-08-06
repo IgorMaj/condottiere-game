@@ -12,6 +12,8 @@ import {
 import { initGameData } from "../game";
 import { playCard, pass, scarecrow, discardHand } from "../moves/battle";
 import { setTokenOnTerritory } from "../moves/map";
+import { firstPlayerWhoStillHasCards } from "../events/keep-cards";
+import { keepCards } from "../moves/keep-cards";
 
 export const MultiplayerGame: Game = {
   name: GAME_NAME,
@@ -60,6 +62,22 @@ export const MultiplayerGame: Game = {
         pass: pass,
         scarecrow: scarecrow,
         discardHand: discardHand,
+      },
+    },
+
+    keepCards: {
+      next: "battle",
+      turn: {
+        minMoves: 1,
+        maxMoves: 1,
+        order: {
+          first: firstPlayerWhoStillHasCards,
+          next: firstPlayerWhoStillHasCards,
+        },
+      },
+
+      moves: {
+        keepCards: keepCards,
       },
     },
   },

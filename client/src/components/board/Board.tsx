@@ -27,7 +27,6 @@ import { AsyncBot } from "../../domain/game-logic/ai/async";
 import { battleEndMessage, historyState } from "../../utils/client";
 import i18n from "../../i18n";
 import KeepCardsDialog from "../keep-cards-dialog/KeepCardsDialog";
-import { firstPlayerWhoStillHasCards } from "../../domain/game-logic/events/keep-cards";
 import { KEEP_CARDS_PHASE } from "../../utils/constants";
 
 /**
@@ -58,7 +57,6 @@ const BoardView = (props: {
     callback(G, ctx);
   }, [G, ctx, callback]);
   const playerID = `${playerIndex}`; // TODO simplify playerID and playerIndex relationship
-  console.log(firstPlayerWhoStillHasCards({ G, ctx }));
   return (
     <>
       <DndProvider backend={HTML5Backend}>

@@ -37,6 +37,8 @@ export interface GameState {
   popeTokenOwnerId: string | null;
   discardPile: ICardModel[];
   condottiereTokenOwnerHistory: string[];
+  /* this is necessary because ctx is not updated right away, so the battle ends without triggering this special phase first */
+  keepCardsPhaseActive?: boolean;
 }
 
 // because in multiplayer, battle is just a phase, not a full-fledged game like in singleplayer
@@ -55,3 +57,9 @@ export interface Territory {
 }
 
 export type Moves = Record<string, (...args: any[]) => void>;
+
+export type Events = {
+  endTurn?: () => void;
+  endPhase?: () => void;
+  setPhase?: (phase: string) => void;
+};

@@ -6,10 +6,7 @@ import { endIf, first, next } from "../events/battle";
 import { initGameData } from "../game";
 import { playCard, pass, scarecrow, discardHand } from "../moves/battle";
 import { keepCards } from "../moves/keep-cards";
-import {
-  firstPlayerWhoStillHasCards,
-  onlyOnePlayerHasCards,
-} from "../events/keep-cards";
+import { firstPlayerWhoStillHasCards } from "../events/keep-cards";
 
 export const initBattleGame = (state?: GameState) => {
   const BattleGame: Game = {
@@ -22,7 +19,6 @@ export const initBattleGame = (state?: GameState) => {
     endIf: endIf,
     phases: {
       default: {
-        endIf: onlyOnePlayerHasCards,
         start: true,
         next: "keepCards",
         turn: {

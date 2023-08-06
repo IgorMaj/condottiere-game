@@ -1,17 +1,36 @@
 import {
   BISHOP_CLASS,
+  KEEP_CARDS_PHASE,
   MERCENARY_TYPE,
   SCARECROW_CLASS,
   SPRING_CLASS,
   TerritoryStatus,
   WINTER_CLASS,
 } from "../../../utils/constants";
-import { GameContext, GameState, ICardModel } from "../../entity";
+import { Events, GameContext, GameState, ICardModel } from "../../entity";
+import { shouldGoToKeepCards } from "../events/battle";
 import {
   findStrongestMercenaryCard,
   getCurrentPopeTerritory,
   hasOnlyNonMercenaryCards,
 } from "../utils";
+
+const endMove = ({
+  G,
+  ctx,
+  events,
+}: {
+  G: GameState;
+  ctx: GameContext;
+  events: Events;
+}) => {
+  if (shouldGoToKeepCards({ G, ctx })) {
+    G.keepCardsPhaseActive = true;
+    events?.setPhase?.(KEEP_CARDS_PHASE);
+  } else {
+    events?.endTurn?.();
+  }
+};
 
 export const pass = ({
   G,
@@ -20,11 +39,11 @@ export const pass = ({
 }: {
   G: GameState;
   ctx: GameContext;
-  events: { endTurn: () => void };
+  events: Events;
 }) => {
   const playerState = G.players[ctx.currentPlayer];
   playerState.passed = true;
-  events?.endTurn();
+  endMove({ G, ctx, events });
 };
 
 // if the player doesn't have any mercenary cards
@@ -36,7 +55,7 @@ export const discardHand = ({
 }: {
   G: GameState;
   ctx: GameContext;
-  events: { endTurn: () => void };
+  events: Events;
 }) => {
   const playerState = G.players[ctx.currentPlayer];
   if (hasOnlyNonMercenaryCards(playerState)) {
@@ -44,16 +63,12 @@ export const discardHand = ({
     G.discardPile.push(...playerState.hand);
     playerState.hand = [];
     playerState.passed = true;
-    events?.endTurn();
+    endMove({ G, ctx, events });
   }
 };
 
 export const playCard = (
-  {
-    G,
-    ctx,
-    events,
-  }: { G: GameState; ctx: GameContext; events: { endTurn: () => void } },
+  { G, ctx, events }: { G: GameState; ctx: GameContext; events: Events },
   cardId: string
 ) => {
   const playerState = G.players[ctx.currentPlayer];
@@ -95,7 +110,7 @@ export const playCard = (
 
   if (!cardHasAdditionalEffects(card)) {
     playerState.passed = !playerState?.hand?.length ? true : false;
-    events?.endTurn();
+    endMove({ G, ctx, events });
   }
 };
 
@@ -109,11 +124,7 @@ function cardHasAdditionalEffects(card: ICardModel): boolean {
 // It is also possible to just play scarecrow without picking a mercenary card
 // which has the effect of discarding the scarecrow card
 export const scarecrow = (
-  {
-    G,
-    ctx,
-    events,
-  }: { G: GameState; ctx: GameContext; events: { endTurn: () => void } },
+  { G, ctx, events }: { G: GameState; ctx: GameContext; events: Events },
   scarecrowId: string,
   mercenaryId?: string
 ) => {
@@ -144,7 +155,7 @@ export const scarecrow = (
     (card) => card.id !== scarecrowId
   );
   playerState.passed = !playerState?.hand?.length ? true : false;
-  events?.endTurn();
+  endMove({ G, ctx, events });
 };
 
 // Discard all winter cards

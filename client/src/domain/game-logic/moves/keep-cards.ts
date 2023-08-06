@@ -28,10 +28,9 @@ export const keepCards = (
 
   // we keep the ones player told us to
   playerState.hand = playerState.hand.filter((c) => cardIds.includes(c.id));
-  // then the player should pass as well
-  playerState.passed = true;
 
   G.discardPile.push(...cardsToDiscard);
+  G.keepCardsPhaseActive = false;
   events?.endTurn();
   events?.endPhase();
 };

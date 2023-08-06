@@ -19,8 +19,7 @@ export const endIf = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   // This condition means that we are in a special 'keepCards' phase
   // where the last card carrying player can elect to keep up to to two cards
   // before eventually passing as well
-  // TODO: Check edge cases, such as surrender, read rules again as well to implement this properly
-  if (onlyOnePlayerHasCards({ G, ctx }) && !allPlayersPassed(playerStates)) {
+  if (G.keepCardsPhaseActive) {
     return;
   }
   if (!battleEnded(playerStates)) {
@@ -157,3 +156,17 @@ export const next = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
   }
   return nextPos;
 };
+
+/**
+ *
+ * @param object containing game state and game context
+ * @returns boolean indicating whether we should switch to keepCards phase
+ */
+export const shouldGoToKeepCards = ({
+  G,
+  ctx,
+}: {
+  G: GameState;
+  ctx: GameContext;
+}) =>
+  onlyOnePlayerHasCards({ G, ctx }) && battleEnded(Object.values(G.players));

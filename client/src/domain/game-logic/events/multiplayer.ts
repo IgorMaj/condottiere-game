@@ -23,7 +23,7 @@ export const battleHasEnded = ({
   G: GameState;
   ctx: GameContext;
 }) => {
-  return battleEnded(Object.values(G.players));
+  return !G.keepCardsPhaseActive && battleEnded(Object.values(G.players));
 };
 
 export const gameHasEnded = ({
@@ -129,7 +129,7 @@ export const onBattleEnd = ({
     battleTerritory.owner = battleStatus?.winner;
   }
   // Multiplayer-only-code, so that the battle status can be broadcast to clients
-  G.battleEnded = true;
+  G.battleEnded = !!battleStatus;
   G.battleWinner = battleStatus?.winner;
 };
 
