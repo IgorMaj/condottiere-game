@@ -132,7 +132,8 @@ function getNextCondottiereTokenOwner(G: GameState, ctx: GameContext): string {
 }
 
 export const first = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
-  if (allPlayersPassed(Object.values(G))) {
+  const playerStates = Object.values(G.players);
+  if (allPlayersPassed(playerStates)) {
     // game should end anyway, so this num doesn't matter
     return 0;
   }
@@ -145,7 +146,8 @@ export const first = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
 };
 
 export const next = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
-  if (allPlayersPassed(Object.values(G))) {
+  const playerStates = Object.values(G.players);
+  if (allPlayersPassed(playerStates)) {
     return;
   }
   // we seek to find a player who hasn't passed
