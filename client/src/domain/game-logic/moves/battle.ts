@@ -15,16 +15,8 @@ import {
   hasOnlyNonMercenaryCards,
 } from "../utils";
 
-const endMove = ({
-  G,
-  ctx,
-  events,
-}: {
-  G: GameState;
-  ctx: GameContext;
-  events: Events;
-}) => {
-  if (shouldGoToKeepCards({ G, ctx })) {
+const endMove = ({ G, events }: { G: GameState; events: Events }) => {
+  if (shouldGoToKeepCards(G)) {
     G.keepCardsPhaseActive = true;
     events?.setPhase?.(KEEP_CARDS_PHASE);
   } else {
@@ -43,7 +35,7 @@ export const pass = ({
 }) => {
   const playerState = G.players[ctx.currentPlayer];
   playerState.passed = true;
-  endMove({ G, ctx, events });
+  endMove({ G, events });
 };
 
 // if the player doesn't have any mercenary cards
@@ -63,7 +55,7 @@ export const discardHand = ({
     G.discardPile.push(...playerState.hand);
     playerState.hand = [];
     playerState.passed = true;
-    endMove({ G, ctx, events });
+    endMove({ G, events });
   }
 };
 
@@ -110,7 +102,7 @@ export const playCard = (
 
   if (!cardHasAdditionalEffects(card)) {
     playerState.passed = !playerState?.hand?.length ? true : false;
-    endMove({ G, ctx, events });
+    endMove({ G, events });
   }
 };
 
@@ -155,7 +147,7 @@ export const scarecrow = (
     (card) => card.id !== scarecrowId
   );
   playerState.passed = !playerState?.hand?.length ? true : false;
-  endMove({ G, ctx, events });
+  endMove({ G, events });
 };
 
 // Discard all winter cards

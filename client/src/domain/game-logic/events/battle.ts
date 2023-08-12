@@ -161,14 +161,8 @@ export const next = ({ G, ctx }: { G: GameState; ctx: GameContext }) => {
 
 /**
  *
- * @param object containing game state and game context
+ * @param object game state
  * @returns boolean indicating whether we should switch to keepCards phase
  */
-export const shouldGoToKeepCards = ({
-  G,
-  ctx,
-}: {
-  G: GameState;
-  ctx: GameContext;
-}) =>
-  onlyOnePlayerHasCards({ G, ctx }) && battleEnded(Object.values(G.players));
+export const shouldGoToKeepCards = (G: GameState) =>
+  onlyOnePlayerHasCards(G) && battleEnded(Object.values(G.players));
