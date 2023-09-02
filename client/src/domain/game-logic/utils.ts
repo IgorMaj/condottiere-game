@@ -299,3 +299,7 @@ export function offensivePowerZero(G: GameState, ctx: GameContext) {
 
   return _.difference(handCardClasses, nonOffensiveCardClasses).length === 0;
 }
+
+export async function sleep(time: number) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}

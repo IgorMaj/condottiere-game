@@ -19,7 +19,13 @@ import {
 } from "../../../utils/constants";
 import { findMaxByAttribute } from "../../../utils/methods";
 import { GameContext, GameState, ICardModel } from "../../entity";
-import { isEnemyTerritory, isPlayerTerritory, isPopeState } from "../utils";
+import {
+  isEnemyTerritory,
+  isPlayerTerritory,
+  isPopeState,
+  sleep,
+} from "../utils";
+import { AI_MOVE_DELAY } from "./constants";
 
 export const MAP_AI = {
   enumerate: (G: GameState, ctx: GameContext) => {
@@ -77,7 +83,8 @@ export class MapBot extends Bot {
     this.reducer = CreateGameReducer({ game });
   }
 
-  play(state: State, playerID: PlayerID) {
+  override async play(state: State, playerID: PlayerID) {
+    await sleep(AI_MOVE_DELAY);
     const moves = this.enumerate(state.G, state.ctx, playerID);
     const botStates = moves.map((move) => {
       const childState = this.reducer(state, move);
