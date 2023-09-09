@@ -31,3 +31,31 @@ code {
   --standardSize: 1.25em;
   --dialogOverlay: rgba(0, 0, 0, 0.5);
 }
+
+/*
+  Scrollbar Styles Start
+*/
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/*
+  Scrollbar Styles End
+*/

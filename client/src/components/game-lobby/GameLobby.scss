@@ -86,6 +86,9 @@
     color: red;
     font-size: x-large;
     font-weight: bolder;
+    text-transform: capitalize;
+    display: flex;
+    text-shadow: 0.1em 0 black, 0 0.1em black, -0.1em 0 black, 0 -0.1em black;
   }
 
   #lobby-view {
